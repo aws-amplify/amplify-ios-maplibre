@@ -5,8 +5,8 @@
         "package": "Amplify",
         "repositoryURL": "https://github.com/aws-amplify/amplify-ios",
         "state": {
-          "branch": "ameter/wip/geoplugin",
-          "revision": "c2d118693a86a79da7f143601589642a543dfb3d",
+          "branch": "geo.main",
+          "revision": "741ca5232de3b4cb51297672f7d68f42cb936aff",
           "version": null
         }
       },
