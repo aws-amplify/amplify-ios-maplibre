@@ -1,3 +1,10 @@
+//
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
 import XCTest
 @testable import AmplifyMapLibreAdapter
 import Amplify
@@ -5,13 +12,13 @@ import Mapbox
 
 final class AdapterTests: XCTestCase {
     var bounds: MGLCoordinateBounds!
-    
+
     override func setUp() {
         let southwest = CLLocationCoordinate2D(latitude: 39.7382, longitude: -105.0042)
         let northeast = CLLocationCoordinate2D(latitude: 39.7682, longitude: -104.9765)
         bounds = MGLCoordinateBounds(sw: southwest, ne: northeast)
     }
-    
+
     /// Test if register(sessionConfig:) registers AWSMapURLProtocol successfully.
     ///
     /// - Given: A URLSession configuration.
@@ -27,7 +34,7 @@ final class AdapterTests: XCTestCase {
         XCTAssertEqual(configuration.protocolClasses?.count, 1)
         XCTAssertTrue(configuration.protocolClasses?.first == AWSMapURLProtocol.self)
     }
-    
+
     /// Test if Geo.BoundingBox is correctly initiallized from MGLCoordinateBounds
     ///
     /// - Given: MGLCoordinateBounds
@@ -43,7 +50,7 @@ final class AdapterTests: XCTestCase {
         XCTAssertEqual(boundingBox.southwest.latitude, bounds.sw.latitude)
         XCTAssertEqual(boundingBox.southwest.longitude, bounds.sw.longitude)
     }
-    
+
     /// Test if Geo.SearchArea is correctly initialized from MGLCoordinateBounds.
     ///
     /// - Given: MGLCoordinateBounds
@@ -63,7 +70,7 @@ final class AdapterTests: XCTestCase {
         XCTAssertEqual(boundingBox.southwest.latitude, bounds.sw.latitude)
         XCTAssertEqual(boundingBox.southwest.longitude, bounds.sw.longitude)
     }
-    
+
     /// Test if MGLPointAnnotation is correctly initialized with a title and coordinates.
     ///
     /// - Given: A title String and CLLocationCoordinate2D.

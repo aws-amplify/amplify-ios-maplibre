@@ -17,7 +17,7 @@ class AWSMapURLProtocol: URLProtocol {
     private static var regionName: String?
     private static var credentialsProvider: AWSCredentialsProvider?
     private static var hostName: String?
-    
+
     /// Register the custom URL Protocol.
     /// - Parameter sessionConfig: Optional URLSessionConfiguration for URLSession you want to proxy.
     class func register(sessionConfig: URLSessionConfiguration? = nil) {
@@ -32,7 +32,7 @@ class AWSMapURLProtocol: URLProtocol {
             }
         }
     }
-    
+
     private static func getGeoConfig() {
         guard let plugin = try? Amplify.Geo.getPlugin(for: "awsLocationGeoPlugin") as? AWSLocationGeoPlugin else {
             assertionFailure(AWSMapURLProtocolError.configurationError.localizedDescription)
@@ -46,7 +46,7 @@ class AWSMapURLProtocol: URLProtocol {
         }
         hostName = "maps.geo.\(regionName).amazonaws.com"
     }
-    
+
     override class func canInit(with request: URLRequest) -> Bool {
         canInit(request.url?.host)
     }
@@ -54,7 +54,7 @@ class AWSMapURLProtocol: URLProtocol {
     override class func canInit(with task: URLSessionTask) -> Bool {
         canInit(task.currentRequest?.url?.host)
     }
-    
+
     private static func canInit(_ host: String?) -> Bool {
         // Attempt to get credentialsProvider and regionName for AWSLocationGeoPlugin if not already present.
         if credentialsProvider == nil || regionName == nil || hostName == nil {
@@ -77,21 +77,21 @@ class AWSMapURLProtocol: URLProtocol {
             }
         }
     }
-    
+
     override func stopLoading() {
         dataTask?.cancel()
         dataTask = nil
     }
-    
+
     private func notifyClientOfError(_ error: Error) {
         client?.urlProtocol(self, didFailWithError: error)
-        self.urlSession.invalidateAndCancel()
+        urlSession.invalidateAndCancel()
         if let error = error as? AWSMapURLProtocolError {
             assertionFailure(error.localizedDescription)
         }
     }
-    
-    private func signRequest(completionHandler: @escaping (Result<URLRequest, Error>)->Void) {
+
+    private func signRequest(completionHandler: @escaping (Result<URLRequest, Error>) -> Void) {
         guard let originalURL = request.url,
               let originalURLComponents = URLComponents(url: originalURL, resolvingAgainstBaseURL: false),
               let host = originalURLComponents.host,
@@ -101,12 +101,12 @@ class AWSMapURLProtocol: URLProtocol {
             completionHandler(.failure(AWSMapURLProtocolError.unexpectedNil))
             return
         }
-        
+
         var signedRequest = request
-        
+
         signedRequest.url = originalURLComponents.url
         signedRequest.addValue(host, forHTTPHeaderField: "host")
-        
+
         AWSSignatureV4Signer.sigV4SignedURL(with: signedRequest,
                                             credentialProvider: credentialsProvider,
                                             regionName: regionName,
@@ -115,7 +115,7 @@ class AWSMapURLProtocol: URLProtocol {
                                             expireDuration: 60,
                                             signBody: true,
                                             signSessionToken: true).continueWith { task in
-            
+
             if let url = task.result as URL? {
                 signedRequest.url = url
                 completionHandler(.success(signedRequest))
@@ -127,7 +127,7 @@ class AWSMapURLProtocol: URLProtocol {
             return nil
         }
     }
-    
+
     private func handleRequest(_ request: URLRequest) {
         dataTask = urlSession.dataTask(with: request) { data, response, error in
             if let response = response {
