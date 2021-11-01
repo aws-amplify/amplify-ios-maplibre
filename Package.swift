@@ -31,20 +31,20 @@ let package = Package(
             url: Amplify.packageURL,
             Amplify.requirement
         ),
-        
+
         // MapLibre
         .package(
             name: "MapLibre GL Native",
             url: "https://github.com/maplibre/maplibre-gl-native-distribution",
             .upToNextMajor(from: "5.12.0")
         ),
-        
+
         // SwiftFormat
         .package(
             url: "https://github.com/nicklockwood/SwiftFormat",
             .upToNextMajor(from: "0.48.11")
         ),
-        
+
         // SwiftLint
         .package(
             url: "https://github.com/realm/SwiftLint",

@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Ameter, Christopher on 10/30/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import Foundation
@@ -16,6 +16,6 @@ public extension MGLPointAnnotation {
     convenience init(title: String, coordinates: CLLocationCoordinate2D) {
         self.init()
         self.title = title
-        self.coordinate = coordinate
+        self.coordinate = coordinates
     }
 }
