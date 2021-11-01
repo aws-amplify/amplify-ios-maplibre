@@ -10,9 +10,9 @@ import CoreLocation
 import Mapbox
 import Amplify
 
-
 public class AmplifyMaplibre {
-    /// Creates an instance of MGLMapView configured to work with Amplify and Amazon Location Service using the default map
+    /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
+    /// Location Service using the default map
     /// - Parameter completionHandler: The completion handler.
     public class func createMap(completionHandler: @escaping Geo.ResultsHandler<MGLMapView>) {
         AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
@@ -27,7 +27,8 @@ public class AmplifyMaplibre {
         }
     }
 
-    /// Creates an instance of MGLMapView configured to work with Amplify and Amazon Location Service using the specified MapStyle.
+    /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
+    /// Location Service using the specified MapStyle.
     /// - Parameter mapStyle: The MapStyle for the map. (optional, default: The MapStyle
     /// that corresponds to the default map in amplifyconfiguration.json)
     /// - Returns: An instance of MGLMapView.

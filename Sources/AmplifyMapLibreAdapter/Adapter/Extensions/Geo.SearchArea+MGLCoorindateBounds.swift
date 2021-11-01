@@ -9,7 +9,7 @@ import Foundation
 import Amplify
 import Mapbox
 
-public extension Geo.SearchArea  {
+public extension Geo.SearchArea {
     /// Creates a SearchArea that only returns places within the provided
     /// MGLCoordinateBounds.
     /// - Parameter bounds: The bounds for the search area.
