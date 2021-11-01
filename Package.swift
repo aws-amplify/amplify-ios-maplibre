@@ -64,6 +64,11 @@ let package = Package(
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
             dependencies: ["AmplifyMapLibreAdapter"]),
+        .testTarget(
+            name: "AmplifyMapLibreAdapterIntegrationTests",
+            dependencies: ["AmplifyMapLibreAdapter"],
+            resources: [
+                .process("AdapterIntegrationTests/amplifyconfiguration.json")]),
     ]
 )
 
