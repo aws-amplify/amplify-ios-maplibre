@@ -23,6 +23,9 @@ let package = Package(
         .library(
             name: "AmplifyMapLibreAdapter",
             targets: ["AmplifyMapLibreAdapter"]),
+        .library(
+            name: "AmplifyMapLibreUI",
+            targets: ["AmplifyMapLibreUI"]),
     ],
     dependencies: [
         // Amplify
@@ -49,6 +52,9 @@ let package = Package(
                 .product(name: "AWSPluginsCore", package: Amplify.packageName),
                 .product(name: "Mapbox", package: "MapLibre GL Native")
             ]),
+        .target(
+            name: "AmplifyMapLibreUI",
+            dependencies: ["AmplifyMapLibreAdapter"]),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
             dependencies: ["AmplifyMapLibreAdapter"])
