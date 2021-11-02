@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/maplibre/maplibre-gl-native-distribution",
         "state": {
           "branch": null,
-          "revision": "d524c18d8c572db72c753f88492c36b9749725e1",
-          "version": "5.12.0"
+          "revision": "4e44c56a54fd3750a24388827f78c8360b0a50f2",
+          "version": "5.12.1"
         }
       },
       {
