@@ -57,6 +57,9 @@ let package = Package(
             dependencies: ["AmplifyMapLibreAdapter"]),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
+            dependencies: ["AmplifyMapLibreAdapter"]),
+        .testTarget(
+            name: "AmplifyMapLibreUITests",
             dependencies: ["AmplifyMapLibreAdapter"])
     ]
 )

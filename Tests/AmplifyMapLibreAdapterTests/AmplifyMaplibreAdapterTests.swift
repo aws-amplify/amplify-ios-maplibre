@@ -62,7 +62,7 @@ final class AdapterTests: XCTestCase {
     func testGeoSearchAreaWithMGLCoordinateBounds() {
         let searchArea = Geo.SearchArea.within(bounds)
         guard case .within(let boundingBox) = searchArea else {
-            XCTFail()
+            XCTFail("Failed to create Geo.SearchArea from MGLCoordinateBounds.")
             return
         }
         XCTAssertEqual(boundingBox.northeast.latitude, bounds.ne.latitude)
@@ -88,4 +88,3 @@ final class AdapterTests: XCTestCase {
         XCTAssertEqual(annotation.coordinate.longitude, coordinates.longitude)
     }
 }
-
