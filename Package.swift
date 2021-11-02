@@ -39,7 +39,7 @@ let package = Package(
         .package(
             name: "MapLibre GL Native",
             url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-            .upToNextMajor(from: "5.12.0")
+            .exact("5.12.0")
         )
     ],
     targets: [
