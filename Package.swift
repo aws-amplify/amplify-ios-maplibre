@@ -37,18 +37,6 @@ let package = Package(
             name: "MapLibre GL Native",
             url: "https://github.com/maplibre/maplibre-gl-native-distribution",
             .upToNextMajor(from: "5.12.0")
-        ),
-
-        // SwiftFormat
-        .package(
-            url: "https://github.com/nicklockwood/SwiftFormat",
-            .upToNextMajor(from: "0.48.11")
-        ),
-
-        // SwiftLint
-        .package(
-            url: "https://github.com/realm/SwiftLint",
-            .upToNextMajor(from: "0.44.0")
         )
     ],
     targets: [
@@ -63,12 +51,7 @@ let package = Package(
             ]),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
-            dependencies: ["AmplifyMapLibreAdapter"]),
-        .testTarget(
-            name: "AmplifyMapLibreAdapterIntegrationTests",
-            dependencies: ["AmplifyMapLibreAdapter"],
-            resources: [
-                .process("AdapterIntegrationTests/amplifyconfiguration.json")]),
+            dependencies: ["AmplifyMapLibreAdapter"])
     ]
 )
 
