@@ -10,7 +10,7 @@ import XCTest
 import Amplify
 import Mapbox
 
-final class AdapterTests: XCTestCase {
+final class AmplifyMapLibreAdapterTests: XCTestCase {
     var bounds: MGLCoordinateBounds!
 
     override func setUp() {
