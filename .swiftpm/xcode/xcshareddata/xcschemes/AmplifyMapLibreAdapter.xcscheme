@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
-               BuildableName = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
-               BlueprintName = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "AmplifyMapLibreAdapter"
                BuildableName = "AmplifyMapLibreAdapter"
                BlueprintName = "AmplifyMapLibreAdapter"
@@ -66,6 +52,16 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AmplifyMapLibreAdapterIntegrationTests"
+               BuildableName = "AmplifyMapLibreAdapterIntegrationTests"
+               BlueprintName = "AmplifyMapLibreAdapterIntegrationTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -88,9 +84,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
-            BuildableName = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
-            BlueprintName = "AmplifyMapLibreAdapter_AmplifyMapLibreAdapter"
+            BlueprintIdentifier = "AmplifyMapLibreAdapter"
+            BuildableName = "AmplifyMapLibreAdapter"
+            BlueprintName = "AmplifyMapLibreAdapter"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

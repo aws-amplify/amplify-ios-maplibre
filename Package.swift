@@ -6,7 +6,7 @@ import PackageDescription
 enum Amplify {
     static let packageName = "Amplify"
     static let packageURL = "https://github.com/aws-amplify/amplify-ios"
-    static let requirement: Package.Dependency.Requirement = .branch("ameter/wip/geoplugin")
+    static let requirement: Package.Dependency.Requirement = .branch("geo.main")
     static let package: Package.Dependency = .package(
         name: Amplify.packageName,
         url: Amplify.packageURL,
@@ -23,6 +23,9 @@ let package = Package(
         .library(
             name: "AmplifyMapLibreAdapter",
             targets: ["AmplifyMapLibreAdapter"]),
+        .library(
+            name: "AmplifyMapLibreUI",
+            targets: ["AmplifyMapLibreUI"]),
     ],
     dependencies: [
         // Amplify
@@ -31,24 +34,12 @@ let package = Package(
             url: Amplify.packageURL,
             Amplify.requirement
         ),
-        
+
         // MapLibre
         .package(
             name: "MapLibre GL Native",
             url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-            .upToNextMajor(from: "5.12.1")
-        ),
-        
-        // SwiftFormat
-        .package(
-            url: "https://github.com/nicklockwood/SwiftFormat",
-            .upToNextMajor(from: "0.48.11")
-        ),
-        
-        // SwiftLint
-        .package(
-            url: "https://github.com/realm/SwiftLint",
-            .upToNextMajor(from: "0.44.0")
+            .exact("5.12.0")
         )
     ],
     targets: [
@@ -61,9 +52,15 @@ let package = Package(
                 .product(name: "AWSPluginsCore", package: Amplify.packageName),
                 .product(name: "Mapbox", package: "MapLibre GL Native")
             ]),
+        .target(
+            name: "AmplifyMapLibreUI",
+            dependencies: ["AmplifyMapLibreAdapter"]),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
             dependencies: ["AmplifyMapLibreAdapter"]),
+        .testTarget(
+            name: "AmplifyMapLibreUITests",
+            dependencies: ["AmplifyMapLibreAdapter"])
     ]
 )
 
