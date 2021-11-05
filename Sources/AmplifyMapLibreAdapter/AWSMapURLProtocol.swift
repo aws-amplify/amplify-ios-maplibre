@@ -68,7 +68,12 @@ class AWSMapURLProtocol: URLProtocol {
     }
 
     override func startLoading() {
-        signRequest { result in
+        signRequest { [weak self] result in
+            guard let self = self else {
+                // self is nil when the request has been cancelled.
+                // In that case, just return.
+                return
+            }
             switch result {
             case .success(let signedRequest):
                 self.handleRequest(signedRequest)
@@ -129,7 +134,12 @@ class AWSMapURLProtocol: URLProtocol {
     }
 
     private func handleRequest(_ request: URLRequest) {
-        dataTask = urlSession.dataTask(with: request) { data, response, error in
+        dataTask = urlSession.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else {
+                // self is nil when the request has been cancelled.
+                // In that case, just return.
+                return
+            }
             if let response = response {
                 self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .allowed)
             }
