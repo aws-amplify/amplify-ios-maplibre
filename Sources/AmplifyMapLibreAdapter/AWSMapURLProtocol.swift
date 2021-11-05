@@ -6,8 +6,6 @@
 //
 
 import AWSCore
-import Amplify
-import AWSLocationGeoPlugin
 import Foundation
 
 class AWSMapURLProtocol: URLProtocol {

@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Ameter, Christopher on 11/5/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import Foundation
@@ -15,15 +15,15 @@ extension AWSMapURLProtocol {
         let regionName: String
         let credentialsProvider: AWSCredentialsProvider
         let hostName: String
-    
+
         init?() {
             guard let plugin = try? Amplify.Geo.getPlugin(for: "awsLocationGeoPlugin") as? AWSLocationGeoPlugin else {
                 assertionFailure(AWSMapURLProtocolError.configurationError.localizedDescription)
                 return nil
             }
-            credentialsProvider = plugin.authService.getCredentialsProvider()
-            regionName = plugin.pluginConfig.regionName
-            hostName = "maps.geo.\(regionName).amazonaws.com"
+            self.credentialsProvider = plugin.authService.getCredentialsProvider()
+            self.regionName = plugin.pluginConfig.regionName
+            self.hostName = "maps.geo.\(regionName).amazonaws.com"
         }
     }
 }
