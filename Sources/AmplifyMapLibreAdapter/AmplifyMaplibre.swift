@@ -41,8 +41,6 @@ public class AmplifyMaplibre {
     /// - Parameter places: Place array to convert.
     /// - Returns: MGLAnnotation array.
     public class func createAnnotations(_ places: [Geo.Place]) -> [MGLPointAnnotation] {
-        places.map { place in
-            MGLPointAnnotation(title: place.label ?? "", coordinates: CLLocationCoordinate2D(place.coordinates))
-        }
+        places.map(MGLPointAnnotation.init)
     }
 }
