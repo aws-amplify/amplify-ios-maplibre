@@ -10,7 +10,7 @@ import CoreLocation
 import Mapbox
 import Amplify
 
-public class AmplifyMaplibre {
+public class AmplifyMapLibre {
     /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
     /// Location Service using the default map
     /// - Parameter completionHandler: The completion handler.

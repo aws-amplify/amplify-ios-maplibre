@@ -14,9 +14,7 @@ class AWSMapURLProtocol: URLProtocol {
     private var urlSession = URLSession(configuration: .default)
     private var dataTask: URLSessionDataTask?
     private static var globallyRegistered = false
-    private static var regionName: String?
-    private static var credentialsProvider: AWSCredentialsProvider?
-    private static var hostName: String?
+    private static var geoConfig = GeoConfig()
 
     /// Register the custom URL Protocol.
     /// - Parameter sessionConfig: Optional URLSessionConfiguration for URLSession you want to proxy.
@@ -33,20 +31,6 @@ class AWSMapURLProtocol: URLProtocol {
         }
     }
 
-    private static func getGeoConfig() {
-        guard let plugin = try? Amplify.Geo.getPlugin(for: "awsLocationGeoPlugin") as? AWSLocationGeoPlugin else {
-            assertionFailure(AWSMapURLProtocolError.configurationError.localizedDescription)
-            return
-        }
-        credentialsProvider = plugin.authService.getCredentialsProvider()
-        regionName = plugin.pluginConfig.regionName
-        guard let regionName = regionName else {
-            assertionFailure(AWSMapURLProtocolError.missingRegion.localizedDescription)
-            return
-        }
-        hostName = "maps.geo.\(regionName).amazonaws.com"
-    }
-
     override class func canInit(with request: URLRequest) -> Bool {
         canInit(request.url?.host)
     }
@@ -56,11 +40,7 @@ class AWSMapURLProtocol: URLProtocol {
     }
 
     private static func canInit(_ host: String?) -> Bool {
-        // Attempt to get credentialsProvider and regionName for AWSLocationGeoPlugin if not already present.
-        if credentialsProvider == nil || regionName == nil || hostName == nil {
-            getGeoConfig()
-        }
-        return host == hostName
+        return host == geoConfig?.hostName
     }
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
@@ -100,8 +80,7 @@ class AWSMapURLProtocol: URLProtocol {
         guard let originalURL = request.url,
               let originalURLComponents = URLComponents(url: originalURL, resolvingAgainstBaseURL: false),
               let host = originalURLComponents.host,
-              let credentialsProvider = AWSMapURLProtocol.credentialsProvider,
-              let regionName = AWSMapURLProtocol.regionName
+              let geoConfig = AWSMapURLProtocol.geoConfig
         else {
             completionHandler(.failure(AWSMapURLProtocolError.unexpectedNil))
             return
@@ -113,8 +92,8 @@ class AWSMapURLProtocol: URLProtocol {
         signedRequest.addValue(host, forHTTPHeaderField: "host")
 
         AWSSignatureV4Signer.sigV4SignedURL(with: signedRequest,
-                                            credentialProvider: credentialsProvider,
-                                            regionName: regionName,
+                                            credentialProvider: geoConfig.credentialsProvider,
+                                            regionName: geoConfig.regionName,
                                             serviceName: "geo",
                                             date: Date(),
                                             expireDuration: 60,
