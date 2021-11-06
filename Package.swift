@@ -13,9 +13,10 @@ enum Amplify {
         Amplify.requirement
     )
 }
-
+// Package
 let package = Package(
     name: "AmplifyMapLibreAdapter",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v13)
     ],
@@ -51,16 +52,23 @@ let package = Package(
                 .product(name: "AWSLocationGeoPlugin", package: Amplify.packageName),
                 .product(name: "AWSPluginsCore", package: Amplify.packageName),
                 .product(name: "Mapbox", package: "MapLibre GL Native")
-            ]),
+            ]
+        ),
         .target(
             name: "AmplifyMapLibreUI",
-            dependencies: ["AmplifyMapLibreAdapter"]),
+            dependencies: ["AmplifyMapLibreAdapter"],
+            resources: [
+                .process("Resources")
+            ]
+        ),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",
-            dependencies: ["AmplifyMapLibreAdapter"]),
+            dependencies: ["AmplifyMapLibreAdapter"]
+        ),
         .testTarget(
             name: "AmplifyMapLibreUITests",
-            dependencies: ["AmplifyMapLibreAdapter"])
+            dependencies: ["AmplifyMapLibreAdapter", "AmplifyMapLibreUI"]
+        )
     ]
 )
 

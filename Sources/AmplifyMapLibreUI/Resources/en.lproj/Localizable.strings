@@ -1,0 +1,18 @@
+//
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+"Zoom in" = "Zoom in";
+"Zoom out on the map" = "Zoom out on the map";
+
+"Zoom out" = "Zoom out";
+"Zoom in on the map" = "Zoom in on the map";
+
+"Align North" = "Align North";
+"Align map so that top of screen is North" = "Align map so that top of screen is North";
+
+"Map Controls" = "Map Controls";
+"Buttons to control map's zoom and directional alignment" = "Buttons to control map's zoom and directional alignment";

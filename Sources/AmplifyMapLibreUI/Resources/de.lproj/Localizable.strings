@@ -1,0 +1,20 @@
+//
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+"Zoom in" = "hineinzoomen";
+"Zoom in on the map" = "die Karte hineinzoomen";
+
+"Zoom out" = "herauszoomen";
+"Zoom out on the map" = "die Karten herauszoomen";
+
+
+"Align North" = "nach Norden ausrichten";
+"Align map so that top of screen is North" = "die Karten ausrichten, dass der obere obere Blidschirmrand nach norden ausgerichtet ist.";
+
+"Map Controls" = "Kartensteuerungelemente";
+"Buttons to control map's zoom and directional alignment" = "Tasten zum Steuern des Zooms sowie der Ausrichtung der Karte";
+
