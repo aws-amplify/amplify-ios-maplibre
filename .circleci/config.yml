@@ -7,20 +7,21 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  xcodebuild_and_test:
-    macos:
-      xcode: 13.0.0
-    steps:
-      - checkout
-      - run:
-          name: Build and test
-          command: xcodebuild test -scheme "AmplifyMapLibreAdapter" -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit
-        
+    xcodebuild_and_test:
+        macos:
+            xcode: 13.0.0
+        steps:
+            - checkout
+            - run:
+                name: Build and test
+                command: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  build_test: # This is the name of the workflow, feel free to change it to better match your workflow.
+    build_test: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - xcodebuild_and_test
+        jobs:
+        - xcodebuild_and_test
+    
