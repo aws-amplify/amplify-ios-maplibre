@@ -24,6 +24,9 @@ public struct AMLMapView: UIViewRepresentable {
     @Binding var attribution: String?
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
+    /// Annotations that are displayed on the map.
+    @Binding var annotations: [MGLPointAnnotation]
+
     
     /// Initialize an instance of AMLMapView.
     ///
@@ -41,6 +44,7 @@ public struct AMLMapView: UIViewRepresentable {
         bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
+        annotations: Binding<[MGLPointAnnotation]>,
         attribution: Binding<String?> = .constant(nil)
     ) {
         self.mapView = mapView
@@ -49,6 +53,7 @@ public struct AMLMapView: UIViewRepresentable {
         _userLocation = userLocation
         _attribution = attribution
         _zoomLevel = zoomLevel
+        _annotations = annotations
         self.mapView.centerCoordinate = center.wrappedValue
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
@@ -65,11 +70,21 @@ public struct AMLMapView: UIViewRepresentable {
     }
     
     public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<AMLMapView>) {
+        updateAnnotations()
         guard uiView.zoomLevel != zoomLevel else { return }
         uiView.setZoomLevel(zoomLevel, animated: true)
+    }
+    
+    private func updateAnnotations() {
+        mapView.annotations.flatMap(mapView.removeAnnotations(_:))
+//        if let existingAnnotations = mapView.annotations {
+//            mapView.removeAnnotations(existingAnnotations)
+//        }
+        mapView.addAnnotations(annotations)
     }
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 }
+

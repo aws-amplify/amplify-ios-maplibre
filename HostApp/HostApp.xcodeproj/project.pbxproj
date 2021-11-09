@@ -16,6 +16,7 @@
 		90608240272886D900662A60 /* HostAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9060823F272886D900662A60 /* HostAppUITestsLaunchTests.swift */; };
 		90A8E08B273AECE4008D83DE /* AmplifyMapLibreAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 90A8E08A273AECE4008D83DE /* AmplifyMapLibreAdapter */; };
 		90A8E08D273AECE4008D83DE /* AmplifyMapLibreUI in Frameworks */ = {isa = PBXBuildFile; productRef = 90A8E08C273AECE4008D83DE /* AmplifyMapLibreUI */; };
+		90E2333F273B08C2001B8168 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E2333E273B08C2001B8168 /* ContentViewModel.swift */; };
 		90E78C6F2729BB8A0061DF48 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 90E78C6D2729BB8A0061DF48 /* awsconfiguration.json */; };
 		90E78C702729BB8A0061DF48 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 90E78C6E2729BB8A0061DF48 /* amplifyconfiguration.json */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		90608239272886D900662A60 /* HostAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HostAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9060823D272886D900662A60 /* HostAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAppUITests.swift; sourceTree = "<group>"; };
 		9060823F272886D900662A60 /* HostAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		90E2333E273B08C2001B8168 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		90E78C6D2729BB8A0061DF48 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90E78C6E2729BB8A0061DF48 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		90E78C742729BF730061DF48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				90E78C6C2729BB7D0061DF48 /* Configuration */,
 				90608222272886D600662A60 /* HostAppApp.swift */,
 				90608224272886D600662A60 /* ContentView.swift */,
+				90E2333E273B08C2001B8168 /* ContentViewModel.swift */,
 				90608226272886D900662A60 /* Assets.xcassets */,
 				90608228272886D900662A60 /* Preview Content */,
 			);
@@ -297,6 +300,7 @@
 			files = (
 				90608225272886D600662A60 /* ContentView.swift in Sources */,
 				90608223272886D600662A60 /* HostAppApp.swift in Sources */,
+				90E2333F273B08C2001B8168 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
