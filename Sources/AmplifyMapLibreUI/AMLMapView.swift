@@ -26,7 +26,6 @@ public struct AMLMapView: UIViewRepresentable {
     @Binding var zoomLevel: Double
     /// Annotations that are displayed on the map.
     @Binding var annotations: [MGLPointAnnotation]
-
     
     /// Initialize an instance of AMLMapView.
     ///
@@ -37,6 +36,7 @@ public struct AMLMapView: UIViewRepresentable {
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
     ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional)
+    ///   - annotations: Binding of annotations displayed on the map.
     ///   - attribution: The attribution string for the map data providers.
     public init(
         mapView: MGLMapView,
@@ -77,14 +77,18 @@ public struct AMLMapView: UIViewRepresentable {
     
     private func updateAnnotations() {
         mapView.annotations.flatMap(mapView.removeAnnotations(_:))
-//        if let existingAnnotations = mapView.annotations {
-//            mapView.removeAnnotations(existingAnnotations)
-//        }
         mapView.addAnnotations(annotations)
     }
     
     public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
+    
+    let psuedoDelegate: PseudoDelegate = .init()
 }
 
+extension AMLMapView {
+    class PseudoDelegate {
+        var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
+    }
+}

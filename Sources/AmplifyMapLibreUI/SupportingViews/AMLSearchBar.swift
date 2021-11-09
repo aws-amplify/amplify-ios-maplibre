@@ -131,7 +131,6 @@ extension View {
     }
 }
 
-
 public extension AMLSearchBar {
     struct DisplayState: Equatable {
         let imageName: String
@@ -139,7 +138,7 @@ public extension AMLSearchBar {
         public static let map = DisplayState(imageName: "list.bullet")
         public static let list = DisplayState(imageName: "map")
         
-        mutating func toggle() {            
+        mutating func toggle() {
             if self == .list { self = .map }
             else { self = .list }
         }

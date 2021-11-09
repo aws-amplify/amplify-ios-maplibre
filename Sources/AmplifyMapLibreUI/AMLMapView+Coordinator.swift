@@ -34,5 +34,22 @@ extension AMLMapView {
             let attribution = source?.attributionInfos.first
             control.attribution = attribution?.title.string ?? ""
         }
+        
+        public func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+            mapView.deselectAnnotation(annotation, animated: true)
+        }
+        
+        public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+            guard let didSelect = control.psuedoDelegate.mapViewDidSelectAnnotation else {
+                // Depending on the method - some reasonable default implementation, or no action.
+                return
+            }
+            didSelect(mapView, annotation)
+        }
     }
 }
+
+
+//
+//            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 200, pitch: 15, heading: 180)
+//            mapView.fly(to: camera, withDuration: 1.5, peakAltitude: 3000, completionHandler: nil)

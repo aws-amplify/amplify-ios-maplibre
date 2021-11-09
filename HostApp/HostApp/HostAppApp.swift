@@ -12,6 +12,7 @@ import AWSCognitoAuthPlugin
 
 @main
 struct HostAppApp: App {
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

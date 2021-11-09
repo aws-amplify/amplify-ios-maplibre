@@ -26,8 +26,8 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
-              .ignoresSafeArea()
-
+                .ignoresSafeArea()
+            
             if displayState == .map {
                 switch mapResult {
                 case .success(let map):
@@ -38,6 +38,10 @@ struct ContentView: View {
                         center: $center,
                         annotations: $viewModel.annotations
                     )
+                        .mapViewDidSelectAnnotation({ mapView, annotation in
+                            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 200, pitch: 15, heading: 180)
+                            mapView.fly(to: camera, withDuration: 1.5, peakAltitude: 3000, completionHandler: nil)
+                        })
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
                     Text("Error \(error.errorDescription)")
@@ -60,26 +64,26 @@ struct ContentView: View {
                 )
                     .padding()
                 
-              if displayState == .map {
-                HStack {
-                  Spacer()
-                  AMLMapControlView(
-                    zoomValue: zoomLevel,
-                    zoomInAction: { zoomLevel += 1 },
-                    zoomOutAction: { zoomLevel -= 1 },
-                    compassAction: {
+                if displayState == .map {
+                    HStack {
+                        Spacer()
+                        AMLMapControlView(
+                            zoomValue: zoomLevel,
+                            zoomInAction: { zoomLevel += 1 },
+                            zoomOutAction: { zoomLevel -= 1 },
+                            compassAction: {
+                            }
+                        )
                     }
-                  )
+                    .padding(.trailing)
+                } else {
+                    List(viewModel.places) { place in
+                        AMLPlaceCellView(place: .init(place))
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .ignoresSafeArea()
                 }
-                .padding(.trailing)
-              } else {
-                List(viewModel.places) { place in
-                    AMLPlaceCellView(place: .init(place))
-                }
-                .listStyle(InsetGroupedListStyle())
-                .ignoresSafeArea()
-              }
-              Spacer()
+                Spacer()
             }
         }
     }
@@ -89,7 +93,7 @@ struct ContentView: View {
     }
     
     func search() {
-      viewModel.search(searchText, area: .near(center))
+        viewModel.search(searchText, area: .near(center))
     }
 }
 

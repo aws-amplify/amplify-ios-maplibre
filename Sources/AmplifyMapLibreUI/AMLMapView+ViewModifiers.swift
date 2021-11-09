@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import Mapbox
 
 extension AMLMapView {
     /// View modifier to enable showing the user's location on the map.
@@ -85,6 +86,11 @@ extension AMLMapView {
     /// - Returns: An instance of AMLMapView
     public func hideAttributionButton(_ hide: Bool) -> AMLMapView {
         mapView.attributionButton.isHidden = hide
+        return self
+    }
+    
+    public func mapViewDidSelectAnnotation(_ implementation: @escaping (_ mapView: MGLMapView, _ annotation: MGLAnnotation) -> Void) -> AMLMapView {
+        self.psuedoDelegate.mapViewDidSelectAnnotation = implementation
         return self
     }
 }
