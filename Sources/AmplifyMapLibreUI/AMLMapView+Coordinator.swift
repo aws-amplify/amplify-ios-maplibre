@@ -26,7 +26,7 @@ extension AMLMapView {
         }
         
         public func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-            control.userLocation = userLocation?.coordinate ?? .init()
+            control.userLocation = userLocation?.coordinate
         }
         
     }
