@@ -42,7 +42,7 @@ public struct AMLPlaceCellView: View {
 
 struct PlaceCellView_Preview: PreviewProvider {
     static var previews: some View {
-        PlaceCellView(
+        AMLPlaceCellView(
             place: .init(
                 coordinates: .init(latitude: 1, longitude: 2),
                 label: "Example Label",
