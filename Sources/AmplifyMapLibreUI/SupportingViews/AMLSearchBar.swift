@@ -8,10 +8,10 @@
 import SwiftUI
 
 public struct AMLSearchBar: View {
+    @State var isEditing = false
     @Binding var text: String
     let onCommit: () -> Void
     let onCancel: () -> Void
-    @State var isEditing = false
     
     public init(
         text: Binding<String>,
