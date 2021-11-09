@@ -34,5 +34,6 @@ extension AMLMapView {
             let attribution = source?.attributionInfos.first
             control.attribution = attribution?.title.string ?? ""
         }
+        
     }
 }
