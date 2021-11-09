@@ -20,14 +20,6 @@ extension AMLMapView {
         return self
     }
 
-    /// View modifier to set the map's initial center coordinate.
-    /// - Parameter centerCoordinate: Coordinates on which to center the map.
-    /// - Returns: An instance of AMLMapView.
-    public func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> AMLMapView {
-        mapView.centerCoordinate = centerCoordinate
-        return self
-    }
-
     /// View modifier to set the map's maximum and minimum zoom levels.
     ///
     /// Zoom Level Approximation Reference:
@@ -85,6 +77,14 @@ extension AMLMapView {
     /// - Returns: An instance of AMLMapView.
     public func minZoomLevel(_ minZoomLevel: Double) -> AMLMapView {
         mapView.minimumZoomLevel = max(minZoomLevel, 0)
+        return self
+    }
+    
+    /// Set map's attribution button to hidden or showing.
+    /// - Parameter hide: `true` hides the button / `false` unhides the button
+    /// - Returns: An instance of AMLMapView
+    public func hideAttributionButton(_ hide: Bool) -> AMLMapView {
+        mapView.attributionButton.isHidden = hide
         return self
     }
 }

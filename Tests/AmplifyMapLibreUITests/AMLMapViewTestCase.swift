@@ -24,8 +24,8 @@ final class AMLMapViewTestCase: XCTestCase {
     // public func showUserLocation(_ showLocation: Bool) -> AMLMapView
     func testShowUserLocation() {
         let mapView = AMLMapView(mapView: mglMapView)
-        // `showUserLocation` defaults to true
-        XCTAssertTrue(mapView.mapView.showsUserLocation)
+        // `showUserLocation` defaults to false if `AMLMapView` is instantiated without a `userLocation`
+        XCTAssertFalse(mapView.mapView.showsUserLocation)
 
         do {
             let mapView = mapView.showUserLocation(false)
@@ -33,19 +33,9 @@ final class AMLMapViewTestCase: XCTestCase {
         }
 
         do {
-            let userLocationShownMapView = mapView.showUserLocation(true)
-            XCTAssertTrue(userLocationShownMapView.mapView.showsUserLocation)
+            let mapView = mapView.showUserLocation(true)
+            XCTAssertTrue(mapView.mapView.showsUserLocation)
         }
-    }
-
-    // public func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> AMLMapView
-    func testCenterCoordinate() {
-        let mapView = AMLMapView(mapView: mglMapView)
-            .centerCoordinate(.init(.init(latitude: 25.42, longitude: 42.25)))
-
-        // TODO: Look into why rounding is neccessary (It shouldn't be)
-        XCTAssertEqual(mapView.mapView.centerCoordinate.latitude.rounded(places: 2), 25.42)
-        XCTAssertEqual(mapView.mapView.centerCoordinate.longitude, 42.25)
     }
 
     // public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> AMLMapView

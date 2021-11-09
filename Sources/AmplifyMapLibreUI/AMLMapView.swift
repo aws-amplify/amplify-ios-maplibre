@@ -19,9 +19,9 @@ public struct AMLMapView: UIViewRepresentable {
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
     /// The user's current location.
-    @Binding var userLocation: CLLocationCoordinate2D
+    @Binding var userLocation: CLLocationCoordinate2D?
     /// The attribution string for the map data providers.
-    @Binding var attribution: String
+    @Binding var attribution: String?
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
     
@@ -33,17 +33,15 @@ public struct AMLMapView: UIViewRepresentable {
     ///   - zoomLevel: Current zoom level of the map. Default 14
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
-    ///   - userLocation: The user's current location.
+    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional)
     ///   - attribution: The attribution string for the map data providers.
-    ///   - map: An instance of MGLMapView.  This can be passed to customize the
-    ///   underlying map. (optional)
     public init(
         mapView: MGLMapView,
         zoomLevel: Binding<Double> = .constant(14),
         bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
-        userLocation: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
-        attribution: Binding<String> = .constant("")
+        userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
+        attribution: Binding<String?> = .constant(nil)
     ) {
         self.mapView = mapView
         _bounds = bounds
@@ -54,7 +52,11 @@ public struct AMLMapView: UIViewRepresentable {
         self.mapView.centerCoordinate = center.wrappedValue
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
-        self.mapView.showsUserLocation = true
+        self.mapView.showsUserLocation = userLocation.wrappedValue != nil
+        
+        attribution.wrappedValue.map {
+            self.mapView.attributionButton.setTitle($0, for: .normal)
+        }
     }
     
     public func makeUIView(context: UIViewRepresentableContext<AMLMapView>) -> MGLMapView {

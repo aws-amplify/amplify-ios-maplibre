@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct ActivityIndicator: UIViewRepresentable {
+public struct AMLActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
     
     public func makeUIView(context: Context) -> UIActivityIndicatorView {
@@ -26,9 +26,9 @@ public struct ActivityIndicator: UIViewRepresentable {
     }
 }
 
-struct AcitivtyIndicator_Preview: PreviewProvider {
+struct AMLActivityIndicator_Preview: PreviewProvider {
     static var previews: some View {
-        ActivityIndicator(isAnimating: .constant(true))
+        AMLActivityIndicator(isAnimating: .constant(true))
             .frame(width: 100, height: 100)
             .foregroundColor(.orange)
     }
