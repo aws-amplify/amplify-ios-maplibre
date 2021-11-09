@@ -29,5 +29,10 @@ extension AMLMapView {
             control.userLocation = userLocation?.coordinate
         }
         
+        public func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+            let source = style.sources.first as? MGLVectorTileSource
+            let attribution = source?.attributionInfos.first
+            control.attribution = attribution?.title.string ?? ""
+        }
     }
 }
