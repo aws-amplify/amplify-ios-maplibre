@@ -90,7 +90,7 @@ extension AMLMapView {
     }
     
     public func mapViewDidSelectAnnotation(_ implementation: @escaping (_ mapView: MGLMapView, _ annotation: MGLAnnotation) -> Void) -> AMLMapView {
-        self.psuedoDelegate.mapViewDidSelectAnnotation = implementation
+        self.proxyDelegate.mapViewDidSelectAnnotation = implementation
         return self
     }
 }

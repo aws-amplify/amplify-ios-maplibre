@@ -26,6 +26,8 @@ public struct AMLMapView: UIViewRepresentable {
     @Binding var zoomLevel: Double
     /// Annotations that are displayed on the map.
     @Binding var annotations: [MGLPointAnnotation]
+    /// The current heading of the map in degrees.
+    @Binding var heading: CLLocationDirection
     
     /// Initialize an instance of AMLMapView.
     ///
@@ -43,6 +45,7 @@ public struct AMLMapView: UIViewRepresentable {
         zoomLevel: Binding<Double> = .constant(14),
         bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
+        heading: Binding<CLLocationDirection> = .constant(0),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
         annotations: Binding<[MGLPointAnnotation]>,
         attribution: Binding<String?> = .constant(nil)
@@ -54,11 +57,14 @@ public struct AMLMapView: UIViewRepresentable {
         _attribution = attribution
         _zoomLevel = zoomLevel
         _annotations = annotations
+        _heading = heading
         self.mapView.centerCoordinate = center.wrappedValue
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-        
+        let camera = mapView.camera
+        camera.heading = heading.wrappedValue
+        self.mapView.setCamera(camera, animated: true)
         attribution.wrappedValue.map {
             self.mapView.attributionButton.setTitle($0, for: .normal)
         }
@@ -84,11 +90,11 @@ public struct AMLMapView: UIViewRepresentable {
         Coordinator(self)
     }
     
-    let psuedoDelegate: PseudoDelegate = .init()
+    let proxyDelegate: ProxyDelegate = .init()
 }
 
 extension AMLMapView {
-    class PseudoDelegate {
+    class ProxyDelegate {
         var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
     }
 }

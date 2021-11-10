@@ -14,9 +14,13 @@ import Amplify
 
 struct ContentView: View {
     
-    @State private var center: CLLocationCoordinate2D = .init(latitude: 37.785834, longitude: -122.406417)
+    @State private var center: CLLocationCoordinate2D = .init(
+        latitude: 37.785834,
+        longitude: -122.406417
+    )
     @State private var bounds = MGLCoordinateBounds()
     @State private var zoomLevel: Double = 14
+    @State private var heading: CLLocationDirection = 0
     @State private var mapResult: Result<MGLMapView, Geo.Error>?
     @State private var displayState = AMLSearchBar.DisplayState.map
     @State private var searchText = ""
@@ -36,11 +40,22 @@ struct ContentView: View {
                         zoomLevel: $zoomLevel,
                         bounds: $bounds,
                         center: $center,
+                        heading: $heading,
                         annotations: $viewModel.annotations
                     )
                         .mapViewDidSelectAnnotation({ mapView, annotation in
-                            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 200, pitch: 15, heading: 180)
-                            mapView.fly(to: camera, withDuration: 1.5, peakAltitude: 3000, completionHandler: nil)
+                            let camera = MGLMapCamera(
+                                lookingAtCenter: annotation.coordinate,
+                                altitude: 200,
+                                pitch: 15,
+                                heading: 180
+                            )
+                            mapView.fly(
+                                to: camera,
+                                withDuration: 1.5,
+                                peakAltitude: 3000,
+                                completionHandler: nil
+                            )
                         })
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
@@ -72,6 +87,9 @@ struct ContentView: View {
                             zoomInAction: { zoomLevel += 1 },
                             zoomOutAction: { zoomLevel -= 1 },
                             compassAction: {
+                                print(heading)
+                                heading = 0
+                                
                             }
                         )
                     }

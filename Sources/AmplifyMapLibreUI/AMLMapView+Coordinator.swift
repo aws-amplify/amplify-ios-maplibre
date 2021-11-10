@@ -22,6 +22,7 @@ extension AMLMapView {
                 self.control.zoomLevel = mapView.zoomLevel
                 self.control.bounds = mapView.visibleCoordinateBounds
                 self.control.center = mapView.centerCoordinate
+                self.control.heading = mapView.camera.heading
             }
         }
         
@@ -40,7 +41,7 @@ extension AMLMapView {
         }
         
         public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-            guard let didSelect = control.psuedoDelegate.mapViewDidSelectAnnotation else {
+            guard let didSelect = control.proxyDelegate.mapViewDidSelectAnnotation else {
                 // Depending on the method - some reasonable default implementation, or no action.
                 return
             }
@@ -48,8 +49,3 @@ extension AMLMapView {
         }
     }
 }
-
-
-//
-//            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 200, pitch: 15, heading: 180)
-//            mapView.fly(to: camera, withDuration: 1.5, peakAltitude: 3000, completionHandler: nil)
