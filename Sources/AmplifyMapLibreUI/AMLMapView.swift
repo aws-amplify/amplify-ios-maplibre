@@ -66,10 +66,6 @@ public struct AMLMapView: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-        
-        attribution.wrappedValue.map {
-            self.mapView.attributionButton.setTitle($0, for: .normal)
-        }
     }
     
     public func makeUIView(context: UIViewRepresentableContext<AMLMapView>) -> MGLMapView {

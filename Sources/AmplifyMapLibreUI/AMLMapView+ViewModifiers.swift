@@ -90,8 +90,13 @@ extension AMLMapView {
         return self
     }
     
-    public func annotationImage<T: View>(_ view: T) -> AMLMapView {
+    public func annotationView<T: View>(_ view: T) -> AMLMapView {
         proxyDelegate.annotationImage = view.snapshot()
+        return self
+    }
+    
+    public func annotationImage(_ image: UIImage) -> AMLMapView {
+        proxyDelegate.annotationImage = image
         return self
     }
 
@@ -133,7 +138,5 @@ public extension AMLMapView {
         public var shouldCluster: Bool = true
         public var maximumZoomLevel: Int = 13
         public var clusterColor: UIColor = AMLMapView.blue
-        
-        
     }
 }

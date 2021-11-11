@@ -42,6 +42,7 @@ extension AMLMapView {
         }
         
         public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+            
             guard let didSelect = control.proxyDelegate.mapViewDidSelectAnnotation else {
                 // Depending on the method - some reasonable default implementation, or no action.
                 return

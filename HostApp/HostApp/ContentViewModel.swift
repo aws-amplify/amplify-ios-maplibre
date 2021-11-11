@@ -1,8 +1,8 @@
 //
-//  ContentViewModel.swift
-//  HostApp
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 11/9/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import SwiftUI
