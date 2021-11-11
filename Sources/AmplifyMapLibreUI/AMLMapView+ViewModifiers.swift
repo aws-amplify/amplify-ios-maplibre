@@ -99,6 +99,16 @@ extension AMLMapView {
         proxyDelegate.annotationImage = image
         return self
     }
+    
+    public func annotationTapped(_ implementation: @escaping (_ mapView: MGLMapView, _ feature: MGLPointFeature) -> Void) -> AMLMapView {
+        proxyDelegate.annotationTapped = implementation
+        return self
+    }
+    
+    public func clusterTapped(_ implementation: @escaping (_ mapView: MGLMapView, _ feature: MGLPointFeatureCluster) -> Void) -> AMLMapView {
+        proxyDelegate.clusterTapped = implementation
+        return self
+    }
 
     public func mapViewDidSelectAnnotation(
         _ implementation: @escaping (

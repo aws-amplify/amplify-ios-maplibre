@@ -47,7 +47,7 @@ struct ContentView: View {
                         .mapViewAnnotationCanShowCallout { _, _ in
                             true
                         }
-                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
+//                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
@@ -115,6 +115,8 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 extension ContentView {
+    
+    
     private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
         let camera = MGLMapCamera(
             lookingAtCenter: annotation.coordinate,

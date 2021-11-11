@@ -119,13 +119,22 @@ extension AMLMapView.Coordinator {
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let location = sender.location(in: control.mapView)
         
-        let tappedCandidates = control.mapView.visibleFeatures(
+        guard let tappedFeature = control.mapView.visibleFeatures(
             at: location,
             styleLayerIdentifiers: ["standard_style", "circle_layer"]
-        )
-        print("COUNT", tappedCandidates.count)
-        print(tappedCandidates)
+        ).first
+        else {
+            return
+        }
         
+        if let tappedCluster = tappedFeature as? MGLPointFeatureCluster,
+           let implementation = control.proxyDelegate.clusterTapped {
+            implementation(control.mapView, tappedCluster)
+        } else
+        if let tappedAnnotation = tappedFeature as? MGLPointFeature,
+                  let implementation = control.proxyDelegate.annotationTapped {
+            implementation(control.mapView, tappedAnnotation)
+        }
     }
 }
 
