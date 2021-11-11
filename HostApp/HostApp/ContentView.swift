@@ -1,8 +1,8 @@
 //
-//  ContentView.swift
-//  HostApp
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 10/26/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import SwiftUI
@@ -47,9 +47,8 @@ struct ContentView: View {
                         .mapViewAnnotationCanShowCallout { _, _ in
                             true
                         }
+                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         
-                        
-//                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
                     Text("Error \(error.errorDescription)")
@@ -119,15 +118,15 @@ extension ContentView {
     private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
         let camera = MGLMapCamera(
             lookingAtCenter: annotation.coordinate,
-            altitude: 200,
-            pitch: 15,
-            heading: 180
+            altitude: mapView.camera.altitude,
+            pitch: mapView.camera.pitch,
+            heading: mapView.camera.heading
         )
         mapView.fly(
             to: camera,
-            withDuration: 1.5,
+            withDuration: 0.5,
             peakAltitude: 3000,
-            completionHandler: nil
+            completionHandler: { mapView.selectAnnotation(annotation, animated: false, completionHandler: nil) }
         )
     }
 }

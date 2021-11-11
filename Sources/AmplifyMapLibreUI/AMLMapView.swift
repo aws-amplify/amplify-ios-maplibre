@@ -29,6 +29,8 @@ public struct AMLMapView: UIViewRepresentable {
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
     
+    let clusteringBehavior: ClusteringBehavior
+        
     /// Initialize an instance of AMLMapView.
     ///
     /// A SwiftUI wrapper View around MGLMapView
@@ -48,8 +50,10 @@ public struct AMLMapView: UIViewRepresentable {
         heading: Binding<CLLocationDirection> = .constant(0),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
         annotations: Binding<[MGLPointAnnotation]>,
-        attribution: Binding<String?> = .constant(nil)
+        attribution: Binding<String?> = .constant(nil),
+        clusteringBehavior: ClusteringBehavior = .init()
     ) {
+        self.clusteringBehavior = clusteringBehavior
         self.mapView = mapView
         _bounds = bounds
         _center = center
@@ -62,9 +66,7 @@ public struct AMLMapView: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-//        let camera = mapView.camera
-//        camera.heading = heading.wrappedValue
-//        self.mapView.setCamera(camera, animated: true)
+        
         attribution.wrappedValue.map {
             self.mapView.attributionButton.setTitle($0, for: .normal)
         }
@@ -76,7 +78,6 @@ public struct AMLMapView: UIViewRepresentable {
     }
     
     public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<AMLMapView>) {
-        updateAnnotations()
         if uiView.zoomLevel != zoomLevel {
             uiView.setZoomLevel(zoomLevel, animated: true)
         }
@@ -85,12 +86,22 @@ public struct AMLMapView: UIViewRepresentable {
             camera.heading = heading
             uiView.setCamera(camera, animated: true)
         }
+        
+        if let clusterSource = mapView.style?.source(withIdentifier: "cluster_source") as? MGLShapeSource {
+            let features = annotations.map { annotation -> MGLPointFeature in
+                let feature = MGLPointFeature()
+                feature.coordinate = annotation.coordinate
+                feature.attributes["title"] = annotation.title
+                return feature
+            }
+            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
+        }
     }
     
+    // TODO: Remove when layer approach is tested
     private func updateAnnotations() {
         mapView.annotations.flatMap(mapView.removeAnnotations(_:))
         mapView.addAnnotations(annotations)
-//        mapView.showAnnotations(annotations, animated: true)
     }
     
     public func makeCoordinator() -> Coordinator {
@@ -104,5 +115,18 @@ extension AMLMapView {
     class ProxyDelegate {
         var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
         var mapViewAnnotationCanShowCallout: ((MGLMapView, MGLAnnotation) -> Bool)?
+        var annotationImage: UIImage = .init(systemName: "mappin")!
+    }
+}
+
+public struct AMLAnnotationView: View {
+    public var body: some View {
+        Image("AMLMapView")
+    }
+}
+
+struct AMLAnnotationViewPreview: PreviewProvider {
+    static var previews: some View {
+        AMLAnnotationView()
     }
 }

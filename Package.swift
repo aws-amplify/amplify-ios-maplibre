@@ -58,7 +58,7 @@ let package = Package(
             name: "AmplifyMapLibreUI",
             dependencies: ["AmplifyMapLibreAdapter"],
             resources: [
-                .process("Resources")
+                .copy("Resources/Assets/AMLAnnotationView.png")
             ]
         ),
         .testTarget(

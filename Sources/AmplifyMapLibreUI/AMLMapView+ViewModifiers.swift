@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import Mapbox
+import SwiftUI
 
 extension AMLMapView {
     /// View modifier to enable showing the user's location on the map.
@@ -89,8 +90,11 @@ extension AMLMapView {
         return self
     }
     
-    
-        
+    public func annotationImage<T: View>(_ view: T) -> AMLMapView {
+        proxyDelegate.annotationImage = view.snapshot()
+        return self
+    }
+
     public func mapViewDidSelectAnnotation(
         _ implementation: @escaping (
             _ mapView: MGLMapView,
@@ -110,5 +114,26 @@ extension AMLMapView {
         self.proxyDelegate.mapViewAnnotationCanShowCallout = implementation
         return self
     }
+}
+
+public extension AMLMapView {
+    static let blue = UIColor(red: 0.33, green: 0.48, blue: 0.90, alpha: 1.00)
     
+    struct ClusteringBehavior {
+        public init(
+            shouldCluster: Bool = true,
+            maximumZoomLevel: Int = 13,
+            clusterColor: UIColor = AMLMapView.blue
+        ) {
+            self.shouldCluster = shouldCluster
+            self.maximumZoomLevel = maximumZoomLevel
+            self.clusterColor = clusterColor
+        }
+        
+        public var shouldCluster: Bool = true
+        public var maximumZoomLevel: Int = 13
+        public var clusterColor: UIColor = AMLMapView.blue
+        
+        
+    }
 }
