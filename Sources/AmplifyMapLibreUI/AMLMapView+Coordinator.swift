@@ -39,6 +39,7 @@ extension AMLMapView {
             }
             
             setupRenderingLayers(for: style)
+            setTapRecognizer()
         }
         
         public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
@@ -85,17 +86,17 @@ extension AMLMapView.Coordinator {
             control.proxyDelegate.annotationImage,
             forName: "annotation"
         )
-                    
+        
         shapeLayer.iconImageName = NSExpression(forConstantValue: "annotation")
         shapeLayer.predicate = NSPredicate(format: "cluster != YES")
         style.addSource(shapeSource)
         style.addLayer(shapeLayer)
-
+        
         let circlesLayer = MGLCircleStyleLayer(identifier: "circle_layer", source: shapeSource)
         circlesLayer.circleRadius = NSExpression(
             forConstantValue: 50
         )
-                    
+        
         circlesLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white)
         circlesLayer.circleStrokeWidth = NSExpression(forConstantValue: 4)
         
@@ -110,6 +111,22 @@ extension AMLMapView.Coordinator {
         style.addLayer(circlesLayer)
     }
     
+    private func setTapRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        control.mapView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: control.mapView)
+        
+        let tappedCandidates = control.mapView.visibleFeatures(
+            at: location,
+            styleLayerIdentifiers: ["standard_style", "circle_layer"]
+        )
+        print("COUNT", tappedCandidates.count)
+        print(tappedCandidates)
+        
+    }
 }
 
 
@@ -117,13 +134,13 @@ extension View {
     func snapshot() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
-
+        
         let targetSize = controller.view.intrinsicContentSize
         view?.bounds = CGRect(origin: .zero, size: targetSize)
         view?.backgroundColor = .clear
-
+        
         let renderer = UIGraphicsImageRenderer(size: targetSize)
-
+        
         return renderer.image { _ in
             view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
         }
