@@ -44,6 +44,11 @@ struct ContentView: View {
                         heading: $heading,
                         annotations: $viewModel.annotations
                     )
+                        .mapViewAnnotationCanShowCallout { _, _ in
+                            true
+                        }
+                        
+                        
 //                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):

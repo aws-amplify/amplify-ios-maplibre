@@ -91,11 +91,24 @@ extension AMLMapView {
     
     
         
-    public func mapViewDidSelectAnnotation(_ implementation: @escaping (_ mapView: MGLMapView, _ annotation: MGLAnnotation) -> Void) -> AMLMapView {
+    public func mapViewDidSelectAnnotation(
+        _ implementation: @escaping (
+            _ mapView: MGLMapView,
+            _ annotation: MGLAnnotation
+        ) -> Void
+    ) -> AMLMapView {
         self.proxyDelegate.mapViewDidSelectAnnotation = implementation
         return self
     }
     
-    
+    public func mapViewAnnotationCanShowCallout(
+        _ implementation: @escaping (
+            _ mapView: MGLMapView,
+            _ annotation: MGLAnnotation
+        ) -> Bool
+    ) -> AMLMapView {
+        self.proxyDelegate.mapViewAnnotationCanShowCallout = implementation
+        return self
+    }
     
 }

@@ -103,5 +103,6 @@ public struct AMLMapView: UIViewRepresentable {
 extension AMLMapView {
     class ProxyDelegate {
         var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
+        var mapViewAnnotationCanShowCallout: ((MGLMapView, MGLAnnotation) -> Bool)?
     }
 }
