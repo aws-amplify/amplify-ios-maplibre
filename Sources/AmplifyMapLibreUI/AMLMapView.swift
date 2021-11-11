@@ -115,7 +115,11 @@ extension AMLMapView {
     class ProxyDelegate {
         var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
         var mapViewAnnotationCanShowCallout: ((MGLMapView, MGLAnnotation) -> Bool)?
-        var annotationImage: UIImage = .init(systemName: "mappin")!
+        var annotationImage: UIImage = UIImage.init(
+            named: "AMLAnnotationView",
+            in: Bundle.module,
+            compatibleWith: nil
+        )!
     }
 }
 
