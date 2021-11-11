@@ -36,9 +36,9 @@ extension AMLMapView {
             control.attribution = attribution?.title.string ?? ""
         }
         
-        public func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
-            mapView.deselectAnnotation(annotation, animated: true)
-        }
+//        public func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+//            mapView.deselectAnnotation(annotation, animated: true)
+//        }
         
         public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
             guard let didSelect = control.proxyDelegate.mapViewDidSelectAnnotation else {
@@ -46,6 +46,10 @@ extension AMLMapView {
                 return
             }
             didSelect(mapView, annotation)
+        }
+        
+        public func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+            true
         }
     }
 }

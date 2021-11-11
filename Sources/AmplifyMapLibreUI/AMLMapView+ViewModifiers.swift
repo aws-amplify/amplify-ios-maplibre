@@ -20,7 +20,7 @@ extension AMLMapView {
         mapView.showsUserLocation = showLocation
         return self
     }
-
+    
     /// View modifier to set the map's maximum and minimum zoom levels.
     ///
     /// Zoom Level Approximation Reference:
@@ -42,7 +42,7 @@ extension AMLMapView {
         mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
         return self
     }
-
+    
     /// View modifier to set the map's maximum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -61,7 +61,7 @@ extension AMLMapView {
         mapView.maximumZoomLevel = min(maxZoomLevel, 22)
         return self
     }
-
+    
     /// View modifier to set the map's minimum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -89,8 +89,13 @@ extension AMLMapView {
         return self
     }
     
+    
+        
     public func mapViewDidSelectAnnotation(_ implementation: @escaping (_ mapView: MGLMapView, _ annotation: MGLAnnotation) -> Void) -> AMLMapView {
         self.proxyDelegate.mapViewDidSelectAnnotation = implementation
         return self
     }
+    
+    
+    
 }

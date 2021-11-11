@@ -1,34 +1,35 @@
 //
-//  ContentViewModel.swift
-//  HostApp
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 11/9/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import SwiftUI
-import Mapbox
 import Amplify
-import AmplifyMapLibreAdapter
-import AmplifyMapLibreUI
 
-class ContentViewModel: ObservableObject {
-
-    @Published var places: [Place] = []
-    @Published var annotations: [MGLPointAnnotation] = []
-
-    func search(
-        _ text: String,
-        area: Geo.SearchArea
-    ) {
-        Amplify.Geo.search(for: text, options: .init(area: area)) { [weak self] result in
-            switch result {
-            case.success(let places):
-                DispatchQueue.main.async {
-                    self?.places = places.map(Place.init)
-                    self?.annotations = AmplifyMapLibre.createAnnotations(places)
+// WIP
+public struct AMLPlaceList: View {
+    public init(_ places: [IdentifiablePlace]) {
+        self.places = places
+    }
+    
+    let places: [IdentifiablePlace]
+    
+    public var body: some View {
+        if places.isEmpty {
+            Text("No Results")
+                .font(.headline)
+        } else {
+            if #available(iOS 14, *) {
+                List(places) {
+                    AMLPlaceCellView(place: .init($0))
                 }
-            case .failure(let error):
-                print(error)
+                .listStyle(InsetGroupedListStyle())
+            } else {
+                List(places) {
+                    AMLPlaceCellView(place: .init($0))
+                }
             }
         }
     }
@@ -36,8 +37,8 @@ class ContentViewModel: ObservableObject {
 
 
 // To be removed. Only for Indetifiable conformance for List
-struct Place: Identifiable {
-    let id = UUID()
+public struct IdentifiablePlace: Identifiable {
+    public let id = UUID()
     /// The coordinates of the place. (required)
     public let coordinates: Geo.Coordinates
     /// The full name and address of the place.
@@ -60,7 +61,7 @@ struct Place: Identifiable {
     public let postalCode: String?
     /// The country of the place.
     public let country: String?
-
+    
     /// Initializer
     public init(_ place: Geo.Place) {
         self.coordinates = place.coordinates
@@ -73,5 +74,22 @@ struct Place: Identifiable {
         self.subRegion = place.subRegion
         self.postalCode = place.postalCode
         self.country = place.country
+    }
+}
+
+public extension Geo.Place {
+    init(_ place: IdentifiablePlace) {
+        self.init(
+            coordinates: place.coordinates,
+            label: place.label,
+            addressNumber: place.addressNumber,
+            street: place.street,
+            municipality: place.municipality,
+            neighborhood: place.neighborhood,
+            region: place.region,
+            subRegion: place.subRegion,
+            postalCode: place.postalCode,
+            country: place.country
+        )
     }
 }

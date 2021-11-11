@@ -13,11 +13,12 @@ import Mapbox
 import Amplify
 
 struct ContentView: View {
-    
+
     @State private var center: CLLocationCoordinate2D = .init(
         latitude: 37.785834,
         longitude: -122.406417
     )
+    
     @State private var bounds = MGLCoordinateBounds()
     @State private var zoomLevel: Double = 14
     @State private var heading: CLLocationDirection = 0
@@ -26,7 +27,7 @@ struct ContentView: View {
     @State private var searchText = ""
     
     @ObservedObject var viewModel = ContentViewModel()
-    
+        
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
@@ -43,20 +44,7 @@ struct ContentView: View {
                         heading: $heading,
                         annotations: $viewModel.annotations
                     )
-                        .mapViewDidSelectAnnotation({ mapView, annotation in
-                            let camera = MGLMapCamera(
-                                lookingAtCenter: annotation.coordinate,
-                                altitude: 200,
-                                pitch: 15,
-                                heading: 180
-                            )
-                            mapView.fly(
-                                to: camera,
-                                withDuration: 1.5,
-                                peakAltitude: 3000,
-                                completionHandler: nil
-                            )
-                        })
+//                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
                     Text("Error \(error.errorDescription)")
@@ -89,7 +77,6 @@ struct ContentView: View {
                             compassAction: {
                                 print(heading)
                                 heading = 0
-                                
                             }
                         )
                     }
@@ -99,7 +86,8 @@ struct ContentView: View {
                         AMLPlaceCellView(place: .init(place))
                     }
                     .listStyle(InsetGroupedListStyle())
-                    .ignoresSafeArea()
+//                    AMLPlaceList(viewModel.places)
+//                    .ignoresSafeArea()
                 }
                 Spacer()
             }
@@ -115,6 +103,31 @@ struct ContentView: View {
     }
 }
 
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+extension ContentView {
+    private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
+        let camera = MGLMapCamera(
+            lookingAtCenter: annotation.coordinate,
+            altitude: 200,
+            pitch: 15,
+            heading: 180
+        )
+        mapView.fly(
+            to: camera,
+            withDuration: 1.5,
+            peakAltitude: 3000,
+            completionHandler: nil
+        )
+    }
+}
+
+
 extension Geo.Place {
     init(_ place: Place) {
         self.init(
@@ -129,11 +142,5 @@ extension Geo.Place {
             postalCode: place.postalCode,
             country: place.country
         )
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

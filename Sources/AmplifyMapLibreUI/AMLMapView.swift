@@ -62,9 +62,9 @@ public struct AMLMapView: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-        let camera = mapView.camera
-        camera.heading = heading.wrappedValue
-        self.mapView.setCamera(camera, animated: true)
+//        let camera = mapView.camera
+//        camera.heading = heading.wrappedValue
+//        self.mapView.setCamera(camera, animated: true)
         attribution.wrappedValue.map {
             self.mapView.attributionButton.setTitle($0, for: .normal)
         }
@@ -77,13 +77,20 @@ public struct AMLMapView: UIViewRepresentable {
     
     public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<AMLMapView>) {
         updateAnnotations()
-        guard uiView.zoomLevel != zoomLevel else { return }
-        uiView.setZoomLevel(zoomLevel, animated: true)
+        if uiView.zoomLevel != zoomLevel {
+            uiView.setZoomLevel(zoomLevel, animated: true)
+        }
+        if uiView.camera.heading != heading {
+            let camera = uiView.camera
+            camera.heading = heading
+            uiView.setCamera(camera, animated: true)
+        }
     }
     
     private func updateAnnotations() {
         mapView.annotations.flatMap(mapView.removeAnnotations(_:))
         mapView.addAnnotations(annotations)
+//        mapView.showAnnotations(annotations, animated: true)
     }
     
     public func makeCoordinator() -> Coordinator {
