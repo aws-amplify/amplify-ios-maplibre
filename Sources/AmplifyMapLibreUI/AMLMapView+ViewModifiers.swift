@@ -144,8 +144,7 @@ public extension AMLMapView {
             self.shouldCluster = shouldCluster
             self.maximumZoomLevel = maximumZoomLevel
             self.clusterColor = clusterColor
-            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]
-            
+            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]   
         }
         
         public var shouldCluster: Bool

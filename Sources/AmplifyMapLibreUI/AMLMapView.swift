@@ -84,19 +84,11 @@ public struct AMLMapView: UIViewRepresentable {
             uiView.setCamera(camera, animated: true)
         }
         
-        if let clusterSource = mapView.style?.source(withIdentifier: "cluster_source") as? MGLShapeSource {
+        if let clusterSource = mapView.style?.source(withIdentifier: "aml_location_source") as? MGLShapeSource {
             clusterSource.shape = MGLShapeCollectionFeature.init(shapes: annotations)
-            
         }
+    }
         
-    }
-    
-    // TODO: Remove when layer approach is tested
-    private func updateAnnotations() {
-//        mapView.annotations.flatMap(mapView.removeAnnotations(_:))
-//        mapView.addAnnotations(annotations)
-    }
-    
     public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }

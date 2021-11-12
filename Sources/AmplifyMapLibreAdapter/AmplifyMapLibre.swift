@@ -16,8 +16,9 @@ public class AmplifyMapLibre {
     /// - Parameter completionHandler: The completion handler.
     public class func createMap(completionHandler: @escaping Geo.ResultsHandler<MGLMapView>) {
         AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
-
         Amplify.Geo.defaultMap { result in
+            dump(try? result.get())
+
             switch result {
             case .success(let map):
                 completionHandler(.success(MGLMapView(frame: .zero, styleURL: map.styleURL)))

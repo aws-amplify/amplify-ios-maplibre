@@ -19,7 +19,6 @@ extension AMLMapView {
             compatibleWith: nil
         )!
         
-        
         // TODO: Break out implementation into smaller pieces
         var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
 
@@ -66,9 +65,10 @@ extension AMLMapView {
         }
         
         var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
+            print(mapView.zoomLevel)
             mapView.setCenter(
                 cluster.coordinate,
-                zoomLevel: max(15, mapView.zoomLevel),
+                zoomLevel: min(15, mapView.zoomLevel + 2),
                 direction: mapView.camera.heading,
                 animated: true
             )

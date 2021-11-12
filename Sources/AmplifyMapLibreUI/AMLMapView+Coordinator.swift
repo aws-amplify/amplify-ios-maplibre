@@ -41,7 +41,7 @@ extension AMLMapView {
             setupRenderingLayers(for: style)
             setTapRecognizer()
         }
-                
+        
         public func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
             if let calloutViewToRemove = mapView.subviews.first(where:  { $0.tag == 42 }) {
                 mapView.willRemoveSubview(calloutViewToRemove)
@@ -54,58 +54,73 @@ extension AMLMapView {
 // MARK: Private Configuration Methods
 extension AMLMapView.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
-        print("ClusteringBehavior", dump(control.clusteringBehavior))
+        let locationSource = locationSource()
+        style.addSource(locationSource)
+        style.setImage(control.proxyDelegate.annotationImage, forName: "annotation")
         
-        let shapeSource = MGLShapeSource.init(
-            identifier: "cluster_source",
+        let annotationLayer = annotationLayer(for: locationSource)
+        style.addLayer(annotationLayer)
+        
+        let clusterCircleLayer = clusterCircleLayer(for: locationSource)
+        style.addLayer(clusterCircleLayer)
+        
+        let clusterNumberLayer = clusterNumberLayer(for: locationSource)
+        style.addLayer(clusterNumberLayer)
+    }
+    
+    private func locationSource() -> MGLShapeSource {
+        MGLShapeSource.init(
+            identifier: "aml_location_source",
             shape: nil,
             options:
                 [
                     .clustered: control.clusteringBehavior.shouldCluster,
-                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel
+                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel,
+                    .clusterRadius: 75
                 ]
         )
-        
-        let shapeLayer = MGLSymbolStyleLayer(identifier: "standard_style", source: shapeSource)
-        
-        style.setImage(
-            control.proxyDelegate.annotationImage,
-            forName: "annotation"
+    }
+    
+    private func annotationLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
+        let annotationLayer = MGLSymbolStyleLayer(identifier: "aml_annotation_style_layer", source: source)
+        annotationLayer.iconImageName = NSExpression(forConstantValue: "annotation")
+        annotationLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        annotationLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
+        annotationLayer.predicate = NSPredicate(format: "cluster != YES")
+        return annotationLayer
+    }
+    
+    private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
+        let clusterCircleLayer = MGLCircleStyleLayer(identifier: "aml_cluster_circle_layer", source: source)
+        clusterCircleLayer.circleRadius = NSExpression(
+            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'exponential', 10, %@)",
+            [
+                control.clusteringBehavior.maximumZoomLevel + 2: 20,
+                control.clusteringBehavior.maximumZoomLevel + 4: 30,
+                control.clusteringBehavior.maximumZoomLevel + 6: 40,
+                control.clusteringBehavior.maximumZoomLevel + 8: 50,
+                control.clusteringBehavior.maximumZoomLevel + 9: 60
+            ]
         )
-        
-        shapeLayer.iconImageName = NSExpression(forConstantValue: "annotation")
-        shapeLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
-        shapeLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
-        shapeLayer.predicate = NSPredicate(format: "cluster != YES")
-        style.addSource(shapeSource)
-        style.addLayer(shapeLayer)
-        
-        let circlesLayer = MGLCircleStyleLayer(identifier: "circle_layer", source: shapeSource)
-        circlesLayer.circleRadius = NSExpression(
-            forConstantValue: 50
-        )
-        
-        circlesLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white)
-        circlesLayer.circleStrokeWidth = NSExpression(forConstantValue: 4)
-        
-        circlesLayer.circleColor = NSExpression(
+        clusterCircleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white)
+        clusterCircleLayer.circleStrokeWidth = NSExpression(forConstantValue: 4)
+        clusterCircleLayer.circleColor = NSExpression(
             format: "mgl_step:from:stops:(point_count, %@, %@)",
             control.clusteringBehavior.clusterColor,
             control.clusteringBehavior.clusterColorSteps
         )
+        clusterCircleLayer.predicate = NSPredicate(format: "cluster == YES")
         
-        circlesLayer.predicate = NSPredicate(format: "cluster == YES")
-        style.addLayer(circlesLayer)
-
-        let numbersLayer = MGLSymbolStyleLayer(identifier: "cluster_number_layer", source: shapeSource)
-        
-        numbersLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
-        numbersLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
-        numbersLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
-        numbersLayer.textColor = NSExpression(forConstantValue: UIColor.white)
-        numbersLayer.predicate = NSPredicate(format: "cluster == YES")
-        
-//        style.addLayer(numbersLayer)
+        return clusterCircleLayer
+    }
+    
+    private func clusterNumberLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
+        let clusterNumberLayer = MGLSymbolStyleLayer(identifier: "aml_cluster_number_layer", source: source)
+        clusterNumberLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
+        clusterNumberLayer.textColor = NSExpression(forConstantValue: UIColor.white)
+        clusterNumberLayer.textFontNames = NSExpression(forConstantValue: ["Arial Bold"])
+        clusterNumberLayer.predicate = NSPredicate(format: "cluster == YES")
+        return clusterNumberLayer
     }
     
     private func setTapRecognizer() {
@@ -118,7 +133,7 @@ extension AMLMapView.Coordinator {
         
         guard let tappedFeature = control.mapView.visibleFeatures(
             at: location,
-            styleLayerIdentifiers: ["standard_style", "circle_layer"]
+            styleLayerIdentifiers: ["aml_annotation_style_layer", "aml_cluster_circle_layer"]
         ).first
         else { return }
         
@@ -129,7 +144,6 @@ extension AMLMapView.Coordinator {
         }
     }
 }
-
 
 extension View {
     func snapshot() -> UIImage {
