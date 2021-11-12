@@ -16,8 +16,20 @@ class AMLCalloutUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        configureView()
+        configureSubviews()
+        layoutConstraints()
+        setTextValues()
+    }
+    
+    private func configureView() {
         backgroundColor = .white
-        
+        layer.borderWidth = 2.5
+        layer.borderColor = UIColor.black.cgColor
+        layer.cornerRadius = 12.5
+    }
+    
+    private func configureSubviews() {
         [xButton, nameLabel, addressLineOne, addressLineTwo]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +46,7 @@ class AMLCalloutUIView: UIView {
         
         let xMarkImage = UIImage(
             systemName: "xmark",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 19)
         )
         xButton.setImage(
             xMarkImage,
@@ -42,7 +54,9 @@ class AMLCalloutUIView: UIView {
         )
         xButton.tintColor = .secondaryLabel
         xButton.addTarget(self, action: #selector(xButtonTapped), for: .touchUpInside)
-        
+    }
+    
+    private func layoutConstraints() {
         NSLayoutConstraint.activate([
             xButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             xButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
@@ -62,12 +76,6 @@ class AMLCalloutUIView: UIView {
             addressLineTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             addressLineTwo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
-        
-        layer.borderWidth = 2.5
-        layer.borderColor = UIColor.black.cgColor
-        layer.cornerRadius = 12.5
-        
-        setTextValues()
     }
     
     private func setTextValues() {

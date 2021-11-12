@@ -137,7 +137,7 @@ extension AMLMapView {
             let calloutView = AMLCalloutUIView(
                 frame: .init(
                     x: mapView.center.x - width / 2,
-                    y: mapView.center.y - height - 60,
+                    y: mapView.center.y - height - 40,
                     width: width,
                     height: height
                 )
