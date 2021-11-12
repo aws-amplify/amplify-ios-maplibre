@@ -116,8 +116,19 @@ extension AMLMapView.Coordinator {
             control.clusteringBehavior.clusterColor,
             control.clusteringBehavior.clusterColorSteps
         )
+        
         circlesLayer.predicate = NSPredicate(format: "cluster == YES")
         style.addLayer(circlesLayer)
+
+        let numbersLayer = MGLSymbolStyleLayer(identifier: "cluster_number_layer", source: shapeSource)
+        
+        numbersLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
+        numbersLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        numbersLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
+        numbersLayer.textColor = NSExpression(forConstantValue: UIColor.white)
+        numbersLayer.predicate = NSPredicate(format: "cluster == YES")
+        
+//        style.addLayer(numbersLayer)
     }
     
     private func setTapRecognizer() {
@@ -132,17 +143,12 @@ extension AMLMapView.Coordinator {
             at: location,
             styleLayerIdentifiers: ["standard_style", "circle_layer"]
         ).first
-        else {
-            return
-        }
+        else { return }
         
-        if let tappedCluster = tappedFeature as? MGLPointFeatureCluster,
-           let implementation = control.proxyDelegate.clusterTapped {
-            implementation(control.mapView, tappedCluster)
-        } else
-        if let tappedAnnotation = tappedFeature as? MGLPointFeature,
-                  let implementation = control.proxyDelegate.annotationTapped {
-            implementation(control.mapView, tappedAnnotation)
+        if let tappedCluster = tappedFeature as? MGLPointFeatureCluster {
+            control.proxyDelegate.clusterTapped?(control.mapView, tappedCluster)
+        } else if let tappedAnnotation = tappedFeature as? MGLPointFeature {
+            control.proxyDelegate.annotationTapped?(control.mapView, tappedAnnotation)
         }
     }
 }

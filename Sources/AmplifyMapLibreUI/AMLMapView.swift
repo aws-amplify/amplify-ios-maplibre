@@ -86,7 +86,9 @@ public struct AMLMapView: UIViewRepresentable {
         
         if let clusterSource = mapView.style?.source(withIdentifier: "cluster_source") as? MGLShapeSource {
             clusterSource.shape = MGLShapeCollectionFeature.init(shapes: annotations)
+            
         }
+        
     }
     
     // TODO: Remove when layer approach is tested

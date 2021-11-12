@@ -65,6 +65,13 @@ extension AMLMapView {
             addCalloutView(calloutView, to: mapView)
         }
         
-        var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)?
+        var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
+            mapView.setCenter(
+                cluster.coordinate,
+                zoomLevel: max(15, mapView.zoomLevel),
+                direction: mapView.camera.heading,
+                animated: true
+            )
+        }
     }
 }

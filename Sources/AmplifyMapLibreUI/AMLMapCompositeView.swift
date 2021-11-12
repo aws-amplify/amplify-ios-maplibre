@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-
 import SwiftUI
 import CoreLocation
 import Mapbox
@@ -118,7 +117,6 @@ public struct AMLMapCompositeView: View {
     func search() {
         viewModel.search(searchText, area: .near(center))
     }
-    
 }
 
 
