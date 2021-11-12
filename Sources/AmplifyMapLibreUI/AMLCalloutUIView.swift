@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Internal default callout view displayed when a user taps an annotation.
 class AMLCalloutUIView: UIView {
     let xButton = UIButton()
     let nameLabel = UILabel()
@@ -19,9 +20,9 @@ class AMLCalloutUIView: UIView {
         configureView()
         configureSubviews()
         layoutConstraints()
-        setTextValues()
     }
     
+    /// Configures the `AMLCalloutUIView`
     private func configureView() {
         backgroundColor = .white
         layer.borderWidth = 2.5
@@ -29,6 +30,7 @@ class AMLCalloutUIView: UIView {
         layer.cornerRadius = 12.5
     }
     
+    /// Configures the `AMLCalloutUIView`'s subviews.
     private func configureSubviews() {
         [xButton, nameLabel, addressLineOne, addressLineTwo]
             .forEach {
@@ -56,6 +58,7 @@ class AMLCalloutUIView: UIView {
         xButton.addTarget(self, action: #selector(xButtonTapped), for: .touchUpInside)
     }
     
+    /// Layout constraints for `AMLCalloutUIView`'s subviews.
     private func layoutConstraints() {
         NSLayoutConstraint.activate([
             xButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
@@ -78,15 +81,11 @@ class AMLCalloutUIView: UIView {
         ])
     }
     
-    private func setTextValues() {
-        nameLabel.text = "Main Street Coffee and Bagel"
-        addressLineOne.text = "Address 1"
-        addressLineTwo.text = "Address 2"
-    }
-    
+    /// Called by `xButton`'s gesture recognizer to remove the callout view.
     @objc func xButtonTapped() {
         self.removeFromSuperview()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
 }

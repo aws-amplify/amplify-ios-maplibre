@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+/// A SwiftUI Wrapper around `UIActivityIndicatorView`.
 public struct AMLActivityIndicator: UIViewRepresentable {
+    
+    /// Binding that determines whether the acitivty indicator is animating.
     @Binding var isAnimating: Bool
     
+    /// A SwiftUI Wrapper around `UIActivityIndicatorView`
+    /// - Parameter isAnimating: Binding that determines whether the acitivty indicator is animating.
     public init(isAnimating: Binding<Bool> = .constant(true)) {
         _isAnimating = isAnimating
     }
@@ -30,8 +35,9 @@ public struct AMLActivityIndicator: UIViewRepresentable {
     }
 }
 
-struct AMLActivityIndicator_Preview: PreviewProvider {
-    static var previews: some View {
+/// SwiftUI preview for `AMLActivityIndicator`
+public struct AMLActivityIndicator_Preview: PreviewProvider {
+    public static var previews: some View {
         AMLActivityIndicator(isAnimating: .constant(true))
             .frame(width: 100, height: 100)
             .foregroundColor(.orange)

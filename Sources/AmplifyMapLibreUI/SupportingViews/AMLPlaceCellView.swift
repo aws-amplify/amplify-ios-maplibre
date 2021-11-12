@@ -8,10 +8,14 @@
 import SwiftUI
 import Amplify
 
+/// View to display information from a `Geo.Place`. For use in a `List` or `ForEach`
 public struct AMLPlaceCellView: View {
     
+    /// Model of the place with location information.
     let place: Geo.Place
     
+    /// View to display information from a `Geo.Place`. For use in a `List` or `ForEach`
+    /// - Parameter place: Model of the place with location information.
     public init(place: Geo.Place) {
         self.place = place
     }
@@ -31,10 +35,28 @@ public struct AMLPlaceCellView: View {
         }.padding()
     }
     
+    /// Given a `Geo.Place` this formats an address 1 line.
+    ///
+    /// Format:
+    /// `place.addressNumber` `place.street`
+    /// Example:
+    ///  410 Terry Ave N
+    ///
+    /// - Parameter place: The `Geo.Place` to be formatted.
+    /// - Returns: A formatted address line.
+    /// - Important: `nil` values will default to empty `String`s
     private func addressLine(for place: Geo.Place) -> String {
         "\(place.addressNumber ?? "") \(place.street ?? "")"
     }
     
+    /// Given a `Geo.Place` this formats a `<municipality>, <region> <postalCode>` line.
+    ///
+    /// Example:
+    ///  Seattle, Washington 98109
+    ///
+    /// - Parameter place: The `Geo.Place` to be formatted.
+    /// - Returns: A formatted address line.
+    /// - Important: `nil` values will default to empty `String`s
     private func cityLine(for place: Geo.Place) -> String {
         "\(place.municipality ?? ""), \(place.region ?? "") \(place.postalCode ?? "")"
     }

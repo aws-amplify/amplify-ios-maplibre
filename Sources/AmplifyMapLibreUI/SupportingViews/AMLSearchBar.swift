@@ -7,13 +7,30 @@
 
 import SwiftUI
 
+/// A Search Bar used to take location user search input.
 public struct AMLSearchBar: View {
+    
+    /// Is the search bar currently being edited.
     @State var isEditing = false
+    
+    /// The text currently displayed in the search bar.
     @Binding var text: String
+    
+    /// Action called on user tapping search.
     let onCommit: () -> Void
+    
+    /// Action called on user tapping `x` button.
     let onCancel: () -> Void
+    
+    /// Displaying a map or list.
     @Binding var displayState: DisplayState
     
+    /// A Search Bar used to take location user search input.
+    /// - Parameters:
+    ///   - text: Is the search bar currently being edited.
+    ///   - displayState: The text currently displayed in the search bar.
+    ///   - onCommit: Action called on user tapping search.
+    ///   - onCancel: Displaying a map or list.
     public init(
         text: Binding<String>,
         displayState: Binding<DisplayState>,
@@ -49,6 +66,27 @@ public struct AMLSearchBar: View {
     }
 }
 
+public extension AMLSearchBar {
+    /// Displaying a map or list.
+    struct DisplayState: Equatable {
+        /// The name of  the system image displayed in the `AMLSearchBar` button.
+        let imageName: String
+        
+        /// Displaying a map.
+        public static let map = DisplayState(imageName: "list.bullet")
+        
+        /// Displaying a list.
+        public static let list = DisplayState(imageName: "map")
+        
+        /// Toggle state.
+        mutating func toggle() {
+            if self == .list { self = .map }
+            else { self = .list }
+        }
+    }
+}
+
+// MARK: Internal / Fileprivate Helper Views and Extensions
 fileprivate extension View {
     func searchBarIconOverlay(
         isEditing: Binding<Bool>,
@@ -131,16 +169,4 @@ extension View {
     }
 }
 
-public extension AMLSearchBar {
-    struct DisplayState: Equatable {
-        let imageName: String
-        
-        public static let map = DisplayState(imageName: "list.bullet")
-        public static let list = DisplayState(imageName: "map")
-        
-        mutating func toggle() {
-            if self == .list { self = .map }
-            else { self = .list }
-        }
-    }
-}
+

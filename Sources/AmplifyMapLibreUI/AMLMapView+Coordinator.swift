@@ -41,35 +41,12 @@ extension AMLMapView {
             setupRenderingLayers(for: style)
             setTapRecognizer()
         }
-        
-        public func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-            
-            guard let didSelect = control.proxyDelegate.mapViewDidSelectAnnotation else {
-                // Depending on the method - some reasonable default implementation, or no action.
-                return
-            }
-            
-            didSelect(mapView, annotation)
-        }
-        
+                
         public func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
             if let calloutViewToRemove = mapView.subviews.first(where:  { $0.tag == 42 }) {
                 mapView.willRemoveSubview(calloutViewToRemove)
                 calloutViewToRemove.removeFromSuperview()
             }
-        }
-        
-        public func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-            guard let implementation = control.proxyDelegate.mapViewAnnotationCanShowCallout else {
-                return false
-            }
-            
-            return implementation(mapView, annotation)
-        }
-        
-        public func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
-            
-            return CustomCalloutView(representedObject: annotation)
         }
     }
 }

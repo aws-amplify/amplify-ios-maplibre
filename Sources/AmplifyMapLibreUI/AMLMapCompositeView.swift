@@ -11,17 +11,39 @@ import Mapbox
 import Amplify
 import AmplifyMapLibreAdapter
 
+/// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
     
+    /// The wrapped `MGLMapView`
     let mapView: MGLMapView
     
+    /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
+    
+    /// The coordinate bounds of the currently displayed area of the map.
     @Binding var bounds: MGLCoordinateBounds
+    
+    /// Current zoom level of the map.
     @Binding var zoomLevel: Double
+    
+    /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
+    
+    /// The display state of the composite view. Either `map` or `list`
     @Binding var displayState: AMLSearchBar.DisplayState
+    
+    /// The search text in the included `AMLSearchBar`
     @Binding var searchText: String
     
+    /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
+    /// - Parameters:
+    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - bounds: The coordinate bounds of the currently displayed area of the map.
+    ///   - zoomLevel: Current zoom level of the map.
+    ///   - heading: The current heading of the map in degrees.
+    ///   - displayState: The display state of the composite view. Either `map` or `list`.
+    ///   - searchText: The search text in the included `AMLSearchBar`.
+    ///   - mapView: The wrapped `MGLMapView`
     public init(
         center: Binding<CLLocationCoordinate2D>,
         bounds: Binding<MGLCoordinateBounds>,
@@ -120,6 +142,7 @@ public struct AMLMapCompositeView: View {
 }
 
 
+/// An internal duplicate of `Geo.Place` that conforms to `Identifiable` for use in SwiftUI views.
 struct _Place: Identifiable {
     let id = UUID()
     /// The coordinates of the place. (required)
