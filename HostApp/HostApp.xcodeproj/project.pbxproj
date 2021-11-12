@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90225B4A273EA85A00680BA2 /* CompositeParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90225B49273EA85A00680BA2 /* CompositeParentView.swift */; };
 		90608223272886D600662A60 /* HostAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90608222272886D600662A60 /* HostAppApp.swift */; };
 		90608225272886D600662A60 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90608224272886D600662A60 /* ContentView.swift */; };
 		90608227272886D900662A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90608226272886D900662A60 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		901F5FBF273AE09900352A1B /* amplify-ios-maplibre */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "amplify-ios-maplibre"; path = ..; sourceTree = "<group>"; };
+		90225B49273EA85A00680BA2 /* CompositeParentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeParentView.swift; sourceTree = "<group>"; };
 		9060821F272886D600662A60 /* HostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90608222272886D600662A60 /* HostAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAppApp.swift; sourceTree = "<group>"; };
 		90608224272886D600662A60 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				90E2333E273B08C2001B8168 /* ContentViewModel.swift */,
 				90608226272886D900662A60 /* Assets.xcassets */,
 				90608228272886D900662A60 /* Preview Content */,
+				90225B49273EA85A00680BA2 /* CompositeParentView.swift */,
 			);
 			path = HostApp;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90225B4A273EA85A00680BA2 /* CompositeParentView.swift in Sources */,
 				90608225272886D600662A60 /* ContentView.swift in Sources */,
 				90608223272886D600662A60 /* HostAppApp.swift in Sources */,
 				90E2333F273B08C2001B8168 /* ContentViewModel.swift in Sources */,

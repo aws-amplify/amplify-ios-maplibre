@@ -16,7 +16,8 @@ struct HostAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CompositeParentView()
+//            ContentView()
         }
     }
     

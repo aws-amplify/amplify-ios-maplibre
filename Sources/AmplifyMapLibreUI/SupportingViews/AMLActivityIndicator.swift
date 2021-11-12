@@ -10,6 +10,10 @@ import SwiftUI
 public struct AMLActivityIndicator: UIViewRepresentable {
     @Binding var isAnimating: Bool
     
+    public init(isAnimating: Binding<Bool> = .constant(true)) {
+        _isAnimating = isAnimating
+    }
+    
     public func makeUIView(context: Context) -> UIActivityIndicatorView {
         UIActivityIndicatorView()
     }
