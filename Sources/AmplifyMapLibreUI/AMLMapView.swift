@@ -49,7 +49,7 @@ public struct AMLMapView: UIViewRepresentable {
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
         heading: Binding<CLLocationDirection> = .constant(0),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
-        annotations: Binding<[MGLPointAnnotation]>,
+        annotations: Binding<[MGLPointAnnotation]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
         clusteringBehavior: ClusteringBehavior = .init()
     ) {
