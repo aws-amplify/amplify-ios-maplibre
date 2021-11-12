@@ -66,21 +66,22 @@ public struct AMLMapCompositeView: View {
     
     public var body: some View {
         ZStack(alignment: .top) {
-            backgroundColor()
-            AMLMapView(
-                mapView: mapView,
-                zoomLevel: $zoomLevel,
-                bounds: $bounds,
-                center: $center,
-                heading: $heading,
-                annotations: $viewModel.annotations
-            )
-                .mapViewAnnotationCanShowCallout { _, _ in
-                    true
-                }
+            Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
+            if displayState == .map {
+                AMLMapView(
+                    mapView: mapView,
+                    zoomLevel: $zoomLevel,
+                    bounds: $bounds,
+                    center: $center,
+                    heading: $heading,
+                    annotations: $viewModel.annotations
+                )
+                    .edgesIgnoringSafeArea(.all)
+            }
             
             VStack(alignment: .center) {
+                
                 AMLSearchBar(
                     text: $searchText,
                     displayState: $displayState,
@@ -101,36 +102,36 @@ public struct AMLMapCompositeView: View {
                     }
                     .padding(.trailing)
                 } else {
-                    AnyView(list())
+                    AMLPlaceList(viewModel.places)
                 }
                 Spacer()
             }
         }
     }
     
-    @ViewBuilder func backgroundColor() -> some View {
-        if #available(iOS 14, *) {
-            Color(.secondarySystemBackground)
-                .ignoresSafeArea()
-        } else {
-            Color(.secondarySystemBackground)
-                .edgesIgnoringSafeArea([.top, .bottom])
-        }
-    }
+//    @ViewBuilder func backgroundColor() -> some View {
+//        if #available(iOS 14, *) {
+//            Color(.secondarySystemBackground)
+//                .ignoresSafeArea()
+//        } else {
+//            Color(.secondarySystemBackground)
+//                .edgesIgnoringSafeArea([.top, .bottom])
+//        }
+//    }
     
-    @ViewBuilder private func list() -> some View {
-        if #available(iOS 14.0, *) {
-            List(viewModel.places.map(_Place.init)) { place in
-                AMLPlaceCellView(place: .init(place))
-            }
-            .listStyle(InsetGroupedListStyle())
-        } else {
-            List(viewModel.places.map(_Place.init)) { place in
-                AMLPlaceCellView(place: .init(place))
-            }
-            .listStyle(GroupedListStyle())
-        }
-    }
+//    @ViewBuilder private func list() -> some View {
+//        if #available(iOS 14.0, *) {
+//            List(viewModel.places.map(_Place.init)) { place in
+//                AMLPlaceCellView(place: .init(place))
+//            }
+//            .listStyle(InsetGroupedListStyle())
+//        } else {
+//            List(viewModel.places.map(_Place.init)) { place in
+//                AMLPlaceCellView(place: .init(place))
+//            }
+//            .listStyle(GroupedListStyle())
+//        }
+//    }
     
     func cancelSearch() {
         viewModel.annotations = []

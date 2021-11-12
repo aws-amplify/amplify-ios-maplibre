@@ -23,7 +23,7 @@ public struct AMLPlaceCellView: View {
     public var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(place.label ?? "")
+                Text(place.labelLine ?? "")
                     .font(.headline.weight(.semibold))
                 Spacer()
                 Text(place.neighborhood?.uppercased() ?? "")
