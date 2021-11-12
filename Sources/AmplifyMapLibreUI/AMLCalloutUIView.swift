@@ -63,9 +63,9 @@ class AMLCalloutUIView: UIView {
             xButton.widthAnchor.constraint(equalToConstant: 25),
             xButton.heightAnchor.constraint(equalToConstant: 25),
             
-            nameLabel.topAnchor.constraint(equalTo: xButton.bottomAnchor, constant: 8),
+            nameLabel.topAnchor.constraint(equalTo: xButton.bottomAnchor, constant: 0),
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            nameLabel.trailingAnchor.constraint(equalTo: xButton.leadingAnchor, constant: -12),
             
             addressLineOne.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             addressLineOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

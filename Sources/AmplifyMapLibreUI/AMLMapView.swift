@@ -25,7 +25,7 @@ public struct AMLMapView: UIViewRepresentable {
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
     /// Annotations that are displayed on the map.
-    @Binding var annotations: [MGLPointAnnotation]
+    @Binding var annotations: [MGLPointFeature]
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
     
@@ -49,7 +49,7 @@ public struct AMLMapView: UIViewRepresentable {
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
         heading: Binding<CLLocationDirection> = .constant(0),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
-        annotations: Binding<[MGLPointAnnotation]> = .constant([]),
+        annotations: Binding<[MGLPointFeature]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
         clusteringBehavior: ClusteringBehavior = .init()
     ) {
@@ -85,21 +85,14 @@ public struct AMLMapView: UIViewRepresentable {
         }
         
         if let clusterSource = mapView.style?.source(withIdentifier: "cluster_source") as? MGLShapeSource {
-            let features = annotations.map { annotation -> MGLPointFeature in
-                let feature = MGLPointFeature()
-                feature.coordinate = annotation.coordinate
-                
-                feature.attributes["title"] = annotation.title
-                return feature
-            }
-            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
+            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: annotations)
         }
     }
     
     // TODO: Remove when layer approach is tested
     private func updateAnnotations() {
-        mapView.annotations.flatMap(mapView.removeAnnotations(_:))
-        mapView.addAnnotations(annotations)
+//        mapView.annotations.flatMap(mapView.removeAnnotations(_:))
+//        mapView.addAnnotations(annotations)
     }
     
     public func makeCoordinator() -> Coordinator {
@@ -141,8 +134,14 @@ extension AMLMapView {
                     width: width,
                     height: height
                 )
-            )
-            calloutView.nameLabel.text = pointFeature.attributes["title"] as? String
+            )           
+            
+            
+            calloutView.nameLabel.text =  pointFeature.attributes["label"] as? String
+            calloutView.addressLineOne.text = pointFeature.attributes["addressLineOne"] as? String
+            calloutView.addressLineTwo.text = pointFeature.attributes["addressLineTwo"] as? String
+            
+//            calloutView.nameLabel.text = pointFeature.attributes["title"] as? String
             
             func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
                 if let existingCalloutView = mapView.subviews
@@ -162,5 +161,3 @@ extension AMLMapView {
         var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)?
     }
 }
-
-

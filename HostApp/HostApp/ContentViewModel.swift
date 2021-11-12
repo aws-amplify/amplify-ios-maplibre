@@ -14,7 +14,7 @@ import AmplifyMapLibreUI
 class ContentViewModel: ObservableObject {
 
     @Published var places: [Place] = []
-    @Published var annotations: [MGLPointAnnotation] = []
+    @Published var annotations: [MGLPointFeature] = []
 
     func search(
         _ text: String,
@@ -25,7 +25,18 @@ class ContentViewModel: ObservableObject {
             case.success(let places):
                 DispatchQueue.main.async {
                     self?.places = places.map(Place.init)
-                    self?.annotations = AmplifyMapLibre.createAnnotations(places)
+                    
+                    self?.annotations = places.map { place -> MGLPointFeature in
+                        let feature = MGLPointFeature()
+                        feature.coordinate = CLLocationCoordinate2D(place.coordinates)
+                        // We should not have to do this prefix check. It's error prone and will lead to issues.
+                        // Ideally, we'd get just the name returned in a field.
+                        feature.attributes["label"] = place.label?.prefix(while: { $0 != "," })
+                        
+                        feature.attributes["addressLineOne"] = place.streetLabelLine
+                        feature.attributes["addressLineTwo"] = place.cityLabelLine
+                        return feature
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -34,6 +45,15 @@ class ContentViewModel: ObservableObject {
     }
 }
 
+extension Geo.Place {
+    var streetLabelLine: String {
+        "\(addressNumber ?? "") \(street ?? "")"
+    }
+    
+    var cityLabelLine: String {
+        "\(municipality ?? ""), \(region ?? "") \(postalCode ?? "")"
+    }
+}
 
 // To be removed. Only for Indetifiable conformance for List
 struct Place: Identifiable {
