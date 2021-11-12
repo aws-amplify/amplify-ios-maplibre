@@ -87,6 +87,7 @@ public struct AMLMapView: UIViewRepresentable {
             let features = annotations.map { annotation -> MGLPointFeature in
                 let feature = MGLPointFeature()
                 feature.coordinate = annotation.coordinate
+                
                 feature.attributes["title"] = annotation.title
                 return feature
             }
@@ -122,23 +123,117 @@ extension AMLMapView {
             mapView.setCenter(
                 pointFeature.coordinate,
                 zoomLevel: max(15, mapView.zoomLevel),
-                direction: mapView.camera.pitch,
+                direction: mapView.camera.heading,
                 animated: true
             )
+            
+            let point = mapView.convert(pointFeature.coordinate, toPointTo: mapView)
+            
+            let width = min(UIScreen.main.bounds.width * 0.8, 400)
+            let height = width * 0.4
+            
+            
+            let calloutView = AMLCalloutUIView(
+                frame: .init(
+                    x: mapView.center.x - width / 2,
+                    y: mapView.center.y - height - 60,
+                    width: width,
+                    height: height
+                )
+            )
+            calloutView.nameLabel.text = pointFeature.attributes["title"] as? String
+            
+            func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
+                if let existingCalloutView = mapView.subviews
+                    .first(where:  { $0.tag == 42 })
+                {
+                    mapView.willRemoveSubview(existingCalloutView)
+                    existingCalloutView.removeFromSuperview()
+                }
+                
+                calloutView.tag = 42
+                mapView.addSubview(calloutView)
+            }
+            
+            addCalloutView(calloutView, to: mapView)
         }
         
         var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)?
     }
 }
 
-public struct AMLAnnotationView: View {
-    public var body: some View {
-        Image("AMLMapView")
+class AMLCalloutUIView: UIView {
+    let xButton = UIButton()
+    let nameLabel = UILabel()
+    let addressLineOne = UILabel()
+    let addressLineTwo = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+//        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
+        
+        [xButton, nameLabel, addressLineOne, addressLineTwo]
+            .forEach {
+                $0.translatesAutoresizingMaskIntoConstraints = false
+                addSubview($0)
+            }
+        
+        nameLabel.numberOfLines = 0
+        nameLabel.lineBreakMode = .byWordWrapping
+        nameLabel.font = .systemFont(ofSize: 20, weight: .medium)
+        nameLabel.textColor = .black
+        [addressLineOne, addressLineTwo].forEach {
+            $0.textColor = .secondaryLabel
+        }
+        
+        let xMarkImage = UIImage(
+            systemName: "xmark",
+            withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)
+        )
+        xButton.setImage(
+            xMarkImage,
+            for: .normal
+        )
+        xButton.tintColor = .secondaryLabel
+        xButton.addTarget(self, action: #selector(xButtonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            xButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            xButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            xButton.widthAnchor.constraint(equalToConstant: 25),
+            xButton.heightAnchor.constraint(equalToConstant: 25),
+            
+            nameLabel.topAnchor.constraint(equalTo: xButton.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            addressLineOne.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            addressLineOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            addressLineOne.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            addressLineTwo.topAnchor.constraint(equalTo: addressLineOne.bottomAnchor, constant: 8),
+            addressLineTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            addressLineTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            addressLineTwo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+        ])
+        
+        layer.borderWidth = 2.5
+        layer.borderColor = UIColor.black.cgColor
+        layer.cornerRadius = 12.5
+        
+        setTextValues()
     }
-}
-
-struct AMLAnnotationViewPreview: PreviewProvider {
-    static var previews: some View {
-        AMLAnnotationView()
+    
+    private func setTextValues() {
+        nameLabel.text = "Main Street Coffee and Bagel"
+        addressLineOne.text = "Address 1"
+        addressLineTwo.text = "Address 2"
     }
+    
+    @objc func xButtonTapped() {
+        self.removeFromSuperview()
+    }
+    
+    required init?(coder: NSCoder) { nil }
 }

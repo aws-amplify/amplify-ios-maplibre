@@ -52,6 +52,13 @@ extension AMLMapView {
             didSelect(mapView, annotation)
         }
         
+        public func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+            if let calloutViewToRemove = mapView.subviews.first(where:  { $0.tag == 42 }) {
+                mapView.willRemoveSubview(calloutViewToRemove)
+                calloutViewToRemove.removeFromSuperview()
+            }
+        }
+        
         public func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
             guard let implementation = control.proxyDelegate.mapViewAnnotationCanShowCallout else {
                 return false
