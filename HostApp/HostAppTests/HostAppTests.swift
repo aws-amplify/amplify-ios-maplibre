@@ -1,8 +1,8 @@
 //
-//  HostAppTests.swift
-//  HostAppTests
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 10/26/21.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import XCTest

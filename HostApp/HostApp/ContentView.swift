@@ -47,7 +47,6 @@ struct ContentView: View {
                         .mapViewAnnotationCanShowCallout { _, _ in
                             true
                         }
-//                        .mapViewDidSelectAnnotation(didSelectAnnotation(_:_:))
                         
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
@@ -78,10 +77,7 @@ struct ContentView: View {
                             zoomValue: zoomLevel,
                             zoomInAction: { zoomLevel += 1 },
                             zoomOutAction: { zoomLevel -= 1 },
-                            compassAction: {
-                                print(heading)
-                                heading = 0
-                            }
+                            compassAction: { heading = 0 }
                         )
                     }
                     .padding(.trailing)
