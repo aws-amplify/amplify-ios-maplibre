@@ -26,7 +26,7 @@ class AMLCalloutUIView: UIView {
     private func configureView() {
         backgroundColor = .white
         layer.borderWidth = 2.5
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor.secondaryLabel.cgColor
         layer.cornerRadius = 12.5
     }
     

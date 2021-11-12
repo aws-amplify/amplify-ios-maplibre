@@ -44,7 +44,6 @@ extension AMLMapView {
                 )
             )
             
-            
             calloutView.nameLabel.text =  pointFeature.attributes["label"] as? String
             calloutView.addressLineOne.text = pointFeature.attributes["addressLineOne"] as? String
             calloutView.addressLineTwo.text = pointFeature.attributes["addressLineTwo"] as? String
