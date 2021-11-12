@@ -138,15 +138,19 @@ public extension AMLMapView {
         public init(
             shouldCluster: Bool = true,
             maximumZoomLevel: Int = 13,
-            clusterColor: UIColor = AMLMapView.blue
+            clusterColor: UIColor = AMLMapView.blue,
+            clusterColorSteps: [Int: UIColor] = [:]
         ) {
             self.shouldCluster = shouldCluster
             self.maximumZoomLevel = maximumZoomLevel
             self.clusterColor = clusterColor
+            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]
+            
         }
         
-        public var shouldCluster: Bool = true
-        public var maximumZoomLevel: Int = 13
-        public var clusterColor: UIColor = AMLMapView.blue
+        public var shouldCluster: Bool
+        public var maximumZoomLevel: Int
+        public var clusterColor: UIColor
+        public var clusterColorSteps: [Int: UIColor]
     }
 }

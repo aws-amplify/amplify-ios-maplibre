@@ -118,17 +118,12 @@ extension AMLMapView {
         )!
         
         var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
-            let camera = MGLMapCamera(
-                lookingAtCenter: pointFeature.coordinate,
-                altitude: mapView.camera.altitude,
-                pitch: mapView.camera.pitch,
-                heading: mapView.camera.heading
-            )
-            mapView.fly(
-                to: camera,
-                withDuration: 0.5,
-                peakAltitude: 3000,
-                completionHandler: { }
+
+            mapView.setCenter(
+                pointFeature.coordinate,
+                zoomLevel: max(15, mapView.zoomLevel),
+                direction: mapView.camera.pitch,
+                animated: true
             )
         }
         

@@ -70,13 +70,15 @@ extension AMLMapView {
 // MARK: Private Configuration Methods
 extension AMLMapView.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
+        print("ClusteringBehavior", dump(control.clusteringBehavior))
+        
         let shapeSource = MGLShapeSource.init(
             identifier: "cluster_source",
             shape: nil,
             options:
                 [
                     .clustered: control.clusteringBehavior.shouldCluster,
-                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel,
+                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel
                 ]
         )
         
@@ -88,6 +90,8 @@ extension AMLMapView.Coordinator {
         )
         
         shapeLayer.iconImageName = NSExpression(forConstantValue: "annotation")
+        shapeLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        shapeLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
         shapeLayer.predicate = NSPredicate(format: "cluster != YES")
         style.addSource(shapeSource)
         style.addLayer(shapeLayer)
@@ -103,9 +107,7 @@ extension AMLMapView.Coordinator {
         circlesLayer.circleColor = NSExpression(
             format: "mgl_step:from:stops:(point_count, %@, %@)",
             control.clusteringBehavior.clusterColor,
-            [
-                50: control.clusteringBehavior.clusterColor
-            ]
+            control.clusteringBehavior.clusterColorSteps
         )
         circlesLayer.predicate = NSPredicate(format: "cluster == YES")
         style.addLayer(circlesLayer)
