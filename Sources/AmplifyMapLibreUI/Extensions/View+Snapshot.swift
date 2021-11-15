@@ -9,6 +9,9 @@ import SwiftUI
 import UIKit
 
 extension View {
+    /// Convert a `SwiftUI View` into a `UIImage`.
+    /// - Important: This may incur hidden costs. Use with caution.
+    /// - Returns: A `UIImage` of the `SwiftUI View`.
     func snapshot() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view

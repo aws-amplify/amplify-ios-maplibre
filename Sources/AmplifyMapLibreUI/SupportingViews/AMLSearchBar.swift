@@ -34,6 +34,7 @@ public struct AMLSearchBar: View {
     ///   - displayState: The text currently displayed in the search bar.
     ///   - onCommit: Action called on user tapping search.
     ///   - onCancel: Displaying a map or list.
+    ///   - showDisplayStateButton: Whether a display state button should be displayed. Default is true.
     public init(
         text: Binding<String>,
         displayState: Binding<DisplayState>,

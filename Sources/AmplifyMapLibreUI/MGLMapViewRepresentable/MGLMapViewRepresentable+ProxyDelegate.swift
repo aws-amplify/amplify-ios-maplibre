@@ -9,8 +9,11 @@ import SwiftUI
 import Mapbox
 import UIKit
 
-extension AMLMapView {
+public extension MGLMapViewRepresentable {
     class ProxyDelegate {
+        
+        public init() { }
+        
         var annotationImage: UIImage = UIImage.init(
             named: "AMLAnnotationView",
             in: Bundle.module,

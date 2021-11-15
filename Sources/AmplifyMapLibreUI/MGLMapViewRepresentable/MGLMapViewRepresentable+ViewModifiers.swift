@@ -10,14 +10,14 @@ import CoreLocation
 import Mapbox
 import SwiftUI
 
-extension AMLMapView {
+extension MGLMapViewRepresentable {
     /// View modifier to enable showing the user's location on the map.
     ///
     /// To access the user's locaiton, location access must be enabled in the app, and
     /// the user must choose to allow access.
     /// - Parameter showLocation: Enables showing the user's location on the map.
     /// - Returns: An instance of `AMLMapView`.
-    public func showUserLocation(_ showLocation: Bool) -> AMLMapView {
+    public func showUserLocation(_ showLocation: Bool) -> MGLMapViewRepresentable {
         mapView.showsUserLocation = showLocation
         return self
     }
@@ -38,7 +38,7 @@ extension AMLMapView {
     /// The minimum allowable zoom level is 0 and the maximum allowable zoom level is 22.
     /// Any value set below 0 or above 22 will revert to 0 or 22 accordingly.
     /// - Returns: An instance of `AMLMapView`.
-    public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> AMLMapView {
+    public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> MGLMapViewRepresentable {
         mapView.minimumZoomLevel = max(zoomLevels.lowerBound, 0)
         mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
         return self
@@ -58,7 +58,7 @@ extension AMLMapView {
     /// - Important:
     /// The maximum zoom level is 22. Any value set above 22 will revert to 22.
     /// - Returns: An instance of `AMLMapView`.
-    public func maxZoomLevel(_ maxZoomLevel: Double) -> AMLMapView {
+    public func maxZoomLevel(_ maxZoomLevel: Double) -> MGLMapViewRepresentable {
         mapView.maximumZoomLevel = min(maxZoomLevel, 22)
         return self
     }
@@ -77,7 +77,7 @@ extension AMLMapView {
     /// - Important:
     ///  The minimum allowable zoom level is 0. Any value set below 0 revert to 0.
     /// - Returns: An instance of `AMLMapView`.
-    public func minZoomLevel(_ minZoomLevel: Double) -> AMLMapView {
+    public func minZoomLevel(_ minZoomLevel: Double) -> MGLMapViewRepresentable {
         mapView.minimumZoomLevel = max(minZoomLevel, 0)
         return self
     }
@@ -85,7 +85,7 @@ extension AMLMapView {
     /// Set map's attribution button to hidden or showing.
     /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of `AMLMapView`.
-    public func hideAttributionButton(_ hide: Bool) -> AMLMapView {
+    public func hideAttributionButton(_ hide: Bool) -> MGLMapViewRepresentable {
         mapView.attributionButton.isHidden = hide
         return self
     }
@@ -96,7 +96,7 @@ extension AMLMapView {
     ///   There may be hidden cost to using this. If you experience performance and / or rendering issues, please use the `featureImage(_:)` view modifier instead.
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
-    public func featureView<T: View>(_ view: T) -> AMLMapView {
+    public func featureView<T: View>(_ view: T) -> MGLMapViewRepresentable {
         proxyDelegate.annotationImage = view.snapshot()
         return self
     }
@@ -104,7 +104,7 @@ extension AMLMapView {
     /// Provide an UIImage that represents a point on a map.
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
-    public func featureImage(_ image: UIImage) -> AMLMapView {
+    public func featureImage(_ image: UIImage) -> MGLMapViewRepresentable {
         proxyDelegate.annotationImage = image
         return self
     }
@@ -122,7 +122,7 @@ extension AMLMapView {
             _ mapView: MGLMapView,
             _ pointFeature: MGLPointFeature
         ) -> Void
-    ) -> AMLMapView {
+    ) -> MGLMapViewRepresentable {
         proxyDelegate.annotationTapped = implementation
         return self
     }
@@ -140,7 +140,7 @@ extension AMLMapView {
             _ mapView: MGLMapView,
             _ pointFeatureCluster: MGLPointFeatureCluster
         ) -> Void
-    ) -> AMLMapView {
+    ) -> MGLMapViewRepresentable {
         proxyDelegate.clusterTapped = implementation
         return self
     }
@@ -148,7 +148,7 @@ extension AMLMapView {
     /// Set the position of the compass on the `MGLMapView`.
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `AMLMapView`.
-    public func compassPosition(_ position: MGLOrnamentPosition) -> AMLMapView {
+    public func compassPosition(_ position: MGLOrnamentPosition) -> MGLMapViewRepresentable {
         mapView.compassViewPosition = position
         return self
     }

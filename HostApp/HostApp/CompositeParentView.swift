@@ -28,7 +28,6 @@ struct CompositeParentView: View {
     
     var body: some View {
         AMLMapCompositeView(
-            createMap: AmplifyMapLibre.createMap,
             zoomLevel: $zoomLevel,
             bounds: $bounds,
             center: $center,
@@ -36,5 +35,19 @@ struct CompositeParentView: View {
             displayState: $displayState,
             searchText: $searchText
         )
+            .showUserLocation(true)
+            .featureClusterTapped { mapView, pointFeatureCluster in
+                print("FEATURE CLUSTER TAPPED")
+                dump(pointFeatureCluster)
+            }
     }
+}
+
+
+func myVeryOwnCreateMap(_ completion: @escaping (Result<MGLMapView, Geo.Error>) -> Void) {
+    // do something
+    
+    // go get mapStyle
+    // doSomething to map style
+//    completion(...)
 }

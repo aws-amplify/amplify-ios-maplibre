@@ -31,4 +31,20 @@ class AMLMapCompositeViewModel: ObservableObject {
     }
 }
 
+extension AMLMapCompositeView {
+    class ViewModifierPassthroughProxy: ObservableObject {
+        @Published var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void) = { mapView, cluster in
+            mapView.setCenter(
+                cluster.coordinate,
+                zoomLevel: min(15, mapView.zoomLevel + 2),
+                direction: mapView.camera.heading,
+                animated: true
+            )
+        }
+        @Published var showUserLocation = false
+        @Published var allowedZoomLevels = (min: 0, max: 22)
+        @Published var hideAttributionButton = false
+        
+    }
+}
 

@@ -50,7 +50,6 @@ public struct AMLMapCompositeView: View {
 
     /// The implementation used to create an `MGLMapView`.
     var createMap: CreateMap?
-    
             
     /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
     ///
@@ -85,7 +84,6 @@ public struct AMLMapCompositeView: View {
         _userLocation = userLocation
         _features = features
         _attribution = attribution
-        
         _displayState = displayState
         _searchText = searchText
         self.clusteringBehavior = clusteringBehavior
@@ -97,6 +95,7 @@ public struct AMLMapCompositeView: View {
     /// - Parameters:
     ///   - createMap: The implementation used to create an `MGLMapView`.
     ///     Default value is `AmplifyMapLibe.createMap`.
+    ///   - onMapError: This will be called when the `createMap` call returns a `Geo.Error`.
     ///   - zoomLevel: Current zoom level of the map. Default 14
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
@@ -129,6 +128,13 @@ public struct AMLMapCompositeView: View {
         _searchText = searchText
         self.clusteringBehavior = clusteringBehavior
         self.createMap = createMap
+    }
+    
+    var amlMapView: AMLMapView?
+        
+    public func showUserLocation(_ showLocation: Bool) -> AMLMapCompositeView {
+        _ = amlMapView?.showUserLocation(showLocation)
+        return self
     }
     
     @ObservedObject var viewModel = AMLMapCompositeViewModel()
@@ -175,9 +181,11 @@ public struct AMLMapCompositeView: View {
                                 heading: $heading,
                                 features: $viewModel.annotations
                             )
+                                .featureClusterTapped(vmProxy.clusterTapped)
+                                .compassPosition(.bottomLeft)
                                 .edgesIgnoringSafeArea(.all)
-                        case .failure(let error):
-                            Text(error.errorDescription)
+                        case .failure:
+                            Text("Error loading map...")
                         case .none:
                             AMLActivityIndicator()
                                 .onAppear {
@@ -216,6 +224,7 @@ public struct AMLMapCompositeView: View {
                         heading: $heading,
                         features: $viewModel.annotations
                     )
+                        .compassPosition(.bottomLeft)
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
                     Text(error.errorDescription)
@@ -262,8 +271,19 @@ public struct AMLMapCompositeView: View {
     func search() {
         viewModel.search(searchText, area: .near(center))
     }
+    
+    let vmProxy = ViewModifierPassthroughProxy()
+    public func featureClusterTapped(
+        _ implementation: @escaping (
+            _ mapView: MGLMapView,
+            _ pointFeatureCluster: MGLPointFeatureCluster
+        ) -> Void
+    ) -> AMLMapCompositeView {
+        vmProxy.clusterTapped = implementation
+        return self
+    }
+    
 }
-
 
 /// An internal duplicate of `Geo.Place` that conforms to `Identifiable` for use in SwiftUI views.
 struct _Place: Identifiable {
@@ -322,3 +342,10 @@ extension Geo.Place {
         )
     }
 }
+
+/*
+ AMLMapCompositeView(
+    amlMapView: AMLMapView(...)
+                    .showUserLocation(true)
+ )
+ */

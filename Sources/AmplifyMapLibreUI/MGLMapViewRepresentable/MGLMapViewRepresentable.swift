@@ -11,7 +11,7 @@ import AWSLocationGeoPlugin
 import Mapbox
 
 /// SwiftUI Wrapper for MGLMapView.
-public struct AMLMapView: UIViewRepresentable {
+public struct MGLMapViewRepresentable: UIViewRepresentable {
     /// Underlying MGLMapView.
     let mapView: MGLMapView
     /// Current zoom level of the map
@@ -51,7 +51,8 @@ public struct AMLMapView: UIViewRepresentable {
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
         features: Binding<[MGLPointFeature]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
-        clusteringBehavior: ClusteringBehavior = .init()
+        clusteringBehavior: ClusteringBehavior = .init(),
+        proxyDelegate: ProxyDelegate = .init()
     ) {
         self.clusteringBehavior = clusteringBehavior
         self.mapView = mapView
@@ -66,14 +67,15 @@ public struct AMLMapView: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
+        self.proxyDelegate = proxyDelegate
     }
     
-    public func makeUIView(context: UIViewRepresentableContext<AMLMapView>) -> MGLMapView {
+    public func makeUIView(context: UIViewRepresentableContext<MGLMapViewRepresentable>) -> MGLMapView {
         mapView.delegate = context.coordinator
         return mapView
     }
     
-    public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<AMLMapView>) {
+    public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MGLMapViewRepresentable>) {
         if uiView.zoomLevel != zoomLevel {
             uiView.setZoomLevel(zoomLevel, animated: true)
         }
@@ -93,7 +95,5 @@ public struct AMLMapView: UIViewRepresentable {
         Coordinator(self)
     }
     
-    let proxyDelegate: ProxyDelegate = .init()
+    let proxyDelegate: ProxyDelegate
 }
-
-
