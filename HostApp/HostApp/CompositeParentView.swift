@@ -27,26 +27,14 @@ struct CompositeParentView: View {
     @State private var mapViewResult: Result<MGLMapView, Geo.Error>?
     
     var body: some View {
-        switch mapViewResult {
-        case .success(let map):
-            AMLMapCompositeView(
-                center: $center,
-                bounds: $bounds,
-                zoomLevel: $zoomLevel,
-                heading: $heading,
-                displayState: $displayState,
-                searchText: $searchText,
-                mapView: map
-            )
-        case .failure(let error):
-            Text(error.localizedDescription)
-        case .none:
-            AMLActivityIndicator()
-                .onAppear {
-                    AmplifyMapLibre.createMap {
-                        self.mapViewResult = $0
-                    }
-                }
-        }
+        AMLMapCompositeView(
+            center: $center,
+            bounds: $bounds,
+            zoomLevel: $zoomLevel,
+            heading: $heading,
+            displayState: $displayState,
+            searchText: $searchText,
+            createMap: AmplifyMapLibre.createMap
+        )
     }
 }

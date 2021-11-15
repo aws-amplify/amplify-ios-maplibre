@@ -30,10 +30,8 @@ extension AMLMapView {
             )
             
             let point = mapView.convert(pointFeature.coordinate, toPointTo: mapView)
-            
             let width = min(UIScreen.main.bounds.width * 0.8, 400)
             let height = width * 0.4
-            
             
             let calloutView = AMLCalloutUIView(
                 frame: .init(
@@ -41,16 +39,13 @@ extension AMLMapView {
                     y: mapView.center.y - height - 40,
                     width: width,
                     height: height
-                )
+                ),
+                feature: pointFeature
             )
-            
-            calloutView.nameLabel.text =  pointFeature.attributes["label"] as? String
-            calloutView.addressLineOne.text = pointFeature.attributes["addressLineOne"] as? String
-            calloutView.addressLineTwo.text = pointFeature.attributes["addressLineTwo"] as? String
                         
             func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
                 if let existingCalloutView = mapView.subviews
-                    .first(where:  { $0.tag == 42 })
+                    .first(where: { $0.tag == 42 })
                 {
                     mapView.willRemoveSubview(existingCalloutView)
                     existingCalloutView.removeFromSuperview()
@@ -64,7 +59,6 @@ extension AMLMapView {
         }
         
         var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
-            print(mapView.zoomLevel)
             mapView.setCenter(
                 cluster.coordinate,
                 zoomLevel: min(15, mapView.zoomLevel + 2),

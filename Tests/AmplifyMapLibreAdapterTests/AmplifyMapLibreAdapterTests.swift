@@ -86,5 +86,5 @@ final class AmplifyMapLibreAdapterTests: XCTestCase {
         XCTAssertEqual(annotation.title, title)
         XCTAssertEqual(annotation.coordinate.latitude, coordinates.latitude)
         XCTAssertEqual(annotation.coordinate.longitude, coordinates.longitude)
-    }
+    } // TODO: MGLPointFeature
 }

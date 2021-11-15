@@ -17,8 +17,6 @@ public class AmplifyMapLibre {
     public class func createMap(completionHandler: @escaping Geo.ResultsHandler<MGLMapView>) {
         AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
         Amplify.Geo.defaultMap { result in
-            dump(try? result.get())
-
             switch result {
             case .success(let map):
                 completionHandler(.success(MGLMapView(frame: .zero, styleURL: map.styleURL)))
@@ -38,10 +36,10 @@ public class AmplifyMapLibre {
         return MGLMapView(frame: .zero, styleURL: mapStyle.styleURL)
     }
 
-    /// Convert a Place array to an MGLAnnotation array that is ready to be displayed on a map.
+    /// Convert a Place array to an MGLPointFeature array that is ready to be displayed on a map.
     /// - Parameter places: Place array to convert.
-    /// - Returns: MGLAnnotation array.
-    public class func createAnnotations(_ places: [Geo.Place]) -> [MGLPointAnnotation] {
-        places.map(MGLPointAnnotation.init)
+    /// - Returns: MGLPointFeature array.
+    public class func createFeatures(_ places: [Geo.Place]) -> [MGLPointFeature] {
+        places.map(MGLPointFeature.init)
     }
 }

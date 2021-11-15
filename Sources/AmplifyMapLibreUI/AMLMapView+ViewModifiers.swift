@@ -83,7 +83,7 @@ extension AMLMapView {
     }
     
     /// Set map's attribution button to hidden or showing.
-    /// - Parameter hide: `true` hides the button / `false` unhides the button
+    /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of AMLMapView
     public func hideAttributionButton(_ hide: Bool) -> AMLMapView {
         mapView.attributionButton.isHidden = hide
@@ -129,6 +129,11 @@ extension AMLMapView {
         self.proxyDelegate.mapViewAnnotationCanShowCallout = implementation
         return self
     }
+    
+    public func compassPosition(_ position: MGLOrnamentPosition) -> AMLMapView {
+        mapView.compassViewPosition = position
+        return self
+    }
 }
 
 public extension AMLMapView {
@@ -144,7 +149,7 @@ public extension AMLMapView {
             self.shouldCluster = shouldCluster
             self.maximumZoomLevel = maximumZoomLevel
             self.clusterColor = clusterColor
-            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]   
+            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]
         }
         
         public var shouldCluster: Bool

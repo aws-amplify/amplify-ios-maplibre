@@ -13,9 +13,10 @@ import AmplifyMapLibreAdapter
 
 /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
+    typealias CreateMap = (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void
     
     /// The wrapped `MGLMapView`
-    let mapView: MGLMapView
+//    let mapView: MGLMapView
     
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
@@ -34,6 +35,9 @@ public struct AMLMapCompositeView: View {
     
     /// The search text in the included `AMLSearchBar`
     @Binding var searchText: String
+    
+    @State var mapResult: Result<MGLMapView, Geo.Error>?
+    var createMap: CreateMap?
     
     /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
     /// - Parameters:
@@ -59,7 +63,34 @@ public struct AMLMapCompositeView: View {
         _heading = heading
         _displayState = displayState
         _searchText = searchText
-        self.mapView = mapView
+        self.mapResult = .success(mapView)
+    }
+    
+    /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
+    /// - Parameters:
+    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - bounds: The coordinate bounds of the currently displayed area of the map.
+    ///   - zoomLevel: Current zoom level of the map.
+    ///   - heading: The current heading of the map in degrees.
+    ///   - displayState: The display state of the composite view. Either `map` or `list`.
+    ///   - searchText: The search text in the included `AMLSearchBar`.
+    ///   - mapView: The wrapped `MGLMapView`
+    public init(
+        center: Binding<CLLocationCoordinate2D>,
+        bounds: Binding<MGLCoordinateBounds>,
+        zoomLevel: Binding<Double>,
+        heading: Binding<CLLocationDirection>,
+        displayState: Binding<AMLSearchBar.DisplayState>,
+        searchText: Binding<String>,
+        createMap: @escaping (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void = AmplifyMapLibre.createMap
+    ) {
+        _center = center
+        _bounds = bounds
+        _zoomLevel = zoomLevel
+        _heading = heading
+        _displayState = displayState
+        _searchText = searchText
+        self.createMap = createMap
     }
     
     @ObservedObject var viewModel = AMLMapCompositeViewModel()
@@ -69,19 +100,30 @@ public struct AMLMapCompositeView: View {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
             if displayState == .map {
-                AMLMapView(
-                    mapView: mapView,
-                    zoomLevel: $zoomLevel,
-                    bounds: $bounds,
-                    center: $center,
-                    heading: $heading,
-                    annotations: $viewModel.annotations
-                )
-                    .edgesIgnoringSafeArea(.all)
+                switch mapResult {
+                case .success(let mapView):
+                    AMLMapView(
+                        mapView: mapView,
+                        zoomLevel: $zoomLevel,
+                        bounds: $bounds,
+                        center: $center,
+                        heading: $heading,
+                        features: $viewModel.annotations
+                    )
+                        .edgesIgnoringSafeArea(.all)
+                case .failure(let error):
+                    Text(error.errorDescription)
+                case .none:
+                    AMLActivityIndicator()
+                        .onAppear(perform: {
+                            createMap? {
+                                mapResult = $0
+                            }
+                        })
+                }
             }
             
             VStack(alignment: .center) {
-                
                 AMLSearchBar(
                     text: $searchText,
                     displayState: $displayState,
@@ -108,31 +150,7 @@ public struct AMLMapCompositeView: View {
             }
         }
     }
-    
-//    @ViewBuilder func backgroundColor() -> some View {
-//        if #available(iOS 14, *) {
-//            Color(.secondarySystemBackground)
-//                .ignoresSafeArea()
-//        } else {
-//            Color(.secondarySystemBackground)
-//                .edgesIgnoringSafeArea([.top, .bottom])
-//        }
-//    }
-    
-//    @ViewBuilder private func list() -> some View {
-//        if #available(iOS 14.0, *) {
-//            List(viewModel.places.map(_Place.init)) { place in
-//                AMLPlaceCellView(place: .init(place))
-//            }
-//            .listStyle(InsetGroupedListStyle())
-//        } else {
-//            List(viewModel.places.map(_Place.init)) { place in
-//                AMLPlaceCellView(place: .init(place))
-//            }
-//            .listStyle(GroupedListStyle())
-//        }
-//    }
-    
+        
     func cancelSearch() {
         viewModel.annotations = []
     }

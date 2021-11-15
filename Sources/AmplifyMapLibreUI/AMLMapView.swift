@@ -24,8 +24,8 @@ public struct AMLMapView: UIViewRepresentable {
     @Binding var attribution: String?
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
-    /// Annotations that are displayed on the map.
-    @Binding var annotations: [MGLPointFeature]
+    /// Features that are displayed on the map.
+    @Binding var features: [MGLPointFeature]
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
     
@@ -49,7 +49,7 @@ public struct AMLMapView: UIViewRepresentable {
         center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
         heading: Binding<CLLocationDirection> = .constant(0),
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
-        annotations: Binding<[MGLPointFeature]> = .constant([]),
+        features: Binding<[MGLPointFeature]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
         clusteringBehavior: ClusteringBehavior = .init()
     ) {
@@ -60,13 +60,12 @@ public struct AMLMapView: UIViewRepresentable {
         _userLocation = userLocation
         _attribution = attribution
         _zoomLevel = zoomLevel
-        _annotations = annotations
+        _features = features
         _heading = heading
         self.mapView.centerCoordinate = center.wrappedValue
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-        self.mapView.compassView.isHidden = true
     }
     
     public func makeUIView(context: UIViewRepresentableContext<AMLMapView>) -> MGLMapView {
@@ -85,7 +84,7 @@ public struct AMLMapView: UIViewRepresentable {
         }
         
         if let clusterSource = mapView.style?.source(withIdentifier: "aml_location_source") as? MGLShapeSource {
-            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: annotations)
+            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
         }
     }
         

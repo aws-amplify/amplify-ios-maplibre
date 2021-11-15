@@ -8,11 +8,11 @@
 import Foundation
 import Mapbox
 
-public extension MGLPointAnnotation {
-    /// Initialize an MGLPointAnnotation with a given title and coordinates
+public extension MGLPointFeature {
+    /// Initialize an MGLPointFeature with a given title and coordinates
     /// - Parameters:
-    ///   - title: The annotation title.
-    ///   - coordinates: The annotation coordinates.
+    ///   - title: The feature title.
+    ///   - coordinates: The feature coordinates.
     convenience init(title: String, coordinates: CLLocationCoordinate2D) {
         self.init()
         self.title = title

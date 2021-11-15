@@ -42,12 +42,8 @@ struct ContentView: View {
                         bounds: $bounds,
                         center: $center,
                         heading: $heading,
-                        annotations: $viewModel.annotations
+                        features: $viewModel.annotations
                     )
-                        .mapViewAnnotationCanShowCallout { _, _ in
-                            true
-                        }
-                        
                         .edgesIgnoringSafeArea(.all)
                 case .failure(let error):
                     Text("Error \(error.errorDescription)")

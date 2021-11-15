@@ -6,20 +6,40 @@
 //
 
 import UIKit
+import Mapbox
 
 /// Internal default callout view displayed when a user taps an annotation.
 class AMLCalloutUIView: UIView {
     let xButton = UIButton()
     let nameLabel = UILabel()
-    let addressLineOne = UILabel()
-    let addressLineTwo = UILabel()
+    let addressLineOneLabel = UILabel()
+    let addressLineTwoLabel = UILabel()
     
+    /// Initializes an empty `AMLCalloutView`
+    /// - Parameter frame: The view's specified frame rectangle.
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         configureView()
         configureSubviews()
         layoutConstraints()
+    }
+    
+    /// Initializes an `AMLCalloutView` with information displayed from the feature.
+    /// - Parameters:
+    ///   - frame: The view's specified frame rectangle.
+    ///   - feature: The `MGLPointFeature` for the callout view.
+    init(frame: CGRect, feature: MGLPointFeature) {
+        super.init(frame: frame)
+        configureView()
+        configureSubviews()
+        layoutConstraints()
+        setLabelText(for: feature)
+    }
+    
+    private func setLabelText(for feature: MGLPointFeature) {
+        nameLabel.text = feature.attributes["aml_display_label"] as? String
+        addressLineOneLabel.text = feature.attributes["aml_display_addressLineOne"] as? String
+        addressLineTwoLabel.text = feature.attributes["aml_display_addressLineTwo"] as? String
     }
     
     /// Configures the `AMLCalloutUIView`
@@ -32,7 +52,7 @@ class AMLCalloutUIView: UIView {
     
     /// Configures the `AMLCalloutUIView`'s subviews.
     private func configureSubviews() {
-        [xButton, nameLabel, addressLineOne, addressLineTwo]
+        [xButton, nameLabel, addressLineOneLabel, addressLineTwoLabel]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 addSubview($0)
@@ -42,7 +62,7 @@ class AMLCalloutUIView: UIView {
         nameLabel.lineBreakMode = .byWordWrapping
         nameLabel.font = .systemFont(ofSize: 20, weight: .medium)
         nameLabel.textColor = .black
-        [addressLineOne, addressLineTwo].forEach {
+        [addressLineOneLabel, addressLineTwoLabel].forEach {
             $0.textColor = .secondaryLabel
         }
         
@@ -70,14 +90,14 @@ class AMLCalloutUIView: UIView {
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: xButton.leadingAnchor, constant: -12),
             
-            addressLineOne.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            addressLineOne.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            addressLineOne.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            addressLineOneLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            addressLineOneLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            addressLineOneLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
-            addressLineTwo.topAnchor.constraint(equalTo: addressLineOne.bottomAnchor, constant: 8),
-            addressLineTwo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            addressLineTwo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            addressLineTwo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            addressLineTwoLabel.topAnchor.constraint(equalTo: addressLineOneLabel.bottomAnchor, constant: 8),
+            addressLineTwoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            addressLineTwoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            addressLineTwoLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
     

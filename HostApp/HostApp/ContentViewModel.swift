@@ -29,10 +29,8 @@ class ContentViewModel: ObservableObject {
                     self?.annotations = places.map { place -> MGLPointFeature in
                         let feature = MGLPointFeature()
                         feature.coordinate = CLLocationCoordinate2D(place.coordinates)
-                        // We should not have to do this prefix check. It's error prone and will lead to issues.
-                        // Ideally, we'd get just the name returned in a field.
-                        feature.attributes["label"] = place.label?.prefix(while: { $0 != "," })
-                        
+
+                        feature.attributes["label"] = place.labelLine
                         feature.attributes["addressLineOne"] = place.streetLabelLine
                         feature.attributes["addressLineTwo"] = place.cityLabelLine
                         return feature
