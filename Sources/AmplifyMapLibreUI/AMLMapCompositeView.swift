@@ -16,7 +16,7 @@ public struct AMLMapCompositeView: View {
     typealias CreateMap = (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void
     
     /// The wrapped `MGLMapView`
-//    let mapView: MGLMapView
+    //    let mapView: MGLMapView
     
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
@@ -96,6 +96,74 @@ public struct AMLMapCompositeView: View {
     @ObservedObject var viewModel = AMLMapCompositeViewModel()
     
     public var body: some View {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            phoneView()
+        } else {
+            padView()
+        }
+    }
+    
+    @ViewBuilder private func padView() -> some View {
+        GeometryReader { proxy in
+            ZStack(alignment: .top) {
+                Color(.secondarySystemBackground)
+                    .edgesIgnoringSafeArea(.all)
+                
+                HStack {
+                    VStack {
+                        AMLSearchBar(
+                            text: $searchText,
+                            displayState: $displayState,
+                            onCommit: search,
+                            onCancel: cancelSearch,
+                            showDisplayStateButton: false
+                        )
+                            .padding()
+                        
+                        AMLPlaceList(viewModel.places)
+                            .frame(width: proxy.size.width * 0.33)
+                        
+                        Spacer()
+                    }
+                    
+                    Group {
+                        switch mapResult {
+                        case .success(let mapView):
+                            AMLMapView(
+                                mapView: mapView,
+                                zoomLevel: $zoomLevel,
+                                bounds: $bounds,
+                                center: $center,
+                                heading: $heading,
+                                features: $viewModel.annotations
+                            )
+                                .edgesIgnoringSafeArea(.all)
+                        case .failure(let error):
+                            Text(error.errorDescription)
+                        case .none:
+                            AMLActivityIndicator()
+                                .onAppear {
+                                    createMap? { mapResult = $0 }
+                                }
+                        }
+                    }.frame(width: proxy.size.width * 0.67)
+                }
+                
+                HStack {
+                    Spacer()
+                    AMLMapControlView(
+                        zoomValue: zoomLevel,
+                        zoomInAction: { zoomLevel += 1 },
+                        zoomOutAction: { zoomLevel -= 1 },
+                        compassAction: { heading = 0 }
+                    )
+                }
+                .padding(.trailing)
+            }
+        }
+    }
+    
+    @ViewBuilder private func phoneView() -> some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
@@ -115,11 +183,9 @@ public struct AMLMapCompositeView: View {
                     Text(error.errorDescription)
                 case .none:
                     AMLActivityIndicator()
-                        .onAppear(perform: {
-                            createMap? {
-                                mapResult = $0
-                            }
-                        })
+                        .onAppear {
+                            createMap? { mapResult = $0 }
+                        }
                 }
             }
             
@@ -150,7 +216,7 @@ public struct AMLMapCompositeView: View {
             }
         }
     }
-        
+    
     func cancelSearch() {
         viewModel.annotations = []
     }

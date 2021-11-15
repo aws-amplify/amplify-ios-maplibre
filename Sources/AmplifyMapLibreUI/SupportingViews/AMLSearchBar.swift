@@ -25,6 +25,9 @@ public struct AMLSearchBar: View {
     /// Displaying a map or list.
     @Binding var displayState: DisplayState
     
+    /// Whether a display state button should be displayed. Default is true.
+    let showDisplayStateButton: Bool
+    
     /// A Search Bar used to take location user search input.
     /// - Parameters:
     ///   - text: Is the search bar currently being edited.
@@ -35,14 +38,16 @@ public struct AMLSearchBar: View {
         text: Binding<String>,
         displayState: Binding<DisplayState>,
         onCommit: @escaping () -> Void,
-        onCancel: @escaping () -> Void
+        onCancel: @escaping () -> Void,
+        showDisplayStateButton: Bool = true
     ) {
         _text = text
         _displayState = displayState
         self.onCommit = onCommit
         self.onCancel = onCancel
+        self.showDisplayStateButton = showDisplayStateButton
     }
-    
+        
     public var body: some View {
         HStack {
             TextField("Search", text: $text, onCommit: onCommit)
@@ -58,7 +63,12 @@ public struct AMLSearchBar: View {
                         )
                 )
                 .cornerRadius(8)
-                .searchBarIconOverlay(isEditing: $isEditing, text: $text, displayState: $displayState)
+                .searchBarIconOverlay(
+                    isEditing: $isEditing,
+                    text: $text,
+                    displayState: $displayState,
+                    showDisplayStateButton: showDisplayStateButton
+                )
                 .onTapGesture {
                     isEditing = true
                 }
@@ -77,7 +87,7 @@ public extension AMLSearchBar {
         
         /// Displaying a list.
         public static let list = DisplayState(imageName: "map")
-        
+               
         /// Toggle state.
         mutating func toggle() {
             if self == .list { self = .map }
@@ -91,13 +101,15 @@ fileprivate extension View {
     func searchBarIconOverlay(
         isEditing: Binding<Bool>,
         text: Binding<String>,
-        displayState: Binding<AMLSearchBar.DisplayState>
+        displayState: Binding<AMLSearchBar.DisplayState>,
+        showDisplayStateButton: Bool
     ) -> some View {
         self.overlay(
             AMLSearchBarIconOverlay(
                 isEditing: isEditing,
                 text: text,
-                displayState: displayState
+                displayState: displayState,
+                showDisplayStateButton: showDisplayStateButton
             )
         )
     }
@@ -118,6 +130,7 @@ fileprivate struct AMLSearchBarIconOverlay: View {
     @Binding var isEditing: Bool
     @Binding var text: String
     @Binding var displayState: AMLSearchBar.DisplayState
+    let showDisplayStateButton: Bool
     
     var body: some View {
         HStack {
@@ -142,18 +155,20 @@ fileprivate struct AMLSearchBarIconOverlay: View {
                 })
             }
             
-            Button(action: {
-              isEditing = false
-                displayState.toggle()
-              endEditing()
-            }) {
-              Image(systemName: displayState.imageName)
-                .font(.body.weight(.medium))
-                .foregroundColor(.primary)
-                .padding(.trailing, 8)
+            if showDisplayStateButton {
+                Button(action: {
+                    isEditing = false
+                    displayState.toggle()
+                    endEditing()
+                }) {
+                    Image(systemName: displayState.imageName)
+                        .font(.body.weight(.medium))
+                        .foregroundColor(.primary)
+                        .padding(.trailing, 8)
+                }
+                .padding(.trailing, 10)
+                .transition(.move(edge: .trailing))
             }
-            .padding(.trailing, 10)
-            .transition(.move(edge: .trailing))
         }
     }
 }
