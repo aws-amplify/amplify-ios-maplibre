@@ -90,6 +90,14 @@ extension MGLMapViewRepresentable {
         return self
     }
     
+    /// Set the position of the compass on the `MGLMapView`.
+    /// - Parameter position: `MGLOrnamentPosition` defining the location.
+    /// - Returns: An instance of `AMLMapView`.
+    public func compassPosition(_ position: MGLOrnamentPosition) -> MGLMapViewRepresentable {
+        mapView.compassViewPosition = position
+        return self
+    }
+    
     /// Provide an SwiftUI view that represents a point on a map.
     ///
     /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s, this method turns a `SwiftUI` view into a `UIImage`.
@@ -145,13 +153,7 @@ extension MGLMapViewRepresentable {
         return self
     }
     
-    /// Set the position of the compass on the `MGLMapView`.
-    /// - Parameter position: `MGLOrnamentPosition` defining the location.
-    /// - Returns: An instance of `AMLMapView`.
-    public func compassPosition(_ position: MGLOrnamentPosition) -> MGLMapViewRepresentable {
-        mapView.compassViewPosition = position
-        return self
-    }
+
 }
 
 

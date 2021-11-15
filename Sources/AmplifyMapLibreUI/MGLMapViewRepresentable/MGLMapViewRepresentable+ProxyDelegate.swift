@@ -10,17 +10,24 @@ import Mapbox
 import UIKit
 
 public extension MGLMapViewRepresentable {
-    class ProxyDelegate {
+    
+    class ProxyDelegate: ObservableObject {
         
         public init() { }
         
-        var annotationImage: UIImage = UIImage.init(
+        @Published var showUserLocation = false
+        @Published var minZoomLevel: Double = 0
+        @Published var maxZoomLevel: Double = 22
+        @Published var hideAttributionButton = false
+        @Published var compassPosition: MGLOrnamentPosition = .bottomLeft
+        
+        @Published var annotationImage: UIImage = UIImage.init(
             named: "AMLAnnotationView",
             in: Bundle.module,
             compatibleWith: nil
         )!
         
-        var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
+        @Published var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
             
             mapView.setCenter(
                 pointFeature.coordinate,
@@ -65,7 +72,7 @@ public extension MGLMapViewRepresentable {
             addCalloutView(calloutView, to: mapView)
         }
         
-        var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
+        @Published var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
             mapView.setCenter(
                 cluster.coordinate,
                 zoomLevel: min(15, mapView.zoomLevel + 2),
