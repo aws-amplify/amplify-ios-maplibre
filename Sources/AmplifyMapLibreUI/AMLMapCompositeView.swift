@@ -14,10 +14,7 @@ import AmplifyMapLibreAdapter
 /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
     typealias CreateMap = (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void
-    
-    /// The wrapped `MGLMapView`
-    //    let mapView: MGLMapView
-    
+        
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
     
@@ -30,66 +27,107 @@ public struct AMLMapCompositeView: View {
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
     
+    /// The user's current location.
+    @Binding var userLocation: CLLocationCoordinate2D?
+    
+    /// Features that are displayed on the map.
+    @Binding var features: [MGLPointFeature]
+    
+    /// The attribution string for the map data providers.
+    @Binding var attribution: String?
+    
     /// The display state of the composite view. Either `map` or `list`
     @Binding var displayState: AMLSearchBar.DisplayState
     
     /// The search text in the included `AMLSearchBar`
     @Binding var searchText: String
     
+    /// The result of the asynchronous action to retrieve a `MGLMapView`.
     @State var mapResult: Result<MGLMapView, Geo.Error>?
+    
+    /// The clustering behavior of the map.
+    let clusteringBehavior: AMLMapView.ClusteringBehavior
+
+    /// The implementation used to create an `MGLMapView`.
     var createMap: CreateMap?
     
+            
     /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
+    ///
     /// - Parameters:
-    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - mapView: The underlying MGLMapView.
+    ///   - zoomLevel: Current zoom level of the map. Default 14
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
-    ///   - zoomLevel: Current zoom level of the map.
-    ///   - heading: The current heading of the map in degrees.
+    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - userLocation: The user's current location.
+    ///   If this value exists, it will set `mapView.showsUserLocation` to true. (optional)
+    ///   - annotations: Binding of annotations displayed on the map.
+    ///   - attribution: The attribution string for the map data providers.
     ///   - displayState: The display state of the composite view. Either `map` or `list`.
     ///   - searchText: The search text in the included `AMLSearchBar`.
-    ///   - mapView: The wrapped `MGLMapView`
     public init(
-        center: Binding<CLLocationCoordinate2D>,
-        bounds: Binding<MGLCoordinateBounds>,
-        zoomLevel: Binding<Double>,
-        heading: Binding<CLLocationDirection>,
-        displayState: Binding<AMLSearchBar.DisplayState>,
-        searchText: Binding<String>,
-        mapView: MGLMapView
+        mapView: MGLMapView,
+        zoomLevel: Binding<Double> = .constant(14),
+        bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
+        center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
+        heading: Binding<CLLocationDirection> = .constant(0),
+        userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
+        features: Binding<[MGLPointFeature]> = .constant([]),
+        attribution: Binding<String?> = .constant(nil),
+        clusteringBehavior: AMLMapView.ClusteringBehavior = .init(),
+        displayState: Binding<AMLSearchBar.DisplayState> = .constant(.map),
+        searchText: Binding<String> = .constant("")
     ) {
-        _center = center
-        _bounds = bounds
         _zoomLevel = zoomLevel
+        _bounds = bounds
+        _center = center
         _heading = heading
+        _userLocation = userLocation
+        _features = features
+        _attribution = attribution
+        
         _displayState = displayState
         _searchText = searchText
+        self.clusteringBehavior = clusteringBehavior
         self.mapResult = .success(mapView)
     }
     
     /// `AMLMapView` including standard the view components: `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
+    ///
     /// - Parameters:
-    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - createMap: The implementation used to create an `MGLMapView`.
+    ///     Default value is `AmplifyMapLibe.createMap`.
+    ///   - zoomLevel: Current zoom level of the map. Default 14
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
-    ///   - zoomLevel: Current zoom level of the map.
-    ///   - heading: The current heading of the map in degrees.
+    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional). __Setting this to true will prompt the user for location permission__
+    ///   - annotations: Binding of annotations displayed on the map.
+    ///   - attribution: The attribution string for the map data providers.
     ///   - displayState: The display state of the composite view. Either `map` or `list`.
     ///   - searchText: The search text in the included `AMLSearchBar`.
-    ///   - mapView: The wrapped `MGLMapView`
     public init(
-        center: Binding<CLLocationCoordinate2D>,
-        bounds: Binding<MGLCoordinateBounds>,
-        zoomLevel: Binding<Double>,
-        heading: Binding<CLLocationDirection>,
-        displayState: Binding<AMLSearchBar.DisplayState>,
-        searchText: Binding<String>,
-        createMap: @escaping (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void = AmplifyMapLibre.createMap
+        createMap: @escaping (@escaping (Result<MGLMapView, Geo.Error>) -> Void) -> Void = AmplifyMapLibre.createMap,
+        zoomLevel: Binding<Double> = .constant(14),
+        bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
+        center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
+        heading: Binding<CLLocationDirection> = .constant(0),
+        userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
+        features: Binding<[MGLPointFeature]> = .constant([]),
+        attribution: Binding<String?> = .constant(nil),
+        clusteringBehavior: AMLMapView.ClusteringBehavior = .init(),
+        displayState: Binding<AMLSearchBar.DisplayState> = .constant(.map),
+        searchText: Binding<String> = .constant("")
     ) {
-        _center = center
-        _bounds = bounds
         _zoomLevel = zoomLevel
+        _bounds = bounds
+        _center = center
         _heading = heading
+        _userLocation = userLocation
+        _features = features
+        _attribution = attribution
         _displayState = displayState
         _searchText = searchText
+        self.clusteringBehavior = clusteringBehavior
         self.createMap = createMap
     }
     

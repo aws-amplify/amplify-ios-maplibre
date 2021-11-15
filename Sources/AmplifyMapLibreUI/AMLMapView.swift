@@ -14,21 +14,21 @@ import Mapbox
 public struct AMLMapView: UIViewRepresentable {
     /// Underlying MGLMapView.
     let mapView: MGLMapView
+    /// Current zoom level of the map
+    @Binding var zoomLevel: Double
     /// The coordinate bounds of the currently displayed area of the map.
     @Binding var bounds: MGLCoordinateBounds
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
-    /// The user's current location.
-    @Binding var userLocation: CLLocationCoordinate2D?
-    /// The attribution string for the map data providers.
-    @Binding var attribution: String?
-    /// Current zoom level of the map
-    @Binding var zoomLevel: Double
-    /// Features that are displayed on the map.
-    @Binding var features: [MGLPointFeature]
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
-    
+    /// The user's current location.
+    @Binding var userLocation: CLLocationCoordinate2D?
+    /// Features that are displayed on the map.
+    @Binding var features: [MGLPointFeature]
+    /// The attribution string for the map data providers.
+    @Binding var attribution: String?
+    /// The clustering behavior of the map.
     let clusteringBehavior: ClusteringBehavior
         
     /// Initialize an instance of AMLMapView.
@@ -39,7 +39,7 @@ public struct AMLMapView: UIViewRepresentable {
     ///   - zoomLevel: Current zoom level of the map. Default 14
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
-    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional)
+    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional). __Setting this to true will prompt the user for location permission__
     ///   - annotations: Binding of annotations displayed on the map.
     ///   - attribution: The attribution string for the map data providers.
     public init(

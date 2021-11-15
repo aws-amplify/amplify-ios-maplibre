@@ -28,13 +28,13 @@ struct CompositeParentView: View {
     
     var body: some View {
         AMLMapCompositeView(
-            center: $center,
-            bounds: $bounds,
+            createMap: AmplifyMapLibre.createMap,
             zoomLevel: $zoomLevel,
+            bounds: $bounds,
+            center: $center,
             heading: $heading,
             displayState: $displayState,
-            searchText: $searchText,
-            createMap: AmplifyMapLibre.createMap
+            searchText: $searchText
         )
     }
 }
