@@ -76,7 +76,7 @@ extension AMLMapView.Coordinator {
                 [
                     .clustered: control.clusteringBehavior.shouldCluster,
                     .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel,
-                    .clusterRadius: 75
+                    .clusterRadius: control.clusteringBehavior.clusterRadius
                 ]
         )
     }

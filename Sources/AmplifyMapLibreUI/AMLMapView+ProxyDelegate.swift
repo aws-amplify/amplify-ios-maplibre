@@ -11,17 +11,14 @@ import UIKit
 
 extension AMLMapView {
     class ProxyDelegate {
-        var mapViewDidSelectAnnotation: ((MGLMapView, MGLAnnotation) -> Void)?
-        var mapViewAnnotationCanShowCallout: ((MGLMapView, MGLAnnotation) -> Bool)?
         var annotationImage: UIImage = UIImage.init(
             named: "AMLAnnotationView",
             in: Bundle.module,
             compatibleWith: nil
         )!
         
-        // TODO: Break out implementation into smaller pieces
         var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
-
+            
             mapView.setCenter(
                 pointFeature.coordinate,
                 zoomLevel: max(15, mapView.zoomLevel),
@@ -43,6 +40,13 @@ extension AMLMapView {
                 feature: pointFeature
             )
                         
+
+            /// Add a callout view to the map.
+            ///
+            /// This method first checks if a callout view is already presented. If so, it removes it before add a new one.
+            /// - Parameters:
+            ///   - calloutView: The UIView to be presented as a callout view.
+            ///   - mapView: The MGLMapView on which the callout view will be presented.
             func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
                 if let existingCalloutView = mapView.subviews
                     .first(where: { $0.tag == 42 })
@@ -67,4 +71,11 @@ extension AMLMapView {
             )
         }
     }
+}
+
+// MARK: Private implementation details of default behavior.
+extension AMLMapView.ProxyDelegate {
+    
+    
+
 }
