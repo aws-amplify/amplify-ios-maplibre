@@ -18,7 +18,7 @@ extension AMLMapView {
     /// - Parameter showLocation: Enables showing the user's location on the map.
     /// - Returns: An instance of `AMLMapView`.
     public func showUserLocation(_ showLocation: Bool) -> AMLMapView {
-        mapView.showsUserLocation = showLocation
+        viewModel.showUserLocation = showLocation
         return self
     }
     
@@ -39,8 +39,8 @@ extension AMLMapView {
     /// Any value set below 0 or above 22 will revert to 0 or 22 accordingly.
     /// - Returns: An instance of `AMLMapView`.
     public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> AMLMapView {
-        mapView.minimumZoomLevel = max(zoomLevels.lowerBound, 0)
-        mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
+        viewModel.minZoomLevel = max(zoomLevels.lowerBound, 0)
+        viewModel.maxZoomLevel = min(zoomLevels.upperBound, 22)
         return self
     }
     
@@ -59,7 +59,7 @@ extension AMLMapView {
     /// The maximum zoom level is 22. Any value set above 22 will revert to 22.
     /// - Returns: An instance of `AMLMapView`.
     public func maxZoomLevel(_ maxZoomLevel: Double) -> AMLMapView {
-        mapView.maximumZoomLevel = min(maxZoomLevel, 22)
+        viewModel.maxZoomLevel = min(maxZoomLevel, 22)
         return self
     }
     
@@ -78,7 +78,7 @@ extension AMLMapView {
     ///  The minimum allowable zoom level is 0. Any value set below 0 revert to 0.
     /// - Returns: An instance of `AMLMapView`.
     public func minZoomLevel(_ minZoomLevel: Double) -> AMLMapView {
-        mapView.minimumZoomLevel = max(minZoomLevel, 0)
+        viewModel.minZoomLevel = max(minZoomLevel, 0)
         return self
     }
     
@@ -86,7 +86,7 @@ extension AMLMapView {
     /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of `AMLMapView`.
     public func hideAttributionButton(_ hide: Bool) -> AMLMapView {
-        mapView.attributionButton.isHidden = hide
+        viewModel.hideAttributionButton = hide
         return self
     }
     
@@ -97,7 +97,7 @@ extension AMLMapView {
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureView<T: View>(_ view: T) -> AMLMapView {
-        proxyDelegate.annotationImage = view.snapshot()
+        viewModel.annotationImage = view.snapshot()
         return self
     }
     
@@ -105,7 +105,7 @@ extension AMLMapView {
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureImage(_ image: UIImage) -> AMLMapView {
-        proxyDelegate.annotationImage = image
+        viewModel.annotationImage = image
         return self
     }
     
@@ -123,7 +123,7 @@ extension AMLMapView {
             _ pointFeature: MGLPointFeature
         ) -> Void
     ) -> AMLMapView {
-        proxyDelegate.annotationTapped = implementation
+        viewModel.featureTapped = implementation
         return self
     }
     
@@ -141,7 +141,7 @@ extension AMLMapView {
             _ pointFeatureCluster: MGLPointFeatureCluster
         ) -> Void
     ) -> AMLMapView {
-        proxyDelegate.clusterTapped = implementation
+        viewModel.clusterTapped = implementation
         return self
     }
     
@@ -149,7 +149,7 @@ extension AMLMapView {
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `AMLMapView`.
     public func compassPosition(_ position: MGLOrnamentPosition) -> AMLMapView {
-        mapView.compassViewPosition = position
+        viewModel.compassPosition = position
         return self
     }
 }

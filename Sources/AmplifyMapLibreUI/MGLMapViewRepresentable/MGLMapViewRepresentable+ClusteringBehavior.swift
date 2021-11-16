@@ -27,7 +27,7 @@ public extension MGLMapViewRepresentable {
         public init(
             shouldCluster: Bool = true,
             maximumZoomLevel: Int = 13,
-            clusterColor: UIColor = AMLMapView.blue,
+            clusterColor: UIColor = MGLMapViewRepresentable.blue,
             clusterColorSteps: [Int: UIColor] = [:],
             clusterRadius: Int = 75
         ) {

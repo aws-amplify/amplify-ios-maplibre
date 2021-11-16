@@ -17,25 +17,25 @@ extension MGLMapViewRepresentable {
             self.control = control
         }
         
-//        var features: [MGLPointFeature] = []
+        //        var features: [MGLPointFeature] = []
         
         public func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
             DispatchQueue.main.async {
-                self.control.zoomLevel = mapView.zoomLevel
-                self.control.bounds = mapView.visibleCoordinateBounds
-                self.control.center = mapView.centerCoordinate
-                self.control.heading = mapView.camera.heading
+                self.control.viewModel.zoomLevel = mapView.zoomLevel
+                self.control.viewModel.bounds = mapView.visibleCoordinateBounds
+                self.control.viewModel.center = mapView.centerCoordinate
+                self.control.viewModel.heading = mapView.camera.heading
             }
         }
         
         public func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-            control.userLocation = userLocation?.coordinate
+            //            control.viewModel.userLocation = userLocation?.coordinate
         }
         
         public func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
             if let source = style.sources.first as? MGLVectorTileSource {
                 let attribution = source.attributionInfos.first
-                control.attribution = attribution?.title.string ?? ""
+                //                control.viewModel.attribution = attribution?.title.string ?? ""
             }
             
             setupRenderingLayers(for: style)
@@ -56,7 +56,7 @@ extension MGLMapViewRepresentable.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
         let locationSource = locationSource()
         style.addSource(locationSource)
-        style.setImage(control.proxyDelegate.annotationImage, forName: "annotation")
+        style.setImage(control.viewModel.annotationImage, forName: "annotation")
         
         let annotationLayer = annotationLayer(for: locationSource)
         style.addLayer(annotationLayer)
@@ -74,9 +74,9 @@ extension MGLMapViewRepresentable.Coordinator {
             shape: nil,
             options:
                 [
-                    .clustered: control.clusteringBehavior.shouldCluster,
-                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel,
-                    .clusterRadius: control.clusteringBehavior.clusterRadius
+                    .clustered: control.viewModel.clusteringBehavior.shouldCluster,
+                    .maximumZoomLevelForClustering: control.viewModel.clusteringBehavior.maximumZoomLevel,
+                    .clusterRadius: control.viewModel.clusteringBehavior.clusterRadius
                 ]
         )
     }
@@ -92,22 +92,31 @@ extension MGLMapViewRepresentable.Coordinator {
     
     private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
         let clusterCircleLayer = MGLCircleStyleLayer(identifier: "aml_cluster_circle_layer", source: source)
+        
+//        let clusterColorStops: [Double: Double] = [
+//            control.viewModel.clusteringBehavior.maximumZoomLevel + 2: 20,
+//            control.viewModel.clusteringBehavior.maximumZoomLevel + 4: 30,
+//            control.viewModel.clusteringBehavior.maximumZoomLevel + 6: 40,
+//            control.viewModel.clusteringBehavior.maximumZoomLevel + 8: 50,
+//            control.viewModel.clusteringBehavior.maximumZoomLevel + 9: 60
+//        ]
+        
         clusterCircleLayer.circleRadius = NSExpression(
             format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'exponential', 10, %@)",
             [
-                control.clusteringBehavior.maximumZoomLevel + 2: 20,
-                control.clusteringBehavior.maximumZoomLevel + 4: 30,
-                control.clusteringBehavior.maximumZoomLevel + 6: 40,
-                control.clusteringBehavior.maximumZoomLevel + 8: 50,
-                control.clusteringBehavior.maximumZoomLevel + 9: 60
+                control.viewModel.clusteringBehavior.maximumZoomLevel + 2: 20,
+                control.viewModel.clusteringBehavior.maximumZoomLevel + 4: 30,
+                control.viewModel.clusteringBehavior.maximumZoomLevel + 6: 40,
+                control.viewModel.clusteringBehavior.maximumZoomLevel + 8: 50,
+                control.viewModel.clusteringBehavior.maximumZoomLevel + 9: 60
             ]
         )
         clusterCircleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white)
         clusterCircleLayer.circleStrokeWidth = NSExpression(forConstantValue: 4)
         clusterCircleLayer.circleColor = NSExpression(
             format: "mgl_step:from:stops:(point_count, %@, %@)",
-            control.clusteringBehavior.clusterColor,
-            control.clusteringBehavior.clusterColorSteps
+            control.viewModel.clusteringBehavior.clusterColor,
+            control.viewModel.clusteringBehavior.clusterColorSteps
         )
         clusterCircleLayer.predicate = NSPredicate(format: "cluster == YES")
         
@@ -138,9 +147,9 @@ extension MGLMapViewRepresentable.Coordinator {
         else { return }
         
         if let tappedCluster = tappedFeature as? MGLPointFeatureCluster {
-            control.proxyDelegate.clusterTapped?(control.mapView, tappedCluster)
+            control.viewModel.clusterTapped(control.mapView, tappedCluster)
         } else if let tappedAnnotation = tappedFeature as? MGLPointFeature {
-            control.proxyDelegate.annotationTapped?(control.mapView, tappedAnnotation)
+            control.viewModel.featureTapped(control.mapView, tappedAnnotation)
         }
     }
 }

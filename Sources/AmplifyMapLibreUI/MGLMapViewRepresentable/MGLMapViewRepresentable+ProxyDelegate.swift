@@ -11,23 +11,23 @@ import UIKit
 
 public extension MGLMapViewRepresentable {
     
-    class ProxyDelegate: ObservableObject {
+    class ProxyDelegate {
         
         public init() { }
         
-        @Published var showUserLocation = false
-        @Published var minZoomLevel: Double = 0
-        @Published var maxZoomLevel: Double = 22
-        @Published var hideAttributionButton = false
-        @Published var compassPosition: MGLOrnamentPosition = .bottomLeft
+        var showUserLocation = false
+        var minZoomLevel: Double = 0
+        var maxZoomLevel: Double = 22
+        var hideAttributionButton = false
+        var compassPosition: MGLOrnamentPosition = .bottomLeft
         
-        @Published var annotationImage: UIImage = UIImage.init(
+        var annotationImage: UIImage = UIImage.init(
             named: "AMLAnnotationView",
             in: Bundle.module,
             compatibleWith: nil
         )!
         
-        @Published var annotationTapped: ((MGLMapView, MGLPointFeature) -> Void)? = { mapView, pointFeature in
+        var featureTapped: ((MGLMapView, MGLPointFeature) -> Void) = { mapView, pointFeature in
             
             mapView.setCenter(
                 pointFeature.coordinate,
@@ -72,7 +72,7 @@ public extension MGLMapViewRepresentable {
             addCalloutView(calloutView, to: mapView)
         }
         
-        @Published var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void)? = { mapView, cluster in
+        var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void) = { mapView, cluster in
             mapView.setCenter(
                 cluster.coordinate,
                 zoomLevel: min(15, mapView.zoomLevel + 2),

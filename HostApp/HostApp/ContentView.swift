@@ -27,6 +27,7 @@ struct ContentView: View {
     @State private var searchText = ""
     
     @ObservedObject var viewModel = ContentViewModel()
+    @ObservedObject var vm = MyViewModel.init(showUserLocation: false, minZoomLevel: 0, maxZoomLevel: 15, hideAttributionButton: true, compassPosition: .bottomRight)
         
     var body: some View {
         ZStack(alignment: .top) {
@@ -34,27 +35,48 @@ struct ContentView: View {
                 .ignoresSafeArea()
             
             if displayState == .map {
-                switch mapResult {
-                case .success(let map):
-                    AMLMapView(
-                        mapView: map,
-                        zoomLevel: $zoomLevel,
-                        bounds: $bounds,
-                        center: $center,
-                        heading: $heading,
-                        features: $viewModel.annotations
-                    )
-                        .edgesIgnoringSafeArea(.all)
-                case .failure(let error):
-                    Text("Error \(error.errorDescription)")
-                case .none:
-                    Text("something went wrong")
-                        .onAppear {
-                            AmplifyMapLibre.createMap {
-                                mapResult = $0
-                            }
-                        }
-                }
+                //                AMLMapView(
+                //                    zoomLevel: $zoomLevel,
+                //                    bounds: $bounds,
+                //                    center: $center,
+                //                    heading: $heading,
+                //                    features: $viewModel.annotations
+                //                )
+                
+                AMLMapView(viewModel: vm)
+//                    .featureTapped({ mapView, pointFeature in
+//                        print("FEATURE TAPPED \(#line) - \(#fileID)")
+//                        print(pointFeature)
+//                    })
+                    .edgesIgnoringSafeArea(.all)
+
+//                AMLMapView(
+//                    options: .init(
+//                        zoomLevel: $zoomLevel,
+//                        bounds: $bounds,
+//                        center: $center,
+//                        heading: $heading,
+//                        features: $viewModel.annotations
+//                    )
+//                )
+//                    .featureTapped({ mapView, pointFeature in
+//                        print("Feature tapped at \(#line)")
+//                        dump(pointFeature)
+//                    })
+//                switch mapResult {
+//                case .success(let map):
+//
+//
+//                case .failure(let error):
+//                    Text("Error \(error.errorDescription)")
+//                case .none:
+//                    Text("something went wrong")
+//                        .onAppear {
+//                            AmplifyMapLibre.createMap {
+//                                mapResult = $0
+//                            }
+//                        }
+//                }
             }
             
             VStack(alignment: .center) {
@@ -70,18 +92,19 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         AMLMapControlView(
-                            zoomValue: zoomLevel,
-                            zoomInAction: { zoomLevel += 1 },
-                            zoomOutAction: { zoomLevel -= 1 },
-                            compassAction: { heading = 0 }
+                            zoomValue: vm.zoomLevel,
+                            zoomInAction: { vm.zoomLevel += 1 },
+                            zoomOutAction: { vm.zoomLevel -= 1 },
+                            compassAction: { vm.heading = 0 }
                         )
                     }
                     .padding(.trailing)
                 } else {
-                    List(viewModel.places) { place in
-                        AMLPlaceCellView(place: .init(place))
-                    }
-                    .listStyle(InsetGroupedListStyle())
+                    
+//                    List(vm.places) { place in
+//                        AMLPlaceCellView(place: .init(place))
+//                    }
+//                    .listStyle(InsetGroupedListStyle())
 //                    AMLPlaceList(viewModel.places)
 //                    .ignoresSafeArea()
                 }
@@ -91,11 +114,11 @@ struct ContentView: View {
     }
     
     func cancelSearch() {
-        viewModel.annotations = []
+        vm.features = []
     }
     
     func search() {
-        viewModel.search(searchText, area: .near(center))
+        vm.search(searchText, area: .near(center))
     }
 }
 

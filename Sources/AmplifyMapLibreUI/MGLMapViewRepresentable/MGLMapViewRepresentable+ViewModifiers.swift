@@ -105,7 +105,7 @@ extension MGLMapViewRepresentable {
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureView<T: View>(_ view: T) -> MGLMapViewRepresentable {
-        proxyDelegate.annotationImage = view.snapshot()
+        viewModel.annotationImage = view.snapshot()
         return self
     }
     
@@ -113,7 +113,7 @@ extension MGLMapViewRepresentable {
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureImage(_ image: UIImage) -> MGLMapViewRepresentable {
-        proxyDelegate.annotationImage = image
+        viewModel.annotationImage = image
         return self
     }
     
@@ -131,7 +131,7 @@ extension MGLMapViewRepresentable {
             _ pointFeature: MGLPointFeature
         ) -> Void
     ) -> MGLMapViewRepresentable {
-        proxyDelegate.annotationTapped = implementation
+        viewModel.featureTapped = implementation
         return self
     }
     
@@ -149,7 +149,7 @@ extension MGLMapViewRepresentable {
             _ pointFeatureCluster: MGLPointFeatureCluster
         ) -> Void
     ) -> MGLMapViewRepresentable {
-        proxyDelegate.clusterTapped = implementation
+        viewModel.clusterTapped = implementation
         return self
     }
     

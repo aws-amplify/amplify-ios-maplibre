@@ -15,22 +15,24 @@ public struct MGLMapViewRepresentable: UIViewRepresentable {
     /// Underlying MGLMapView.
     let mapView: MGLMapView
     /// Current zoom level of the map
-    @Binding var zoomLevel: Double
-    /// The coordinate bounds of the currently displayed area of the map.
-    @Binding var bounds: MGLCoordinateBounds
-    /// The center coordinates of the currently displayed area of the map.
-    @Binding var center: CLLocationCoordinate2D
-    /// The current heading of the map in degrees.
-    @Binding var heading: CLLocationDirection
-    /// The user's current location.
-    @Binding var userLocation: CLLocationCoordinate2D?
-    /// Features that are displayed on the map.
-    @Binding var features: [MGLPointFeature]
-    /// The attribution string for the map data providers.
-    @Binding var attribution: String?
+//    @Binding var zoomLevel: Double
+//    /// The coordinate bounds of the currently displayed area of the map.
+//    @Binding var bounds: MGLCoordinateBounds
+//    /// The center coordinates of the currently displayed area of the map.
+//    @Binding var center: CLLocationCoordinate2D
+//    /// The current heading of the map in degrees.
+//    @Binding var heading: CLLocationDirection
+//    /// The user's current location.
+//    @Binding var userLocation: CLLocationCoordinate2D?
+//    /// Features that are displayed on the map.
+//    @Binding var features: [MGLPointFeature]
+//    /// The attribution string for the map data providers.
+//    @Binding var attribution: String?
     /// The clustering behavior of the map.
-    let clusteringBehavior: ClusteringBehavior
+//    let clusteringBehavior: ClusteringBehavior
         
+    @ObservedObject var viewModel: MyViewModel
+    
     /// Initialize an instance of AMLMapView.
     ///
     /// A SwiftUI wrapper View around MGLMapView
@@ -44,30 +46,33 @@ public struct MGLMapViewRepresentable: UIViewRepresentable {
     ///   - attribution: The attribution string for the map data providers.
     public init(
         mapView: MGLMapView,
-        zoomLevel: Binding<Double> = .constant(14),
-        bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
-        center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
-        heading: Binding<CLLocationDirection> = .constant(0),
-        userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
-        features: Binding<[MGLPointFeature]> = .constant([]),
-        attribution: Binding<String?> = .constant(nil),
-        clusteringBehavior: ClusteringBehavior = .init(),
-        proxyDelegate: ProxyDelegate = .init()
+//        zoomLevel: Binding<Double> = .constant(14),
+//        bounds: Binding<MGLCoordinateBounds> = .constant(MGLCoordinateBounds()),
+//        center: Binding<CLLocationCoordinate2D> = .constant(CLLocationCoordinate2D()),
+//        heading: Binding<CLLocationDirection> = .constant(0),
+//        userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
+//        features: Binding<[MGLPointFeature]> = .constant([]),
+//        attribution: Binding<String?> = .constant(nil),
+//        clusteringBehavior: ClusteringBehavior = .init(),
+//        proxyDelegate: ProxyDelegate = .init()
+        viewModel: MyViewModel
     ) {
-        self.clusteringBehavior = clusteringBehavior
+//        self.clusteringBehavior = clusteringBehavior
         self.mapView = mapView
-        _bounds = bounds
-        _center = center
-        _userLocation = userLocation
-        _attribution = attribution
-        _zoomLevel = zoomLevel
-        _features = features
-        _heading = heading
-        self.mapView.centerCoordinate = center.wrappedValue
-        self.mapView.zoomLevel = zoomLevel.wrappedValue
+//        _bounds = bounds
+//        _center = center
+//        _userLocation = userLocation
+//        _attribution = attribution
+//        _zoomLevel = zoomLevel
+//        _features = features
+//        _heading = heading
+        self.viewModel = viewModel
+
+        self.mapView.centerCoordinate = viewModel.center
+        self.mapView.zoomLevel = viewModel.zoomLevel
         self.mapView.logoView.isHidden = true
-        self.mapView.showsUserLocation = userLocation.wrappedValue != nil
-        self.proxyDelegate = proxyDelegate
+        self.mapView.showsUserLocation = false //viewModel.userLocation != nil
+//        self.proxyDelegate = proxyDelegate
     }
     
     public func makeUIView(context: UIViewRepresentableContext<MGLMapViewRepresentable>) -> MGLMapView {
@@ -76,18 +81,18 @@ public struct MGLMapViewRepresentable: UIViewRepresentable {
     }
     
     public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MGLMapViewRepresentable>) {
-        if uiView.zoomLevel != zoomLevel {
-            uiView.setZoomLevel(zoomLevel, animated: true)
+        if uiView.zoomLevel != viewModel.zoomLevel {
+            uiView.setZoomLevel(viewModel.zoomLevel, animated: true)
         }
         
-        if uiView.camera.heading != heading {
+        if uiView.camera.heading != viewModel.heading {
             let camera = uiView.camera
-            camera.heading = heading
+            camera.heading = viewModel.heading
             uiView.setCamera(camera, animated: true)
         }
         
         if let clusterSource = mapView.style?.source(withIdentifier: "aml_location_source") as? MGLShapeSource {
-            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
+            clusterSource.shape = MGLShapeCollectionFeature.init(shapes: viewModel.features)
         }
     }
         
@@ -95,5 +100,5 @@ public struct MGLMapViewRepresentable: UIViewRepresentable {
         Coordinator(self)
     }
     
-    let proxyDelegate: ProxyDelegate
+//    let proxyDelegate: ProxyDelegate
 }

@@ -46,7 +46,7 @@ public struct AMLMapCompositeView: View {
     @State var mapResult: Result<MGLMapView, Geo.Error>?
     
     /// The clustering behavior of the map.
-    let clusteringBehavior: AMLMapView.ClusteringBehavior
+    let clusteringBehavior: MGLMapViewRepresentable.ClusteringBehavior
 
     /// The implementation used to create an `MGLMapView`.
     var createMap: CreateMap?
@@ -73,7 +73,7 @@ public struct AMLMapCompositeView: View {
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
         features: Binding<[MGLPointFeature]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
-        clusteringBehavior: AMLMapView.ClusteringBehavior = .init(),
+        clusteringBehavior: MGLMapViewRepresentable.ClusteringBehavior = .init(),
         displayState: Binding<AMLSearchBar.DisplayState> = .constant(.map),
         searchText: Binding<String> = .constant("")
     ) {
@@ -113,7 +113,7 @@ public struct AMLMapCompositeView: View {
         userLocation: Binding<CLLocationCoordinate2D?> = .constant(nil),
         features: Binding<[MGLPointFeature]> = .constant([]),
         attribution: Binding<String?> = .constant(nil),
-        clusteringBehavior: AMLMapView.ClusteringBehavior = .init(),
+        clusteringBehavior: MGLMapViewRepresentable.ClusteringBehavior = .init(),
         displayState: Binding<AMLSearchBar.DisplayState> = .constant(.map),
         searchText: Binding<String> = .constant("")
     ) {
@@ -173,17 +173,18 @@ public struct AMLMapCompositeView: View {
                     Group {
                         switch mapResult {
                         case .success(let mapView):
-                            AMLMapView(
-                                mapView: mapView,
-                                zoomLevel: $zoomLevel,
-                                bounds: $bounds,
-                                center: $center,
-                                heading: $heading,
-                                features: $viewModel.annotations
-                            )
-                                .featureClusterTapped(vmProxy.clusterTapped)
-                                .compassPosition(.bottomLeft)
-                                .edgesIgnoringSafeArea(.all)
+                            EmptyView()
+//                            AMLMapView(
+//                                mapView: mapView,
+//                                zoomLevel: $zoomLevel,
+//                                bounds: $bounds,
+//                                center: $center,
+//                                heading: $heading,
+//                                features: $viewModel.annotations
+//                            )
+//                                .featureClusterTapped(vmProxy.clusterTapped)
+//                                .compassPosition(.bottomLeft)
+//                                .edgesIgnoringSafeArea(.all)
                         case .failure:
                             Text("Error loading map...")
                         case .none:
@@ -216,16 +217,17 @@ public struct AMLMapCompositeView: View {
             if displayState == .map {
                 switch mapResult {
                 case .success(let mapView):
-                    AMLMapView(
-                        mapView: mapView,
-                        zoomLevel: $zoomLevel,
-                        bounds: $bounds,
-                        center: $center,
-                        heading: $heading,
-                        features: $viewModel.annotations
-                    )
-                        .compassPosition(.bottomLeft)
-                        .edgesIgnoringSafeArea(.all)
+//                    AMLMapView(
+//                        mapView: mapView,
+//                        zoomLevel: $zoomLevel,
+//                        bounds: $bounds,
+//                        center: $center,
+//                        heading: $heading,
+//                        features: $viewModel.annotations
+//                    )
+//                        .compassPosition(.bottomLeft)
+//                        .edgesIgnoringSafeArea(.all)
+                    EmptyView()
                 case .failure(let error):
                     Text(error.errorDescription)
                 case .none:
