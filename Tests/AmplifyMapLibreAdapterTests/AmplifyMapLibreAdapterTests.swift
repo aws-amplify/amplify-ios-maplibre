@@ -82,9 +82,9 @@ final class AmplifyMapLibreAdapterTests: XCTestCase {
     func testMGLPointAnnotationWithTitleAndCoordinates() {
         let title = "Test"
         let coordinates = CLLocationCoordinate2D(latitude: 39.7682, longitude: -104.9765)
-        let annotation = MGLPointAnnotation(title: title, coordinates: coordinates)
-        XCTAssertEqual(annotation.title, title)
-        XCTAssertEqual(annotation.coordinate.latitude, coordinates.latitude)
-        XCTAssertEqual(annotation.coordinate.longitude, coordinates.longitude)
-    } // TODO: MGLPointFeature
+        let feature = MGLPointFeature(title: title, coordinates: coordinates)
+        XCTAssertEqual(feature.title, title)
+        XCTAssertEqual(feature.coordinate.latitude, coordinates.latitude)
+        XCTAssertEqual(feature.coordinate.longitude, coordinates.longitude)
+    }
 }
