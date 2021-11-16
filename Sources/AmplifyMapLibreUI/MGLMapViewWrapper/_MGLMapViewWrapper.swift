@@ -28,22 +28,29 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
     @Binding var features: [MGLPointFeature]
     /// The attribution string for the map data providers.
     @Binding var attribution: String?
+    /// UIImage that represents a feature on the map.
+    let featureImage: UIImage
     /// The clustering behavior of the map.
     let clusteringBehavior: AMLMapView.ClusteringBehavior
     /// Implementation definitions for user interactions with the map.
     let proxyDelegate: AMLMapView.ProxyDelegate
-            
-    /// Initialize an instance of AMLMapView.
-    ///
-    /// A SwiftUI wrapper View around MGLMapView
+                
+    /// Create a `_MGLMapViewWrapper`.
+    /// An internal SwiftUI wrapper View around MGLMapView.
     /// - Parameters:
     ///   - mapView: The underlying MGLMapView.
-    ///   - zoomLevel: Current zoom level of the map. Default 14
+    ///   - zoomLevel: Current zoom level of the map.
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
-    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional). __Setting this to true will prompt the user for location permission__
+    ///   - heading: The current heading of the map in degrees.
+    ///   - userLocation: The user's current location.
+    ///   If this value exists, it will set `mapView.showsUserLocation` to true. (optional).
+    ///   __Setting a value here will prompt the user for location permission__
     ///   - features: Binding of features displayed on the map.
     ///   - attribution: The attribution string for the map data providers.
+    ///   - featureImage: UIImage that represents a feature on the map.
+    ///   - clusteringBehavior: The clustering behavior of the map.
+    ///   - proxyDelegate: Implementation definitions for user interactions with the map.
     init(
         mapView: MGLMapView,
         zoomLevel: Binding<Double>,
@@ -53,12 +60,14 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         userLocation: Binding<CLLocationCoordinate2D?>,
         features: Binding<[MGLPointFeature]>,
         attribution: Binding<String?>,
+        featureImage: UIImage,
         clusteringBehavior: AMLMapView.ClusteringBehavior,
         proxyDelegate: AMLMapView.ProxyDelegate
     ) {
         self.clusteringBehavior = clusteringBehavior
         self.mapView = mapView
         self.proxyDelegate = proxyDelegate
+        self.featureImage = featureImage
         _bounds = bounds
         _center = center
         _userLocation = userLocation
@@ -71,6 +80,7 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = userLocation.wrappedValue != nil
+        self.mapView.style?.setImage(featureImage, forName: "aml_feature")
     }
     
     public func makeUIView(context: UIViewRepresentableContext<_MGLMapViewWrapper>) -> MGLMapView {

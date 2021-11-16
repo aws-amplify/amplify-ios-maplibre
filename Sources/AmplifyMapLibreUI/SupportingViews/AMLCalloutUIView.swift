@@ -8,7 +8,7 @@
 import UIKit
 import Mapbox
 
-/// Internal default callout view displayed when a user taps an annotation.
+/// Internal default callout view displayed when a user taps a feature.
 class AMLCalloutUIView: UIView {
     let xButton = UIButton()
     let nameLabel = UILabel()

@@ -5,7 +5,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-
 import SwiftUI
 import Amplify
 import AWSLocationGeoPlugin
@@ -16,8 +15,9 @@ struct HostAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CompositeParentView()
-//            ContentView()
+//            SimpleAMLMapView_View()
+            AMLMapView_View()
+//            AMLMapCompositeView_View()
         }
     }
     

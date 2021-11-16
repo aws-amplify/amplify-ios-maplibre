@@ -71,7 +71,6 @@ public struct AMLMapCompositeView: View {
                     Group {
                         AMLMapView(
                             mapView: $mapView,
-                            features: $viewModel.features,
                             mapState: mapState
                         )
                             .edgesIgnoringSafeArea(.all)
@@ -98,7 +97,6 @@ public struct AMLMapCompositeView: View {
             if displayState == .map {
                 AMLMapView(
                     mapView: $mapView,
-                    features: $viewModel.features,
                     mapState: mapState
                 )
                     .edgesIgnoringSafeArea(.all)

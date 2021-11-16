@@ -27,6 +27,8 @@ internal class AMLMapViewSettings: ObservableObject {
     /// The compass position on the map.
     @Published internal var compassPosition: MGLOrnamentPosition
     
+    @Published internal var featureImage: UIImage
+    
     /// Definition of the map's clustering behavior
     let clusteringBehavior: AMLMapView.ClusteringBehavior
     
@@ -50,6 +52,11 @@ internal class AMLMapViewSettings: ObservableObject {
         maxZoomLevel: Double = 22,
         hideAttributionButton: Bool = false,
         compassPosition: MGLOrnamentPosition = .bottomLeft,
+        featureImage: UIImage = .init(
+            named: "AMLFeatureView",
+            in: Bundle.module,
+            compatibleWith: nil
+        )!,
         clusteringBehavior: AMLMapView.ClusteringBehavior = .init(),
         proxyDelegate: AMLMapView.ProxyDelegate = .init()
     ) {
@@ -58,6 +65,7 @@ internal class AMLMapViewSettings: ObservableObject {
         self.maxZoomLevel = maxZoomLevel
         self.hideAttributionButton = hideAttributionButton
         self.compassPosition = compassPosition
+        self.featureImage = featureImage
         self.clusteringBehavior = clusteringBehavior
         self.proxyDelegate = proxyDelegate
     }

@@ -54,10 +54,10 @@ extension _MGLMapViewWrapper.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
         let locationSource = locationSource()
         style.addSource(locationSource)
-        style.setImage(control.proxyDelegate.annotationImage, forName: "annotation")
+        style.setImage(control.featureImage, forName: "aml_feature")
         
-        let annotationLayer = annotationLayer(for: locationSource)
-        style.addLayer(annotationLayer)
+        let featureLayer = featureLayer(for: locationSource)
+        style.addLayer(featureLayer)
         
         let clusterCircleLayer = clusterCircleLayer(for: locationSource)
         style.addLayer(clusterCircleLayer)
@@ -79,13 +79,13 @@ extension _MGLMapViewWrapper.Coordinator {
         )
     }
     
-    private func annotationLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
-        let annotationLayer = MGLSymbolStyleLayer(identifier: "aml_annotation_style_layer", source: source)
-        annotationLayer.iconImageName = NSExpression(forConstantValue: "annotation")
-        annotationLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
-        annotationLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
-        annotationLayer.predicate = NSPredicate(format: "cluster != YES")
-        return annotationLayer
+    private func featureLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
+        let featureLayer = MGLSymbolStyleLayer(identifier: "aml_feature_style_layer", source: source)
+        featureLayer.iconImageName = NSExpression(forConstantValue: "aml_feature")
+        featureLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        featureLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
+        featureLayer.predicate = NSPredicate(format: "cluster != YES")
+        return featureLayer
     }
     
     private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
@@ -132,14 +132,14 @@ extension _MGLMapViewWrapper.Coordinator {
         
         guard let tappedFeature = control.mapView.visibleFeatures(
             at: location,
-            styleLayerIdentifiers: ["aml_annotation_style_layer", "aml_cluster_circle_layer"]
+            styleLayerIdentifiers: ["aml_feature_style_layer", "aml_cluster_circle_layer"]
         ).first
         else { return }
         
         if let tappedCluster = tappedFeature as? MGLPointFeatureCluster {
             control.proxyDelegate.clusterTapped(control.mapView, tappedCluster)
-        } else if let tappedAnnotation = tappedFeature as? MGLPointFeature {
-            control.proxyDelegate.featureTapped(control.mapView, tappedAnnotation)
+        } else if let tappedFeature = tappedFeature as? MGLPointFeature {
+            control.proxyDelegate.featureTapped(control.mapView, tappedFeature)
         }
     }
 }

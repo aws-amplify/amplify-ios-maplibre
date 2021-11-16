@@ -13,17 +13,14 @@ import AmplifyMapLibreAdapter
 
 public struct AMLMapView: View {
     @Binding var mapView: MGLMapView?
-    @Binding var features: [MGLPointFeature]
     @ObservedObject var mapState: AMLMapViewState
     @ObservedObject var mapSettings = AMLMapViewSettings()
     
     public init(
         mapView: Binding<MGLMapView?> = .constant(nil),
-        features: Binding<[MGLPointFeature]> = .constant([]),
         mapState: AMLMapViewState = .init()
     ) {
         _mapView = mapView
-        _features = features
         self.mapState = mapState
         if let mapView = mapView.wrappedValue {
             mapState.mapLoadingState.state = .complete(mapView)
@@ -40,15 +37,17 @@ public struct AMLMapView: View {
                 center: $mapState.center,
                 heading: $mapState.heading,
                 userLocation: $mapState.userLocation,
-                features: $features,
+                features: $mapState.features,
                 attribution: $mapState.attribution,
+                featureImage: mapSettings.featureImage,
                 clusteringBehavior: mapSettings.clusteringBehavior,
                 proxyDelegate: mapSettings.proxyDelegate
             )
                 .showUserLocation(mapSettings.showUserLocation)
                 .compassPosition(mapSettings.compassPosition)
                 .minZoomLevel(mapSettings.minZoomLevel)
-                .maxZoomLevel(mapSettings.maxZoomLevel)            
+                .maxZoomLevel(mapSettings.maxZoomLevel)
+                .hideAttributionButton(mapSettings.hideAttributionButton)
         case .error(let error):
             Text("Error loading view: \(error.localizedDescription)")
         case .begin:

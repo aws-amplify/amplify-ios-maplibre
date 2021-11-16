@@ -14,8 +14,8 @@ public extension AMLMapView {
         
         public init() { }
         
-        var annotationImage: UIImage = UIImage.init(
-            named: "AMLAnnotationView",
+        var featureImage: UIImage = UIImage.init(
+            named: "AMLFeatureView",
             in: Bundle.module,
             compatibleWith: nil
         )!

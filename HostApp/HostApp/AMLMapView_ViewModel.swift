@@ -11,11 +11,17 @@ import Amplify
 import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
 
-class ContentViewModel: ObservableObject {
+class AMLMapView_ViewModel: ObservableObject {
 
     @Published var places: [Place] = []
     @Published var features: [MGLPointFeature] = []
-
+    @ObservedObject var mapState = AMLMapViewState(
+        center: CLLocationCoordinate2D(
+            latitude: 37.785834,
+            longitude: -122.406417
+        )
+    )
+    
     func search(
         _ text: String,
         area: Geo.SearchArea
@@ -24,8 +30,9 @@ class ContentViewModel: ObservableObject {
             switch result {
             case.success(let places):
                 DispatchQueue.main.async {
-                    self?.places = places.map(Place.init)
-                    self?.features = AmplifyMapLibre.createFeatures(places)
+//                    self?.places = places.map(Place.init)
+                    
+                    self?.mapState.features = AmplifyMapLibre.createFeatures(places)
                 }
             case .failure(let error):
                 print(error)

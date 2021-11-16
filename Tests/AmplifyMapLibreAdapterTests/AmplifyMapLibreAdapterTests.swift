@@ -71,15 +71,15 @@ final class AmplifyMapLibreAdapterTests: XCTestCase {
         XCTAssertEqual(boundingBox.southwest.longitude, bounds.sw.longitude)
     }
 
-    /// Test if MGLPointAnnotation is correctly initialized with a title and coordinates.
+    /// Test if MGLPointFeature is correctly initialized with a title and coordinates.
     ///
     /// - Given: A title String and CLLocationCoordinate2D.
     /// - When:
-    ///    - I invoke MGLPointAnnotation(title: title, coordinates: coordinates)
+    ///    - I invoke MGLPointFeature(title: title, coordinates: coordinates)
     /// - Then:
-    ///    - An instance of MGLPointAnnotation is initialized with the given title and coordinates.
+    ///    - An instance of MGLPointFeature is initialized with the given title and coordinates.
     ///
-    func testMGLPointAnnotationWithTitleAndCoordinates() {
+    func testMGLPointFeatureWithTitleAndCoordinates() {
         let title = "Test"
         let coordinates = CLLocationCoordinate2D(latitude: 39.7682, longitude: -104.9765)
         let feature = MGLPointFeature(title: title, coordinates: coordinates)

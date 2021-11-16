@@ -13,30 +13,47 @@ import Mapbox
 import Amplify
 import Combine
 
-struct ContentView: View {
+struct AMLMapView_View: View {
     @State private var displayState = AMLSearchBar.DisplayState.map
     @State private var searchText = ""
     
-    @ObservedObject var viewModel = ContentViewModel()
-    @ObservedObject var mapState = AMLMapViewState(
-        center: CLLocationCoordinate2D(
-            latitude: 37.785834,
-            longitude: -122.406417
-        )
-    )
+    @ObservedObject var viewModel = AMLMapView_ViewModel()
+//    @ObservedObject var mapState = AMLMapViewState(
+//        center: CLLocationCoordinate2D(
+//            latitude: 37.785834,
+//            longitude: -122.406417
+//        )
+//    )
+    
+    
     
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .ignoresSafeArea()
             AMLMapView(
-                features: $viewModel.features,
-                mapState: mapState
+                mapState: viewModel.mapState
             )
-                .clusterColor(.purple)
-                .onReceive(mapState.$heading, perform: { heading in
-                    print(heading)
-                })
+                .allowedZoomLevels(5...15)
+                .hideAttributionButton(true)
+                .compassPosition(.bottomRight)
+//                .featureView(
+//                    Image(systemName: "paperplane.circle.fill")
+//                        .font(.largeTitle)
+//                )
+                .shouldCluster(true)
+                .clusterColor(.lightGray)
+                .clusterColorSteps(
+                    [
+                        10: .yellow,
+                        20: .green,
+                        30: .red
+                    ]
+                )
+                .clusterNumberColor(.black)
+                .onReceive(viewModel.mapState.$heading) {
+                    print("Heading is now: \($0)")
+                }
                 .edgesIgnoringSafeArea(.all)
             
             
@@ -53,8 +70,8 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         AMLMapControlView(
-                            zoomValue: $mapState.zoomLevel,
-                            headingValue: $mapState.heading
+                            zoomValue: $viewModel.mapState.zoomLevel,
+                            headingValue: $viewModel.mapState.heading
                         )
                     }
                     .padding(.trailing)
@@ -76,33 +93,33 @@ struct ContentView: View {
     }
     
     func search() {
-        viewModel.search(searchText, area: .near(mapState.center))
+        viewModel.search(searchText, area: .near(viewModel.mapState.center))
     }
 }
 
 
-struct ContentView_Previews: PreviewProvider {
+struct AMLMapView_View_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        AMLMapView_View()
     }
 }
 
-extension ContentView {
-    private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
-        let camera = MGLMapCamera(
-            lookingAtCenter: annotation.coordinate,
-            altitude: mapView.camera.altitude,
-            pitch: mapView.camera.pitch,
-            heading: mapView.camera.heading
-        )
-        mapView.fly(
-            to: camera,
-            withDuration: 0.5,
-            peakAltitude: 3000,
-            completionHandler: { mapView.selectAnnotation(annotation, animated: false, completionHandler: nil) }
-        )
-    }
-}
+//extension AMLMapView_View {
+//    private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
+//        let camera = MGLMapCamera(
+//            lookingAtCenter: annotation.coordinate,
+//            altitude: mapView.camera.altitude,
+//            pitch: mapView.camera.pitch,
+//            heading: mapView.camera.heading
+//        )
+//        mapView.fly(
+//            to: camera,
+//            withDuration: 0.5,
+//            peakAltitude: 3000,
+//            completionHandler: { mapView.selectAnnotation(annotation, animated: false, completionHandler: nil) }
+//        )
+//    }
+//}
 
 
 extension Geo.Place {

@@ -97,7 +97,7 @@ extension AMLMapView {
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureView<T: View>(_ view: T) -> AMLMapView {
-        mapSettings.proxyDelegate.annotationImage = view.snapshot()
+        mapSettings.featureImage = view.snapshot()
         return self
     }
     
@@ -105,7 +105,7 @@ extension AMLMapView {
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureImage(_ image: UIImage) -> AMLMapView {
-        mapSettings.proxyDelegate.annotationImage = image
+        mapSettings.featureImage = image
         return self
     }
     
