@@ -96,16 +96,16 @@ extension AMLMapView {
     ///   There may be hidden cost to using this. If you experience performance and / or rendering issues, please use the `featureImage(_:)` view modifier instead.
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
-    public func featureView<T: View>(_ view: T) -> AMLMapView {
-        mapSettings.featureImage = view.snapshot()
+    public func featureView<T: View>(_ view: () -> T) -> AMLMapView {
+        mapSettings.featureImage = view().snapshot()
         return self
     }
     
     /// Provide an UIImage that represents a point on a map.
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
-    public func featureImage(_ image: UIImage) -> AMLMapView {
-        mapSettings.featureImage = image
+    public func featureImage(_ image: () -> UIImage) -> AMLMapView {
+        mapSettings.featureImage = image()
         return self
     }
     

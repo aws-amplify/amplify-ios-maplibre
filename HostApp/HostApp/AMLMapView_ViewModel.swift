@@ -13,9 +13,9 @@ import AmplifyMapLibreUI
 
 class AMLMapView_ViewModel: ObservableObject {
 
-    @Published var places: [Place] = []
-    @Published var features: [MGLPointFeature] = []
+    @Published var places: [Geo.Place] = []
     @ObservedObject var mapState = AMLMapViewState()
+    @Published var mapDisplayState = AMLSearchBar.DisplayState.map
     
     func search(
         _ text: String,
@@ -25,7 +25,7 @@ class AMLMapView_ViewModel: ObservableObject {
             switch result {
             case.success(let places):
                 DispatchQueue.main.async {
-                    self?.places = places.map(Place.init)
+                    self?.places = places
                     self?.mapState.features = AmplifyMapLibre.createFeatures(places)
                 }
             case .failure(let error):

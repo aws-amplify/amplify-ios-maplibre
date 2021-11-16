@@ -14,7 +14,6 @@ import Amplify
 import Combine
 
 struct AMLMapView_View: View {
-    @State private var displayState = AMLSearchBar.DisplayState.map
     @State private var searchText = ""
     
     @ObservedObject var viewModel = AMLMapView_ViewModel()
@@ -22,43 +21,46 @@ struct AMLMapView_View: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
-                .ignoresSafeArea()
-            AMLMapView(
-                mapState: viewModel.mapState
-            )
-                .allowedZoomLevels(5...15)
-                .hideAttributionButton(true)
-                .compassPosition(.bottomRight)
-                .featureView(
-                    Image(systemName: "paperplane.circle.fill")
-                        .font(.largeTitle)
-                        .frame(width: 100, height: 100, alignment: .center)
-                )
-                .shouldCluster(true)
-                .clusterColor(.lightGray)
-                .clusterColorSteps(
-                    [
-                        10: .yellow,
-                        20: .green,
-                        30: .red
-                    ]
-                )
-                .clusterNumberColor(.systemPink)
-                .onReceive(viewModel.mapState.$heading) {
-                    print("Heading is now: \($0)")
-                }
                 .edgesIgnoringSafeArea(.all)
             
+            if viewModel.mapDisplayState == .map {
+                AMLMapView(
+                    mapState: viewModel.mapState
+                )
+                    .allowedZoomLevels(5...15)
+                    .hideAttributionButton(true)
+                    .compassPosition(.bottomRight)
+                    .featureImage {
+                        return UIImage(
+                            systemName: "paperplane.circle.fill",
+                            withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
+                        )!
+                    }
+                    .shouldCluster(true)
+                    .clusterColor(.lightGray)
+                    .clusterColorSteps(
+                        [
+                            10: .yellow,
+                            20: .green,
+                            30: .red
+                        ]
+                    )
+                    .clusterNumberColor(.systemPurple)
+                    .onReceive(viewModel.mapState.$heading) {
+                        print("Heading is now: \($0)")
+                    }
+                    .edgesIgnoringSafeArea(.all)
+            }
             VStack(alignment: .center) {
                 AMLSearchBar(
                     text: $searchText,
-                    displayState: $displayState,
+                    displayState: $viewModel.mapDisplayState,
                     onCommit: search,
                     onCancel: cancelSearch
                 )
                     .padding()
-                
-                if displayState == .map {
+
+                if viewModel.mapDisplayState == .map {
                     HStack {
                         Spacer()
                         AMLMapControlView(
@@ -68,20 +70,15 @@ struct AMLMapView_View: View {
                     }
                     .padding(.trailing)
                 } else {
-                    List(viewModel.places) { place in
-                        AMLPlaceCellView(place: .init(place))
-                    }
-                    .listStyle(InsetGroupedListStyle())
-                    .ignoresSafeArea()
+                    AMLPlaceList(viewModel.places)
                 }
                 Spacer()
             }
         }
-        
     }
     
     func cancelSearch() {
-        viewModel.features = []
+        viewModel.mapState.features = []
     }
     
     func search() {

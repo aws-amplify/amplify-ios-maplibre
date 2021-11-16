@@ -22,9 +22,6 @@ struct AMLMapCompositeView_View: View {
     @State private var searchText = ""
     
     var body: some View {
-        AMLMapCompositeView(
-            mapState: AMLMapViewState(center: center),
-            searchText: $searchText
-        )
+        AMLMapCompositeView()
     }
 }
