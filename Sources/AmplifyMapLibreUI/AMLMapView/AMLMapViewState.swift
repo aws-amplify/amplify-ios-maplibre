@@ -54,7 +54,10 @@ public class AMLMapViewState: ObservableObject {
         heading: CLLocationDirection = 0,
         zoomLevel: Double = 14,
         bounds: MGLCoordinateBounds = .init(),
-        center: CLLocationCoordinate2D = .init(),
+        center: CLLocationCoordinate2D = .init(
+            latitude: 47.62246,
+            longitude: -122.336775
+        ),
         userLocation: CLLocationCoordinate2D? = nil,
         features: [MGLPointFeature] = [],
         attribution: String? = nil

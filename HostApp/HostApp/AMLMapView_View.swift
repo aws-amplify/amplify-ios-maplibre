@@ -49,7 +49,6 @@ struct AMLMapView_View: View {
                 }
                 .edgesIgnoringSafeArea(.all)
             
-            
             VStack(alignment: .center) {
                 AMLSearchBar(
                     text: $searchText,

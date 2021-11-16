@@ -15,12 +15,7 @@ class AMLMapView_ViewModel: ObservableObject {
 
     @Published var places: [Place] = []
     @Published var features: [MGLPointFeature] = []
-    @ObservedObject var mapState = AMLMapViewState(
-        center: CLLocationCoordinate2D(
-            latitude: 37.785834,
-            longitude: -122.406417
-        )
-    )
+    @ObservedObject var mapState = AMLMapViewState()
     
     func search(
         _ text: String,
