@@ -14,12 +14,6 @@ public extension AMLMapView {
         
         public init() { }
         
-//        var featureImage: UIImage = UIImage.init(
-//            named: "AMLFeatureView",
-//            in: Bundle.module,
-//            compatibleWith: nil
-//        )!
-        
         var featureTapped: ((MGLMapView, MGLPointFeature) -> Void) = { mapView, pointFeature in
             
             mapView.setCenter(

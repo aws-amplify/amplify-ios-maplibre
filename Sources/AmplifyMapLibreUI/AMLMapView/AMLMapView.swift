@@ -11,16 +11,17 @@ import AWSLocationGeoPlugin
 import Mapbox
 import AmplifyMapLibreAdapter
 
+/// The `SwiftUI` wrapper for `MGLMapView`
 public struct AMLMapView: View {
-//    @Binding var mapView: MGLMapView?
+    /// Object to track state changes in the map.
     @ObservedObject var mapState: AMLMapViewState
+    
+    /// Map configuration settings. Accessible through view modifiers.
     @ObservedObject var mapSettings = AMLMapViewSettings()
     
-    public init(
-//        mapView: Binding<MGLMapView?> = .constant(nil),
-        mapState: AMLMapViewState = .init()
-    ) {
-//        _mapView = mapView
+    /// Create an instance of `AMLMapView`
+    /// - Parameter mapState: Object to track state changes.
+    public init(mapState: AMLMapViewState = .init()) {
         self.mapState = mapState
         if let mapView = mapState.mapView {
             mapState.mapLoadingState.state = .complete(mapView)
@@ -56,8 +57,6 @@ public struct AMLMapView: View {
                     AmplifyMapLibre.createMap {
                         mapState
                             .transitionMapLoadingState(input: $0)
-//                            .mapLoadingState
-//                            .transition(input: $0, assign: &mapState.mapView)
                     }
                 }
         }
