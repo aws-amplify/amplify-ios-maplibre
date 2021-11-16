@@ -12,17 +12,17 @@ import Mapbox
 import AmplifyMapLibreAdapter
 
 public struct AMLMapView: View {
-    @Binding var mapView: MGLMapView?
+//    @Binding var mapView: MGLMapView?
     @ObservedObject var mapState: AMLMapViewState
     @ObservedObject var mapSettings = AMLMapViewSettings()
     
     public init(
-        mapView: Binding<MGLMapView?> = .constant(nil),
+//        mapView: Binding<MGLMapView?> = .constant(nil),
         mapState: AMLMapViewState = .init()
     ) {
-        _mapView = mapView
+//        _mapView = mapView
         self.mapState = mapState
-        if let mapView = mapView.wrappedValue {
+        if let mapView = mapState.mapView {
             mapState.mapLoadingState.state = .complete(mapView)
         }
     }
@@ -55,8 +55,9 @@ public struct AMLMapView: View {
                 .onAppear {
                     AmplifyMapLibre.createMap {
                         mapState
-                            .mapLoadingState
-                            .transition(input: $0, assign: &mapView)
+                            .transitionMapLoadingState(input: $0)
+//                            .mapLoadingState
+//                            .transition(input: $0, assign: &mapState.mapView)
                     }
                 }
         }

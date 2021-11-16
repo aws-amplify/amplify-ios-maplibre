@@ -18,14 +18,6 @@ struct AMLMapView_View: View {
     @State private var searchText = ""
     
     @ObservedObject var viewModel = AMLMapView_ViewModel()
-//    @ObservedObject var mapState = AMLMapViewState(
-//        center: CLLocationCoordinate2D(
-//            latitude: 37.785834,
-//            longitude: -122.406417
-//        )
-//    )
-    
-    
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -40,6 +32,7 @@ struct AMLMapView_View: View {
                 .featureView(
                     Image(systemName: "paperplane.circle.fill")
                         .font(.largeTitle)
+                        .frame(width: 100, height: 100, alignment: .center)
                 )
                 .shouldCluster(true)
                 .clusterColor(.lightGray)
@@ -50,7 +43,7 @@ struct AMLMapView_View: View {
                         30: .red
                     ]
                 )
-                .clusterNumberColor(.black)
+                .clusterNumberColor(.systemPink)
                 .onReceive(viewModel.mapState.$heading) {
                     print("Heading is now: \($0)")
                 }

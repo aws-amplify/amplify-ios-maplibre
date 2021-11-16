@@ -11,6 +11,9 @@ import Amplify
 
 /// Object to track state changes.
 public class AMLMapViewState: ObservableObject {
+    /// The underlying `MGLMapView`
+    @Published public var mapView: MGLMapView?
+    
     /// Loading state for track asynchronous loading of map
     @Published internal var mapLoadingState = MapCreationStateMachine(state: .begin)
     
@@ -37,6 +40,7 @@ public class AMLMapViewState: ObservableObject {
     
     /// Create an `AMLMapViewState` object to track state changes.
     /// - Parameters:
+    ///   - mapView: The underlying `MGLMapView`
     ///   - heading: The current heading of the map in degrees. Default is `0` (North).
     ///   - zoomLevel: Current zoom level of the map. Default is `14`.
     ///   - bounds: The coordinate bounds of the currently displayed area of the map. Default is an empty `MGLCoordinateBounds`.
@@ -46,6 +50,7 @@ public class AMLMapViewState: ObservableObject {
     ///   - features: Features that are displayed on the map. Default is `[]`
     ///   - attribution: The attribution string for the map data providers. Default is `nil`.
     public init(
+        mapView: MGLMapView? = nil,
         heading: CLLocationDirection = 0,
         zoomLevel: Double = 14,
         bounds: MGLCoordinateBounds = .init(),
@@ -54,6 +59,7 @@ public class AMLMapViewState: ObservableObject {
         features: [MGLPointFeature] = [],
         attribution: String? = nil
     ) {
+        self.mapView = mapView
         self.heading = heading
         self.zoomLevel = zoomLevel
         self.bounds = bounds
@@ -61,5 +67,9 @@ public class AMLMapViewState: ObservableObject {
         self.userLocation = userLocation
         self.attribution = attribution
         self.features = features
+    }
+    
+    func transitionMapLoadingState(input: Result<MGLMapView, Geo.Error>) {
+        mapLoadingState.transition(input: input, assign: &mapView)
     }
 }
