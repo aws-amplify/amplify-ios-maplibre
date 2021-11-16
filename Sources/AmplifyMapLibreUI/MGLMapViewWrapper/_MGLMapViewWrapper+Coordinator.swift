@@ -8,34 +8,32 @@
 import SwiftUI
 import Mapbox
 
-extension MGLMapViewRepresentable {
-    /// Coordinator class for AMLMapView that manages MGLMapViewDelegate methods.
+extension _MGLMapViewWrapper {
+    /// Coordinator class for `_MGLMapViewWrapper` that manages MGLMapViewDelegate methods.
     final public class Coordinator: NSObject, MGLMapViewDelegate {
-        var control: MGLMapViewRepresentable
+        var control: _MGLMapViewWrapper
         
-        init(_ control: MGLMapViewRepresentable) {
+        init(_ control: _MGLMapViewWrapper) {
             self.control = control
         }
         
-        //        var features: [MGLPointFeature] = []
-        
         public func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
             DispatchQueue.main.async {
-                self.control.viewModel.zoomLevel = mapView.zoomLevel
-                self.control.viewModel.bounds = mapView.visibleCoordinateBounds
-                self.control.viewModel.center = mapView.centerCoordinate
-                self.control.viewModel.heading = mapView.camera.heading
+                self.control.zoomLevel = mapView.zoomLevel
+                self.control.bounds = mapView.visibleCoordinateBounds
+                self.control.center = mapView.centerCoordinate
+                self.control.heading = mapView.camera.heading
             }
         }
         
         public func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-            //            control.viewModel.userLocation = userLocation?.coordinate
+            control.userLocation = userLocation?.coordinate
         }
         
         public func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
             if let source = style.sources.first as? MGLVectorTileSource {
                 let attribution = source.attributionInfos.first
-                //                control.viewModel.attribution = attribution?.title.string ?? ""
+                control.attribution = attribution?.title.string ?? ""
             }
             
             setupRenderingLayers(for: style)
@@ -52,11 +50,11 @@ extension MGLMapViewRepresentable {
 }
 
 // MARK: Private Configuration Methods
-extension MGLMapViewRepresentable.Coordinator {
+extension _MGLMapViewWrapper.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
         let locationSource = locationSource()
         style.addSource(locationSource)
-        style.setImage(control.viewModel.annotationImage, forName: "annotation")
+        style.setImage(control.proxyDelegate.annotationImage, forName: "annotation")
         
         let annotationLayer = annotationLayer(for: locationSource)
         style.addLayer(annotationLayer)
@@ -74,9 +72,9 @@ extension MGLMapViewRepresentable.Coordinator {
             shape: nil,
             options:
                 [
-                    .clustered: control.viewModel.clusteringBehavior.shouldCluster,
-                    .maximumZoomLevelForClustering: control.viewModel.clusteringBehavior.maximumZoomLevel,
-                    .clusterRadius: control.viewModel.clusteringBehavior.clusterRadius
+                    .clustered: control.clusteringBehavior.shouldCluster,
+                    .maximumZoomLevelForClustering: control.clusteringBehavior.maximumZoomLevel,
+                    .clusterRadius: control.clusteringBehavior.clusterRadius
                 ]
         )
     }
@@ -93,30 +91,22 @@ extension MGLMapViewRepresentable.Coordinator {
     private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
         let clusterCircleLayer = MGLCircleStyleLayer(identifier: "aml_cluster_circle_layer", source: source)
         
-//        let clusterColorStops: [Double: Double] = [
-//            control.viewModel.clusteringBehavior.maximumZoomLevel + 2: 20,
-//            control.viewModel.clusteringBehavior.maximumZoomLevel + 4: 30,
-//            control.viewModel.clusteringBehavior.maximumZoomLevel + 6: 40,
-//            control.viewModel.clusteringBehavior.maximumZoomLevel + 8: 50,
-//            control.viewModel.clusteringBehavior.maximumZoomLevel + 9: 60
-//        ]
-        
         clusterCircleLayer.circleRadius = NSExpression(
             format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'exponential', 10, %@)",
             [
-                control.viewModel.clusteringBehavior.maximumZoomLevel + 2: 20,
-                control.viewModel.clusteringBehavior.maximumZoomLevel + 4: 30,
-                control.viewModel.clusteringBehavior.maximumZoomLevel + 6: 40,
-                control.viewModel.clusteringBehavior.maximumZoomLevel + 8: 50,
-                control.viewModel.clusteringBehavior.maximumZoomLevel + 9: 60
+                control.clusteringBehavior.maximumZoomLevel + 2: 20,
+                control.clusteringBehavior.maximumZoomLevel + 4: 30,
+                control.clusteringBehavior.maximumZoomLevel + 6: 40,
+                control.clusteringBehavior.maximumZoomLevel + 8: 50,
+                control.clusteringBehavior.maximumZoomLevel + 9: 60
             ]
         )
         clusterCircleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white)
         clusterCircleLayer.circleStrokeWidth = NSExpression(forConstantValue: 4)
         clusterCircleLayer.circleColor = NSExpression(
             format: "mgl_step:from:stops:(point_count, %@, %@)",
-            control.viewModel.clusteringBehavior.clusterColor,
-            control.viewModel.clusteringBehavior.clusterColorSteps
+            control.clusteringBehavior.clusterColor,
+            control.clusteringBehavior.clusterColorSteps
         )
         clusterCircleLayer.predicate = NSPredicate(format: "cluster == YES")
         
@@ -126,7 +116,7 @@ extension MGLMapViewRepresentable.Coordinator {
     private func clusterNumberLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
         let clusterNumberLayer = MGLSymbolStyleLayer(identifier: "aml_cluster_number_layer", source: source)
         clusterNumberLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
-        clusterNumberLayer.textColor = NSExpression(forConstantValue: UIColor.white)
+        clusterNumberLayer.textColor = NSExpression(forConstantValue: control.clusteringBehavior.clusterNumberColor)
         clusterNumberLayer.textFontNames = NSExpression(forConstantValue: ["Arial Bold"])
         clusterNumberLayer.predicate = NSPredicate(format: "cluster == YES")
         return clusterNumberLayer
@@ -147,9 +137,9 @@ extension MGLMapViewRepresentable.Coordinator {
         else { return }
         
         if let tappedCluster = tappedFeature as? MGLPointFeatureCluster {
-            control.viewModel.clusterTapped(control.mapView, tappedCluster)
+            control.proxyDelegate.clusterTapped(control.mapView, tappedCluster)
         } else if let tappedAnnotation = tappedFeature as? MGLPointFeature {
-            control.viewModel.featureTapped(control.mapView, tappedAnnotation)
+            control.proxyDelegate.featureTapped(control.mapView, tappedAnnotation)
         }
     }
 }

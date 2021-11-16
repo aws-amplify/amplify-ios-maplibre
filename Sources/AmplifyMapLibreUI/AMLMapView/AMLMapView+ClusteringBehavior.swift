@@ -8,12 +8,12 @@
 import SwiftUI
 import UIKit
 
-public extension AMLMapView {
+extension AMLMapView {
     /// Standard blue color used for features and feature clusters.
     static let blue = UIColor(red: 0.33, green: 0.48, blue: 0.90, alpha: 1.00)
     
     /// Define the map views clustering behavior.
-    struct ClusteringBehavior {
+    class ClusteringBehavior {
         
         /// Define custom clustering behavior.
         /// - Parameters:
@@ -24,36 +24,44 @@ public extension AMLMapView {
         ///   - clusterColor: The fill color of the circle cluster. Sets the `MGLCircleStyleLayer` `circleColor` property.
         ///   - clusterColorSteps: Dictionary representation of cluster color steps where the `key` is the number of features in a cluster and the `value` is the color for that corresponding number.
         ///   - clusterRadius: Specifies the radius of each cluster if clustering is enabled. Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.
-        public init(
+        init(
             shouldCluster: Bool = true,
             maximumZoomLevel: Int = 13,
             clusterColor: UIColor = AMLMapView.blue,
+            clusterNumberColor: UIColor = .white,
             clusterColorSteps: [Int: UIColor] = [:],
             clusterRadius: Int = 75
         ) {
             self.shouldCluster = shouldCluster
             self.maximumZoomLevel = maximumZoomLevel
             self.clusterColor = clusterColor
-            self.clusterColorSteps = !clusterColorSteps.isEmpty ? clusterColorSteps : [50: clusterColor]
+            self.clusterNumberColor = clusterNumberColor
+            self.clusterColorSteps = !clusterColorSteps.isEmpty
+            ? clusterColorSteps
+            : [50: clusterColor]
             self.clusterRadius = clusterRadius
         }
         
         /// Whether the features displayed on the map should cluster. Default is `true`.
         /// Corresponds to the `MGLShapeSourceOption` `.clustered`.
-        public var shouldCluster: Bool
+        var shouldCluster: Bool
         
         /// Specifies the maximum zoom level at which to cluster points if clustering is enabled.
         /// Corresponds to `MGLShapeSourceOption` `.maximumZoomLevelForClustering`.
-        public var maximumZoomLevel: Int
+        var maximumZoomLevel: Int
         
         /// The fill color of the circle cluster.
         /// Sets the `MGLCircleStyleLayer` `circleColor` property.
-        public var clusterColor: UIColor
+        var clusterColor: UIColor
+        
+        /// The text color of the number displayed in the circle cluster.
+        /// Sets the `MGLSymbolStyleLayer` `textColor` property.
+        var clusterNumberColor: UIColor
         
         /// Dictionary representation of cluster color steps where the `key` is the number of features in a cluster and the `value` is the color for that corresponding number.
-        public var clusterColorSteps: [Int: UIColor]
+        var clusterColorSteps: [Int: UIColor]
         
         /// Specifies the radius of each cluster if clustering is enabled. Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.
-        public var clusterRadius: Int
+        var clusterRadius: Int
     }
 }

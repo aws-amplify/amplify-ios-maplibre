@@ -11,73 +11,34 @@ import AmplifyMapLibreUI
 import CoreLocation
 import Mapbox
 import Amplify
+import Combine
 
 struct ContentView: View {
-
-    @State private var center: CLLocationCoordinate2D = .init(
-        latitude: 37.785834,
-        longitude: -122.406417
-    )
-    
-    @State private var bounds = MGLCoordinateBounds()
-    @State private var zoomLevel: Double = 14
-    @State private var heading: CLLocationDirection = 0
-    @State private var mapResult: Result<MGLMapView, Geo.Error>?
     @State private var displayState = AMLSearchBar.DisplayState.map
     @State private var searchText = ""
     
     @ObservedObject var viewModel = ContentViewModel()
-    @ObservedObject var vm = MyViewModel.init(showUserLocation: false, minZoomLevel: 0, maxZoomLevel: 15, hideAttributionButton: true, compassPosition: .bottomRight)
-        
+    @ObservedObject var mapState = AMLMapViewState(
+        center: CLLocationCoordinate2D(
+            latitude: 37.785834,
+            longitude: -122.406417
+        )
+    )
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .ignoresSafeArea()
+            AMLMapView(
+                features: $viewModel.features,
+                mapState: mapState
+            )
+                .clusterColor(.purple)
+                .onReceive(mapState.$heading, perform: { heading in
+                    print(heading)
+                })
+                .edgesIgnoringSafeArea(.all)
             
-            if displayState == .map {
-                //                AMLMapView(
-                //                    zoomLevel: $zoomLevel,
-                //                    bounds: $bounds,
-                //                    center: $center,
-                //                    heading: $heading,
-                //                    features: $viewModel.annotations
-                //                )
-                
-                AMLMapView(viewModel: vm)
-//                    .featureTapped({ mapView, pointFeature in
-//                        print("FEATURE TAPPED \(#line) - \(#fileID)")
-//                        print(pointFeature)
-//                    })
-                    .edgesIgnoringSafeArea(.all)
-
-//                AMLMapView(
-//                    options: .init(
-//                        zoomLevel: $zoomLevel,
-//                        bounds: $bounds,
-//                        center: $center,
-//                        heading: $heading,
-//                        features: $viewModel.annotations
-//                    )
-//                )
-//                    .featureTapped({ mapView, pointFeature in
-//                        print("Feature tapped at \(#line)")
-//                        dump(pointFeature)
-//                    })
-//                switch mapResult {
-//                case .success(let map):
-//
-//
-//                case .failure(let error):
-//                    Text("Error \(error.errorDescription)")
-//                case .none:
-//                    Text("something went wrong")
-//                        .onAppear {
-//                            AmplifyMapLibre.createMap {
-//                                mapResult = $0
-//                            }
-//                        }
-//                }
-            }
             
             VStack(alignment: .center) {
                 AMLSearchBar(
@@ -92,33 +53,32 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         AMLMapControlView(
-                            zoomValue: vm.zoomLevel,
-                            zoomInAction: { vm.zoomLevel += 1 },
-                            zoomOutAction: { vm.zoomLevel -= 1 },
-                            compassAction: { vm.heading = 0 }
+                            zoomValue: mapState.zoomLevel,
+                            zoomInAction: { mapState.zoomLevel += 1 },
+                            zoomOutAction: { mapState.zoomLevel -= 1 },
+                            compassAction: { mapState.heading = 0 }
                         )
                     }
                     .padding(.trailing)
                 } else {
-                    
-//                    List(vm.places) { place in
-//                        AMLPlaceCellView(place: .init(place))
-//                    }
-//                    .listStyle(InsetGroupedListStyle())
-//                    AMLPlaceList(viewModel.places)
-//                    .ignoresSafeArea()
+                    List(viewModel.places) { place in
+                        AMLPlaceCellView(place: .init(place))
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .ignoresSafeArea()
                 }
                 Spacer()
             }
         }
+        
     }
     
     func cancelSearch() {
-        vm.features = []
+        viewModel.features = []
     }
     
     func search() {
-        vm.search(searchText, area: .near(center))
+        viewModel.search(searchText, area: .near(mapState.center))
     }
 }
 

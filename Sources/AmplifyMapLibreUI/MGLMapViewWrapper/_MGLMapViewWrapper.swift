@@ -1,0 +1,107 @@
+//
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+import SwiftUI
+import Amplify
+import AWSLocationGeoPlugin
+import Mapbox
+
+/// SwiftUI Wrapper for MGLMapView.
+internal struct _MGLMapViewWrapper: UIViewRepresentable {
+    /// Underlying MGLMapView.
+    let mapView: MGLMapView
+    /// Current zoom level of the map
+    @Binding var zoomLevel: Double
+    /// The coordinate bounds of the currently displayed area of the map.
+    @Binding var bounds: MGLCoordinateBounds
+    /// The center coordinates of the currently displayed area of the map.
+    @Binding var center: CLLocationCoordinate2D
+    /// The current heading of the map in degrees.
+    @Binding var heading: CLLocationDirection
+    /// The user's current location.
+    @Binding var userLocation: CLLocationCoordinate2D?
+    /// Features that are displayed on the map.
+    @Binding var features: [MGLPointFeature]
+    /// The attribution string for the map data providers.
+    @Binding var attribution: String?
+    /// The clustering behavior of the map.
+    let clusteringBehavior: AMLMapView.ClusteringBehavior
+    /// Implementation definitions for user interactions with the map.
+    let proxyDelegate: AMLMapView.ProxyDelegate
+            
+    /// Initialize an instance of AMLMapView.
+    ///
+    /// A SwiftUI wrapper View around MGLMapView
+    /// - Parameters:
+    ///   - mapView: The underlying MGLMapView.
+    ///   - zoomLevel: Current zoom level of the map. Default 14
+    ///   - bounds: The coordinate bounds of the currently displayed area of the map.
+    ///   - center: The center coordinates of the currently displayed area of the map.
+    ///   - userLocation: The user's current location. If this value exists, it will set `mapView.showsUserLocation` to true. (optional). __Setting this to true will prompt the user for location permission__
+    ///   - features: Binding of features displayed on the map.
+    ///   - attribution: The attribution string for the map data providers.
+    init(
+        mapView: MGLMapView,
+        zoomLevel: Binding<Double>,
+        bounds: Binding<MGLCoordinateBounds>,
+        center: Binding<CLLocationCoordinate2D>,
+        heading: Binding<CLLocationDirection>,
+        userLocation: Binding<CLLocationCoordinate2D?>,
+        features: Binding<[MGLPointFeature]>,
+        attribution: Binding<String?>,
+        clusteringBehavior: AMLMapView.ClusteringBehavior,
+        proxyDelegate: AMLMapView.ProxyDelegate
+    ) {
+        self.clusteringBehavior = clusteringBehavior
+        self.mapView = mapView
+        self.proxyDelegate = proxyDelegate
+        _bounds = bounds
+        _center = center
+        _userLocation = userLocation
+        _attribution = attribution
+        _zoomLevel = zoomLevel
+        _features = features
+        _heading = heading
+
+        self.mapView.centerCoordinate = center.wrappedValue
+        self.mapView.zoomLevel = zoomLevel.wrappedValue
+        self.mapView.logoView.isHidden = true
+        self.mapView.showsUserLocation = userLocation.wrappedValue != nil
+    }
+    
+    public func makeUIView(context: UIViewRepresentableContext<_MGLMapViewWrapper>) -> MGLMapView {
+        mapView.delegate = context.coordinator
+        return mapView
+    }
+    
+    public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<_MGLMapViewWrapper>) {
+        handleZoomUpdate(in: uiView)
+        handleCameraUpdate(in: uiView)
+        handleFeatureUpdate(in: uiView)
+    }
+    
+    private func handleFeatureUpdate(in mapView: MGLMapView) {
+        guard let clusterSource = mapView.style?.source(withIdentifier: "aml_location_source") as? MGLShapeSource else { return }
+        clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
+    }
+    
+    private func handleCameraUpdate(in mapView: MGLMapView) {
+        guard mapView.camera.heading != heading else { return }
+        let camera = mapView.camera
+        camera.heading = heading
+        mapView.setCamera(camera, animated: true)
+    }
+    
+    private func handleZoomUpdate(in mapView: MGLMapView) {
+        guard mapView.zoomLevel != zoomLevel else { return }
+        mapView.setZoomLevel(zoomLevel, animated: true)
+    }
+        
+    public func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+}

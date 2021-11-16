@@ -27,19 +27,20 @@ struct CompositeParentView: View {
     @State private var mapViewResult: Result<MGLMapView, Geo.Error>?
     
     var body: some View {
-        AMLMapCompositeView(
-            zoomLevel: $zoomLevel,
-            bounds: $bounds,
-            center: $center,
-            heading: $heading,
-            displayState: $displayState,
-            searchText: $searchText
-        )
-            .showUserLocation(true)
-            .featureClusterTapped { mapView, pointFeatureCluster in
-                print("FEATURE CLUSTER TAPPED")
-                dump(pointFeatureCluster)
-            }
+        EmptyView()
+//        AMLMapCompositeView(
+//            zoomLevel: $zoomLevel,
+//            bounds: $bounds,
+//            center: $center,
+//            heading: $heading,
+//            displayState: $displayState,
+//            searchText: $searchText
+//        )
+//            .showUserLocation(true)
+//            .featureClusterTapped { mapView, pointFeatureCluster in
+//                print("FEATURE CLUSTER TAPPED")
+//                dump(pointFeatureCluster)
+//            }
     }
 }
 

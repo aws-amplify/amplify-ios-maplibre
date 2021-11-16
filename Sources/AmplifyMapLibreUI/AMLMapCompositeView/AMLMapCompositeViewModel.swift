@@ -8,10 +8,11 @@
 import SwiftUI
 import Mapbox
 import Amplify
+import AmplifyMapLibreAdapter
 
 class AMLMapCompositeViewModel: ObservableObject {
     @Published var places: [Geo.Place] = []
-    @Published var annotations: [MGLPointFeature] = []
+    @Published var features: [MGLPointFeature] = []
     
     func search(
         _ text: String,
@@ -22,29 +23,12 @@ class AMLMapCompositeViewModel: ObservableObject {
             case.success(let places):
                 DispatchQueue.main.async {
                     self?.places = places
-                    self?.annotations = places.map(MGLPointFeature.init)
+                    self?.features = AmplifyMapLibre.createFeatures(places)
                 }
             case .failure(let error):
                 print(error)
             }
         }
-    }
-}
-
-extension AMLMapCompositeView {
-    class ViewModifierPassthroughProxy: ObservableObject {
-        @Published var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void) = { mapView, cluster in
-            mapView.setCenter(
-                cluster.coordinate,
-                zoomLevel: min(15, mapView.zoomLevel + 2),
-                direction: mapView.camera.heading,
-                animated: true
-            )
-        }
-        @Published var showUserLocation = false
-        @Published var allowedZoomLevels = (min: 0, max: 22)
-        @Published var hideAttributionButton = false
-        
     }
 }
 
