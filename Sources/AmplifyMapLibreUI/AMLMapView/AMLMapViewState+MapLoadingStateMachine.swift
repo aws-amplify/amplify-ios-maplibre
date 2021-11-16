@@ -9,12 +9,12 @@ import SwiftUI
 import Mapbox
 import Amplify
 
+/// Internal
 struct MapCreationStateMachine {
     var state: State
     
     enum State {
         case begin
-        case loading
         case complete(MGLMapView)
         case error(Geo.Error)
     }

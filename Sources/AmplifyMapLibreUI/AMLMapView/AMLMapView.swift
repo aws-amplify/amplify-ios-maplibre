@@ -25,6 +25,9 @@ public struct AMLMapView: View {
         _mapView = mapView
         _features = features
         self.mapState = mapState
+        if let mapView = mapView.wrappedValue {
+            mapState.mapLoadingState.state = .complete(mapView)
+        }
     }
     
     public var body: some View {
@@ -48,8 +51,6 @@ public struct AMLMapView: View {
                 .maxZoomLevel(mapSettings.maxZoomLevel)            
         case .error(let error):
             Text("Error loading view: \(error.localizedDescription)")
-        case .loading:
-            AMLActivityIndicator()
         case .begin:
             AMLActivityIndicator()
                 .onAppear {
