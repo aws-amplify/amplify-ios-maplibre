@@ -10,9 +10,11 @@ import Mapbox
 import Amplify
 import AmplifyMapLibreAdapter
 
-class AMLMapCompositeViewModel: ObservableObject {
+public class AMLMapCompositeViewModel: ObservableObject {
     @Published var places: [Geo.Place] = []
     @Published var features: [MGLPointFeature] = []
+    
+    public init() { }
     
     func search(
         _ text: String,

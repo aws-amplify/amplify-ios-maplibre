@@ -45,9 +45,7 @@ public struct AMLMapView: View {
                 .showUserLocation(mapSettings.showUserLocation)
                 .compassPosition(mapSettings.compassPosition)
                 .minZoomLevel(mapSettings.minZoomLevel)
-                .maxZoomLevel(mapSettings.maxZoomLevel)
-            //                .featureClusterTapped(viewModel.clusterTapped)
-            //                .featureTapped(viewModel.featureTapped)
+                .maxZoomLevel(mapSettings.maxZoomLevel)            
         case .error(let error):
             Text("Error loading view: \(error.localizedDescription)")
         case .loading:

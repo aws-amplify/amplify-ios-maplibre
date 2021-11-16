@@ -19,23 +19,14 @@ struct CompositeParentView: View {
         longitude: -122.406417
     )
     
-    @State private var bounds = MGLCoordinateBounds()
-    @State private var zoomLevel: Double = 14
-    @State private var heading: CLLocationDirection = 0
-    @State private var displayState = AMLSearchBar.DisplayState.map
     @State private var searchText = ""
-    @State private var mapViewResult: Result<MGLMapView, Geo.Error>?
+    @State private var features: [MGLPointFeature] = []
     
     var body: some View {
-        EmptyView()
-//        AMLMapCompositeView(
-//            zoomLevel: $zoomLevel,
-//            bounds: $bounds,
-//            center: $center,
-//            heading: $heading,
-//            displayState: $displayState,
-//            searchText: $searchText
-//        )
+        AMLMapCompositeView(
+            mapState: AMLMapViewState(center: center),
+            searchText: $searchText
+        )
 //            .showUserLocation(true)
 //            .featureClusterTapped { mapView, pointFeatureCluster in
 //                print("FEATURE CLUSTER TAPPED")
