@@ -20,26 +20,11 @@ struct CompositeParentView: View {
     )
     
     @State private var searchText = ""
-    @State private var features: [MGLPointFeature] = []
     
     var body: some View {
         AMLMapCompositeView(
             mapState: AMLMapViewState(center: center),
             searchText: $searchText
         )
-//            .showUserLocation(true)
-//            .featureClusterTapped { mapView, pointFeatureCluster in
-//                print("FEATURE CLUSTER TAPPED")
-//                dump(pointFeatureCluster)
-//            }
     }
-}
-
-
-func myVeryOwnCreateMap(_ completion: @escaping (Result<MGLMapView, Geo.Error>) -> Void) {
-    // do something
-    
-    // go get mapStyle
-    // doSomething to map style
-//    completion(...)
 }

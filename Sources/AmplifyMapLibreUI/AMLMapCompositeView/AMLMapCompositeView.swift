@@ -81,10 +81,8 @@ public struct AMLMapCompositeView: View {
                 HStack {
                     Spacer()
                     AMLMapControlView(
-                        zoomValue: mapState.zoomLevel,
-                        zoomInAction: { mapState.zoomLevel += 1 },
-                        zoomOutAction: { mapState.zoomLevel -= 1 },
-                        compassAction: { mapState.heading = 0 }
+                        zoomValue: $mapState.zoomLevel,
+                        headingValue: $mapState.heading
                     )
                 }
                 .padding(.trailing)
@@ -119,10 +117,8 @@ public struct AMLMapCompositeView: View {
                     HStack {
                         Spacer()
                         AMLMapControlView(
-                            zoomValue: mapState.zoomLevel,
-                            zoomInAction: { mapState.zoomLevel += 1 },
-                            zoomOutAction: { mapState.zoomLevel -= 1 },
-                            compassAction: { mapState.heading = 0 }
+                            zoomValue: $mapState.zoomLevel,
+                            headingValue: $mapState.heading
                         )
                     }
                     .padding(.trailing)
