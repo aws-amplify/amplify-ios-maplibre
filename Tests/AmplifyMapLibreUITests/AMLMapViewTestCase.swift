@@ -23,7 +23,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func showUserLocation(_ showLocation: Bool) -> AMLMapView
     func testShowUserLocation() {
-        let mapView = AMLMapView(mapView: .constant(mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
         // `showUserLocation` defaults to false if `AMLMapView` is instantiated without a `userLocation`
         XCTAssertFalse(mapView.mapSettings.showUserLocation)
 
@@ -40,7 +40,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> AMLMapView
     func testAllowedZoomLevels() {
-        let mapView = AMLMapView(mapView: .constant(mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
         // Test default behavior
         XCTAssertEqual(mapView.mapSettings.minZoomLevel, 0)
         XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 22)
@@ -76,7 +76,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func maxZoomLevel(_ maxZoomLevel: Double) -> AMLMapView
     func testMaxZoomLevel() {
-        let mapView = AMLMapView(mapView: .constant(mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
             .maxZoomLevel(19)
         XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 19)
 
@@ -88,7 +88,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func minZoomLevel(_ minZoomLevel: Double) -> AMLMapView
     func testMinZoomLevel() {
-        let mapView = AMLMapView(mapView: .constant(mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
             .minZoomLevel(4)
         XCTAssertEqual(mapView.mapSettings.minZoomLevel, 4)
 
