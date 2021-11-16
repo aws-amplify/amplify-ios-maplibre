@@ -54,7 +54,12 @@ extension _MGLMapViewWrapper.Coordinator {
     private func setupRenderingLayers(for style: MGLStyle) {
         let locationSource = locationSource()
         style.addSource(locationSource)
-        style.setImage(control.featureImage, forName: "aml_feature")
+        let defaultImage = UIImage(
+            named: "AMLFeatureView",
+            in: Bundle.module,
+            compatibleWith: nil
+        )!
+        style.setImage(defaultImage, forName: "aml_feature")
         
         let featureLayer = featureLayer(for: locationSource)
         style.addLayer(featureLayer)

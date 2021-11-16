@@ -37,10 +37,10 @@ struct AMLMapView_View: View {
                 .allowedZoomLevels(5...15)
                 .hideAttributionButton(true)
                 .compassPosition(.bottomRight)
-//                .featureView(
-//                    Image(systemName: "paperplane.circle.fill")
-//                        .font(.largeTitle)
-//                )
+                .featureView(
+                    Image(systemName: "paperplane.circle.fill")
+                        .font(.largeTitle)
+                )
                 .shouldCluster(true)
                 .clusterColor(.lightGray)
                 .clusterColorSteps(

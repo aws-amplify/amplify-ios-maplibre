@@ -30,8 +30,7 @@ class AMLMapView_ViewModel: ObservableObject {
             switch result {
             case.success(let places):
                 DispatchQueue.main.async {
-//                    self?.places = places.map(Place.init)
-                    
+                    self?.places = places.map(Place.init)
                     self?.mapState.features = AmplifyMapLibre.createFeatures(places)
                 }
             case .failure(let error):

@@ -27,6 +27,7 @@ internal class AMLMapViewSettings: ObservableObject {
     /// The compass position on the map.
     @Published internal var compassPosition: MGLOrnamentPosition
     
+    /// The image representing a feature on the map.
     @Published internal var featureImage: UIImage
     
     /// Definition of the map's clustering behavior
@@ -43,7 +44,8 @@ internal class AMLMapViewSettings: ObservableObject {
     ///   - minZoomLevel: The map's minimum allowed zoom level. Default is `0`
     ///   - maxZoomLevel: The map's maximum allowed zoom level. Default is `22`
     ///   - hideAttributionButton: Whether the attribution button is hidden. Default is `false`
-    ///   - compassPosition: Set the position of the compass on the map. Default is `.bottomleft`
+    ///   - compassPosition: The position of the compass on the map. Default is `.bottomleft`
+    ///   - featureImage: The image representing a feature on the map.
     ///   - clusteringBehavior: Define the map views clustering behavior. Default implementation provided.
     ///   - proxyDelegate: Define your own implementations of user interactions with the map. Default implementation provided.
     internal init(

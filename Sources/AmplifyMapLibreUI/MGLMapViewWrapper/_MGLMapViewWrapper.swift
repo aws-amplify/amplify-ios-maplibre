@@ -29,7 +29,7 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
     /// The attribution string for the map data providers.
     @Binding var attribution: String?
     /// UIImage that represents a feature on the map.
-    let featureImage: UIImage
+//    let featureImage: UIImage
     /// The clustering behavior of the map.
     let clusteringBehavior: AMLMapView.ClusteringBehavior
     /// Implementation definitions for user interactions with the map.
@@ -67,7 +67,6 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         self.clusteringBehavior = clusteringBehavior
         self.mapView = mapView
         self.proxyDelegate = proxyDelegate
-        self.featureImage = featureImage
         _bounds = bounds
         _center = center
         _userLocation = userLocation
