@@ -29,7 +29,7 @@ struct AMLMapView_View: View {
                 // --------
                 AMLMapView(mapState: viewModel.mapState)
                     .showUserLocation(true)
-                    .allowedZoomLevels(5...15)
+                    .allowedZoomLevels(5 ... 15)
                     .hideAttributionButton(true)
                     .compassPosition(.bottomRight)
                     .featureImage {
@@ -108,7 +108,7 @@ extension AMLMapView_View {
         mapView.fly(
             to: camera,
             withDuration: 0.5,
-            peakAltitude: 3000,
+            peakAltitude: 3_000,
             completionHandler: nil
         )
     }

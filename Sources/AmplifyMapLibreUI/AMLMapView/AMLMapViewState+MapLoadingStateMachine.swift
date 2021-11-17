@@ -27,7 +27,7 @@ struct MapCreationStateMachine {
     /// Transition to a new state based on a `Result<MGLMapView, Geo.Error>`
     /// - Parameters:
     ///   - input: The async operation's result.
-    ///   - map: An optional `MGLMapView` that gets assigned if the `Result` was successful. 
+    ///   - map: An optional `MGLMapView` that gets assigned if the `Result` was successful.
     mutating func transition(
         input: Result<MGLMapView, Geo.Error>,
         assign map: inout MGLMapView?

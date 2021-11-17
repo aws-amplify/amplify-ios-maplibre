@@ -71,7 +71,7 @@ public struct AMLMapControlView: View {
     private func alignNorth() { headingValue = 0 }
 }
 
-fileprivate extension Double {
+private extension Double {
     var accessibilityFormatted: String {
         String(Int(self))
     }

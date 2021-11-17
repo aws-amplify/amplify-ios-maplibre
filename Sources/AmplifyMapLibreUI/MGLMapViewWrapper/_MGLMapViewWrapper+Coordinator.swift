@@ -10,14 +10,14 @@ import Mapbox
 
 extension _MGLMapViewWrapper {
     /// Coordinator class for `_MGLMapViewWrapper` that manages MGLMapViewDelegate methods.
-    final public class Coordinator: NSObject, MGLMapViewDelegate {
+    final class Coordinator: NSObject, MGLMapViewDelegate {
         var control: _MGLMapViewWrapper
 
         init(_ control: _MGLMapViewWrapper) {
             self.control = control
         }
 
-        public func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+        func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
             DispatchQueue.main.async {
                 self.control.zoomLevel = mapView.zoomLevel
                 self.control.bounds = mapView.visibleCoordinateBounds
@@ -26,11 +26,11 @@ extension _MGLMapViewWrapper {
             }
         }
 
-        public func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
+        func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
             control.userLocation = userLocation?.coordinate
         }
 
-        public func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
             if let source = style.sources.first as? MGLVectorTileSource {
                 let attribution = source.attributionInfos.first
                 control.attribution = attribution?.title.string ?? ""
@@ -40,7 +40,7 @@ extension _MGLMapViewWrapper {
             setTapRecognizer()
         }
 
-        public func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
             if let calloutViewToRemove = mapView.subviews.first(where: { $0.tag == 42 }) {
                 mapView.willRemoveSubview(calloutViewToRemove)
                 calloutViewToRemove.removeFromSuperview()

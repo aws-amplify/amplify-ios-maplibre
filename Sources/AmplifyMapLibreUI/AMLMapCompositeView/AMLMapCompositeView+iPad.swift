@@ -9,7 +9,7 @@ import SwiftUI
 
 extension AMLMapCompositeView {
     /// Split screen layout for iPad.
-    @ViewBuilder internal func padView() -> some View {
+    @ViewBuilder func padView() -> some View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 Color(.secondarySystemBackground)

@@ -103,7 +103,7 @@ class AMLCalloutUIView: UIView {
 
     /// Called by `xButton`'s gesture recognizer to remove the callout view.
     @objc func xButtonTapped() {
-        self.removeFromSuperview()
+        removeFromSuperview()
     }
 
     @available(*, unavailable)

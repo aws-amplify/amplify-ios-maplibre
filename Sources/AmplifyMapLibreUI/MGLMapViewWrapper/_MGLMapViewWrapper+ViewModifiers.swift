@@ -17,7 +17,7 @@ extension _MGLMapViewWrapper {
     /// the user must choose to allow access.
     /// - Parameter showLocation: Enables showing the user's location on the map.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func showUserLocation(_ showLocation: Bool) -> _MGLMapViewWrapper {
+    func showUserLocation(_ showLocation: Bool) -> _MGLMapViewWrapper {
         mapView.showsUserLocation = showLocation
         return self
     }
@@ -38,7 +38,7 @@ extension _MGLMapViewWrapper {
     /// The minimum allowable zoom level is 0 and the maximum allowable zoom level is 22.
     /// Any value set below 0 or above 22 will revert to 0 or 22 accordingly.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> _MGLMapViewWrapper {
+    func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> _MGLMapViewWrapper {
         mapView.minimumZoomLevel = max(zoomLevels.lowerBound, 0)
         mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
         return self
@@ -58,7 +58,7 @@ extension _MGLMapViewWrapper {
     /// - Important:
     /// The maximum zoom level is 22. Any value set above 22 will revert to 22.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func maxZoomLevel(_ maxZoomLevel: Double) -> _MGLMapViewWrapper {
+    func maxZoomLevel(_ maxZoomLevel: Double) -> _MGLMapViewWrapper {
         mapView.maximumZoomLevel = min(maxZoomLevel, 22)
         return self
     }
@@ -77,7 +77,7 @@ extension _MGLMapViewWrapper {
     /// - Important:
     ///  The minimum allowable zoom level is 0. Any value set below 0 revert to 0.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func minZoomLevel(_ minZoomLevel: Double) -> _MGLMapViewWrapper {
+    func minZoomLevel(_ minZoomLevel: Double) -> _MGLMapViewWrapper {
         mapView.minimumZoomLevel = max(minZoomLevel, 0)
         return self
     }
@@ -85,7 +85,7 @@ extension _MGLMapViewWrapper {
     /// Set map's attribution button to hidden or showing.
     /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func hideAttributionButton(_ hide: Bool) -> _MGLMapViewWrapper {
+    func hideAttributionButton(_ hide: Bool) -> _MGLMapViewWrapper {
         mapView.attributionButton.isHidden = hide
         return self
     }
@@ -93,7 +93,7 @@ extension _MGLMapViewWrapper {
     /// Set the position of the compass on the `MGLMapView`.
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func compassPosition(_ position: MGLOrnamentPosition) -> _MGLMapViewWrapper {
+    func compassPosition(_ position: MGLOrnamentPosition) -> _MGLMapViewWrapper {
         mapView.compassViewPosition = position
         return self
     }
@@ -106,7 +106,7 @@ extension _MGLMapViewWrapper {
     /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeature`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeature` as needed.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func featureTapped(
+    func featureTapped(
         _ implementation: @escaping (
             _ mapView: MGLMapView,
             _ pointFeature: MGLPointFeature
@@ -124,7 +124,7 @@ extension _MGLMapViewWrapper {
     /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeatureCluster`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeatureCluster` as needed.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
-    public func featureClusterTapped(
+    func featureClusterTapped(
         _ implementation: @escaping (
             _ mapView: MGLMapView,
             _ pointFeatureCluster: MGLPointFeatureCluster

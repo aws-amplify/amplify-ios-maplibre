@@ -9,7 +9,7 @@ import Amplify
 
 extension Geo.Place {
     /// Internal initializer to create `Geo.Place` from `_Place`.
-    internal init(_ place: _Place) {
+    init(_ place: _Place) {
         self.init(
             coordinates: place.coordinates,
             label: place.label,

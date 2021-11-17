@@ -25,7 +25,7 @@ class AMLMapView_ViewModel: ObservableObject {
     ) {
         Amplify.Geo.search(for: text, options: .init(area: area)) { [weak self] result in
             switch result {
-            case.success(let places):
+            case .success(let places):
                 DispatchQueue.main.async {
                     self?.places = places
                     self?.mapState.features = AmplifyMapLibre.createFeatures(places)

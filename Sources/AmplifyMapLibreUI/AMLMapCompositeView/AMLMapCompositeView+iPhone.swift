@@ -9,7 +9,7 @@ import SwiftUI
 
 extension AMLMapCompositeView {
     /// Layout for iPhone.
-    @ViewBuilder internal func phoneView() -> some View {
+    @ViewBuilder func phoneView() -> some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)

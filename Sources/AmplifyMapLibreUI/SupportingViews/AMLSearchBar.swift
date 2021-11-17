@@ -97,14 +97,14 @@ public extension AMLSearchBar {
 }
 
 // MARK: Internal / Fileprivate Helper Views and Extensions
-fileprivate extension View {
+private extension View {
     func searchBarIconOverlay(
         isEditing: Binding<Bool>,
         text: Binding<String>,
         displayState: Binding<AMLSearchBar.DisplayState>,
         showDisplayStateButton: Bool
     ) -> some View {
-        self.overlay(
+        overlay(
             AMLSearchBarIconOverlay(
                 isEditing: isEditing,
                 text: text,

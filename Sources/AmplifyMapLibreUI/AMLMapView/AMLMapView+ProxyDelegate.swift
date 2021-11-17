@@ -48,8 +48,7 @@ extension AMLMapView {
             ///   - calloutView: The UIView to be presented as a callout view.
             ///   - mapView: The MGLMapView on which the callout view will be presented.
             func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
-                if let existingCalloutView = mapView.subviews
-                    .first(where: { $0.tag == 42 }) {
+                if let existingCalloutView = mapView.subviews.first(where: { $0.tag == 42 }) {
                     mapView.willRemoveSubview(existingCalloutView)
                     existingCalloutView.removeFromSuperview()
                 }

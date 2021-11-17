@@ -27,7 +27,7 @@ public struct AMLActivityIndicator: UIViewRepresentable {
         _ uiView: UIActivityIndicatorView,
         context: Context
     ) {
-        if self.isAnimating {
+        if isAnimating {
             uiView.startAnimating()
         } else {
             uiView.stopAnimating()
