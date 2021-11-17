@@ -45,7 +45,7 @@ internal class AMLMapViewSettings: ObservableObject {
     ///   - maxZoomLevel: The map's maximum allowed zoom level. Default is `22`
     ///   - hideAttributionButton: Whether the attribution button is hidden. Default is `false`
     ///   - compassPosition: The position of the compass on the map. Default is `.bottomleft`
-    ///   - featureImage: The image representing a feature on the map.
+    ///   - featureImage: The image representing a feature on the map. Default is `AMLFeatureView`.
     ///   - clusteringBehavior: Define the map views clustering behavior. Default implementation provided.
     ///   - proxyDelegate: Define your own implementations of user interactions with the map. Default implementation provided.
     internal init(

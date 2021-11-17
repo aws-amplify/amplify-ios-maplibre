@@ -8,8 +8,10 @@
 import SwiftUI
 import Amplify
 
-// WIP
+/// A list of places created with an array of `Geo.Place`.
 public struct AMLPlaceList: View {
+    /// Create a List of `Geo.Place`s.
+    /// - Parameter places: The places to be displayed in the list.
     public init(_ places: [Geo.Place]) {
         self.places = places.map(_Place.init)
     }

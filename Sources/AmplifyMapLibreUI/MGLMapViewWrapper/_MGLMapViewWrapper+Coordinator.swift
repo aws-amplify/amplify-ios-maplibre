@@ -51,6 +51,19 @@ extension _MGLMapViewWrapper {
 
 // MARK: Private Configuration Methods
 extension _MGLMapViewWrapper.Coordinator {
+    
+    /// Add rendering layers to `MGLStyle`.
+    ///
+    /// - FeatureLayer: Features representing a point on the map. Sourced through `features` property of `_MGLMapViewWrapper`.
+    ///     - Identifier: `"aml_feature_style_layer"`
+    ///     - Uses source identifier: `"aml_location_source"`
+    ///     - Rendered image identifier: `"aml_feature"`
+    /// - ClusterCircleLayer: Cluster Features representing a cluster of features on the map. Clustering behavior determined by `ClusteringBehavior`.
+    ///     - Identifier: `"aml_cluster_circle_layer"`
+    ///     - Uses source identifier: `"aml_location_source"`
+    /// - ClusterNumberLayer: Renders numbers representing the amount of features within a feature cluster.
+    ///     - Identifier: `"aml_cluster_number_layer"`
+    /// - Parameter style: The `MGLStyle` that the layers will be added to.
     private func setupRenderingLayers(for style: MGLStyle) {
         let locationSource = locationSource()
         style.addSource(locationSource)
@@ -71,6 +84,8 @@ extension _MGLMapViewWrapper.Coordinator {
         style.addLayer(clusterNumberLayer)
     }
     
+    /// Create the location source used to source features in the subsequent layers.
+    /// - Returns: A `MGLShapeSource` with defined clustering options.
     private func locationSource() -> MGLShapeSource {
         MGLShapeSource.init(
             identifier: "aml_location_source",
@@ -84,6 +99,9 @@ extension _MGLMapViewWrapper.Coordinator {
         )
     }
     
+    /// Create the layer that renders features on the map.
+    /// - Parameter source: The layer's source.
+    /// - Returns: A `MGLSymbolStyleLayer` that will render features provided through the `source`.
     private func featureLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
         let featureLayer = MGLSymbolStyleLayer(identifier: "aml_feature_style_layer", source: source)
         featureLayer.iconImageName = NSExpression(forConstantValue: "aml_feature")
@@ -93,6 +111,9 @@ extension _MGLMapViewWrapper.Coordinator {
         return featureLayer
     }
     
+    /// Create the layer that renders feature clusters on the map.
+    /// - Parameter source: The layer's source. Generally the same as the feature layer's `source`.
+    /// - Returns: A `MGLCircleStyleLayer` that will render feature clusters provided through the `source`. Clustering behavior defined through `ClusteringBehavior`.
     private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
         let clusterCircleLayer = MGLCircleStyleLayer(identifier: "aml_cluster_circle_layer", source: source)
         
@@ -118,6 +139,9 @@ extension _MGLMapViewWrapper.Coordinator {
         return clusterCircleLayer
     }
     
+    /// Create the layer that renders numbers on the feature clusters on the map.
+    /// - Parameter source: The layer's source. Generally the same as the cluster circle layer's `source`.
+    /// - Returns: A `MGLSymbolStyleLayer` that renders numbers on feature clusters provided through the `source`.
     private func clusterNumberLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
         let clusterNumberLayer = MGLSymbolStyleLayer(identifier: "aml_cluster_number_layer", source: source)
         clusterNumberLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
@@ -127,11 +151,18 @@ extension _MGLMapViewWrapper.Coordinator {
         return clusterNumberLayer
     }
     
+    /// Set a tap gesture recognizer whose action calls the implemention of `featureTapped` or `clusterTapped`.
     private func setTapRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         control.mapView.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    /// Called by the `UITapGestureRecognizer`, this determines if a feature or feature cluster was tapped.
+    ///
+    /// If so, it will call the provided implementation of `featureTapped` or `clusterTapped`.
+    ///
+    /// - Important: You should never have to call this from your code. The action is called by the tap gesture recognizer.
+    /// - Parameter sender: The `UITapGestureRecognizer`.
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let location = sender.location(in: control.mapView)
         

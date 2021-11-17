@@ -72,6 +72,10 @@ public class AMLMapViewState: ObservableObject {
         self.features = features
     }
     
+    /// Transition map loading state based on `Result` input.
+    ///
+    /// If `Result` is `.success`, the passed in `AMLMapView?` will be assigned it's associated value.
+    /// - Parameter input: The result of the request to create a map.
     func transitionMapLoadingState(input: Result<MGLMapView, Geo.Error>) {
         mapLoadingState.transition(input: input, assign: &mapView)
     }

@@ -10,10 +10,12 @@ import Mapbox
 import UIKit
 
 public extension AMLMapView {
+    /// An object that holds user defined or default behavior implementations for actions taken with the underling `MGLMapView`.
     class ProxyDelegate {
         
         public init() { }
         
+        /// The implementation that gets executed when a feature is tapped on the map.
         var featureTapped: ((MGLMapView, MGLPointFeature) -> Void) = { mapView, pointFeature in
             
             mapView.setCenter(
@@ -59,6 +61,7 @@ public extension AMLMapView {
             addCalloutView(calloutView, to: mapView)
         }
         
+        /// The implementation that gets executed when a feature cluster is tapped on the map.
         var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void) = { mapView, cluster in
             mapView.setCenter(
                 cluster.coordinate,

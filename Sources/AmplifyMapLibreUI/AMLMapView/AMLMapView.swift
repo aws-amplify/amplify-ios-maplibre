@@ -29,9 +29,8 @@ public struct AMLMapView: View {
         }
     }
     
-    /// Create an instance of `AMLMapView`
-    /// - Parameter mapState: Object to track state changes.
-    
+    /// Create an instance of `AMLMapView`.
+    ///
     /// Internal initializer to pass mapSettings in from composite view.
     /// - Parameters:
     ///   - mapState: Object to track state changes.
@@ -70,12 +69,15 @@ public struct AMLMapView: View {
             Text("Error loading view: \(error.localizedDescription)")
         case .begin:
             AMLActivityIndicator()
-                .onAppear {
-                    AmplifyMapLibre.createMap {
-                        mapState
-                            .transitionMapLoadingState(input: $0)
-                    }
-                }
+                .onAppear(perform: createMap)
+        }
+    }
+    
+    /// Handle aysnchronous request to create map from `AmplifyMapLibre`.
+    private func createMap() {
+        AmplifyMapLibre.createMap {
+            mapState
+                .transitionMapLoadingState(input: $0)
         }
     }
 }
