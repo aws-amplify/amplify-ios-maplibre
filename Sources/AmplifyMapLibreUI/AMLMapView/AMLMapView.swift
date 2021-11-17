@@ -77,6 +77,5 @@ public struct AMLMapView: View {
                     }
                 }
         }
-        
     }
 }

@@ -16,12 +16,7 @@ struct AMLMapCompositeView_View: View {
     
     var body: some View {
         AMLMapCompositeView()
-            .featureImage {
-                return UIImage(
-                    systemName: "paperplane.circle.fill",
-                    withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
-                )!
-            }
             .clusterColor(.purple)
+            .showUserLocation(true)
     }
 }

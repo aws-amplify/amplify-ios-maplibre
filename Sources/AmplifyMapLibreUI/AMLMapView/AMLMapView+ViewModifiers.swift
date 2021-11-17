@@ -206,5 +206,3 @@ extension AMLMapView {
         return self
     }
 }
-
-

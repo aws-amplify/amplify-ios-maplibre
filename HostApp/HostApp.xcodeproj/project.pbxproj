@@ -119,9 +119,9 @@
 				90608224272886D600662A60 /* AMLMapView_View.swift */,
 				90BB6F2727444CB600F0FA1C /* SimpleAMLMapView_View.swift */,
 				90E2333E273B08C2001B8168 /* AMLMapView_ViewModel.swift */,
+				90225B49273EA85A00680BA2 /* AMLMapCompositeView_View.swift */,
 				90608226272886D900662A60 /* Assets.xcassets */,
 				90608228272886D900662A60 /* Preview Content */,
-				90225B49273EA85A00680BA2 /* AMLMapCompositeView_View.swift */,
 			);
 			path = HostApp;
 			sourceTree = "<group>";

@@ -184,5 +184,3 @@ extension View {
         )
     }
 }
-
-

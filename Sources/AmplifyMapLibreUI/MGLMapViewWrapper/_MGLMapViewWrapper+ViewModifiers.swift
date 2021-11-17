@@ -97,28 +97,7 @@ extension _MGLMapViewWrapper {
         mapView.compassViewPosition = position
         return self
     }
-    
-    /// Provide an SwiftUI view that represents a feature on a map.
-    ///
-    /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s, this method turns a `SwiftUI` view into a `UIImage`.
-    ///   There may be hidden cost to using this. If you experience performance and / or rendering issues, please use the `featureImage(_:)` view modifier instead.
-    /// - Parameter view: The view to be displayed.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-//    public func featureView<T: View>(_ view: T) -> _MGLMapViewWrapper {
-//        mapView.style?.setImage(view.snapshot(), forName: "aml_feature")
-////        proxyDelegate.featureImage = view.snapshot()
-//        return self
-//    }
-    
-    /// Provide an UIImage that represents a feature on a map.
-    /// - Parameter image: The image to be displayed.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-//    public func featureImage(_ image: UIImage) -> _MGLMapViewWrapper {
-//        mapView.style?.setImage(image, forName: "aml_feature")
-////        proxyDelegate.featureImage = image
-//        return self
-//    }
-    
+        
     /// Define the behavior when a feature is tapped.
     ///
     /// The default implementation pans the feature to the center of the screen and presents an `AMLCalloutView`.

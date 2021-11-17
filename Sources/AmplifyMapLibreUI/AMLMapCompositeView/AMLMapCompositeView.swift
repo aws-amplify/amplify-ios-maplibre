@@ -15,7 +15,7 @@ import AmplifyMapLibreAdapter
 /// `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
     @ObservedObject var viewModel: AMLMapCompositeViewModel
-
+    
     public init(
         viewModel: AMLMapCompositeViewModel = .init(mapState: .init())
     ) {
@@ -29,13 +29,13 @@ public struct AMLMapCompositeView: View {
             padView()
         }
     }
-
+    
     @ViewBuilder private func padView() -> some View {
         GeometryReader { proxy in
             ZStack(alignment: .top) {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea(.all)
-
+                
                 HStack {
                     VStack {
                         AMLSearchBar(
@@ -46,13 +46,13 @@ public struct AMLMapCompositeView: View {
                             showDisplayStateButton: false
                         )
                             .padding()
-
+                        
                         AMLPlaceList(viewModel.places)
                             .frame(width: proxy.size.width * 0.33)
-
+                        
                         Spacer()
                     }
-
+                    
                     Group {
                         AMLMapView(
                             mapState: viewModel.mapState,
@@ -61,7 +61,7 @@ public struct AMLMapCompositeView: View {
                             .edgesIgnoringSafeArea(.all)
                     }.frame(width: proxy.size.width * 0.67)
                 }
-
+                
                 HStack {
                     Spacer()
                     AMLMapControlView(
@@ -73,20 +73,23 @@ public struct AMLMapCompositeView: View {
             }
         }
     }
-
+    
     @ViewBuilder private func phoneView() -> some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
             
-            if viewModel.displayState == .map {
-                AMLMapView(
-                    mapState: viewModel.mapState,
-                    mapSettings: viewModel.mapSettings
-                )
+            AMLMapView(
+                mapState: viewModel.mapState,
+                mapSettings: viewModel.mapSettings
+            )
+                .edgesIgnoringSafeArea(.all)
+            
+            if viewModel.displayState == .list {
+                Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea(.all)
             }
-
+            
             VStack(alignment: .center) {
                 AMLSearchBar(
                     text: $viewModel.searchText,
@@ -95,7 +98,7 @@ public struct AMLMapCompositeView: View {
                     onCancel: viewModel.cancelSearch
                 )
                     .padding()
-
+                
                 if viewModel.displayState == .map {
                     HStack {
                         Spacer()
@@ -105,9 +108,9 @@ public struct AMLMapCompositeView: View {
                         )
                     }
                     .padding(.trailing)
-                } else {
-                    AMLPlaceList(viewModel.places)
                 }
+                AMLPlaceList(viewModel.places)
+                    .hidden(viewModel.displayState == .map)
                 Spacer()
             }
         }

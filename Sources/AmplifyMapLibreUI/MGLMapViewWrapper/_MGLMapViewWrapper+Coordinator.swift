@@ -137,7 +137,10 @@ extension _MGLMapViewWrapper.Coordinator {
         
         guard let tappedFeature = control.mapView.visibleFeatures(
             at: location,
-            styleLayerIdentifiers: ["aml_feature_style_layer", "aml_cluster_circle_layer"]
+            styleLayerIdentifiers: [
+                "aml_feature_style_layer",
+                "aml_cluster_circle_layer"
+            ]
         ).first
         else { return }
         
