@@ -12,25 +12,38 @@ import AmplifyMapLibreAdapter
 
 public class AMLMapCompositeViewModel: ObservableObject {
     @Published var places: [Geo.Place] = []
-    @Published var features: [MGLPointFeature] = []
+    @ObservedObject var mapState: AMLMapViewState
+
+    /// The display state of the composite view. Either `map` or `list`
+    @Published var displayState: AMLSearchBar.DisplayState = .map
+
+    /// The search text in the included `AMLSearchBar`
+    @Published var searchText: String = ""
+
     
-    public init() { }
+    public init(mapState: AMLMapViewState) {
+        self.mapState = mapState
+    }
     
-    func search(
-        _ text: String,
-        area: Geo.SearchArea
-    ) {
-        Amplify.Geo.search(for: text, options: .init(area: area)) { [weak self] result in
+    func search() {
+        let text = searchText
+        let searchOptions = Geo.SearchForTextOptions(area: .near(mapState.center))
+        Amplify.Geo.search(for: text, options: searchOptions) { [weak self] result in
             switch result {
             case.success(let places):
                 DispatchQueue.main.async {
                     self?.places = places
-                    self?.features = AmplifyMapLibre.createFeatures(places)
+                    self?.mapState.features = AmplifyMapLibre.createFeatures(places)
                 }
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func cancelSearch() {
+        mapState.features = []
+        places = []
     }
 }
 

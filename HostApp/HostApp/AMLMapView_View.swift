@@ -24,9 +24,7 @@ struct AMLMapView_View: View {
                 .edgesIgnoringSafeArea(.all)
             
             if viewModel.mapDisplayState == .map {
-                AMLMapView(
-                    mapState: viewModel.mapState
-                )
+                AMLMapView(mapState: viewModel.mapState)
                     .allowedZoomLevels(5...15)
                     .hideAttributionButton(true)
                     .compassPosition(.bottomRight)
@@ -36,6 +34,7 @@ struct AMLMapView_View: View {
                             withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
                         )!
                     }
+                    .featureTapped(didSelectAnnotation)
                     .shouldCluster(true)
                     .clusterColor(.lightGray)
                     .clusterColorSteps(
@@ -93,22 +92,22 @@ struct AMLMapView_View_Previews: PreviewProvider {
     }
 }
 
-//extension AMLMapView_View {
-//    private func didSelectAnnotation(_ mapView: MGLMapView, _ annotation: MGLAnnotation) {
-//        let camera = MGLMapCamera(
-//            lookingAtCenter: annotation.coordinate,
-//            altitude: mapView.camera.altitude,
-//            pitch: mapView.camera.pitch,
-//            heading: mapView.camera.heading
-//        )
-//        mapView.fly(
-//            to: camera,
-//            withDuration: 0.5,
-//            peakAltitude: 3000,
-//            completionHandler: { mapView.selectAnnotation(annotation, animated: false, completionHandler: nil) }
-//        )
-//    }
-//}
+extension AMLMapView_View {
+    private func didSelectAnnotation(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {
+        let camera = MGLMapCamera(
+            lookingAtCenter: pointFeature.coordinate,
+            altitude: mapView.camera.altitude,
+            pitch: mapView.camera.pitch,
+            heading: mapView.camera.heading
+        )
+        mapView.fly(
+            to: camera,
+            withDuration: 0.5,
+            peakAltitude: 3000,
+            completionHandler: nil
+        )
+    }
+}
 
 
 extension Geo.Place {

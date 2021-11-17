@@ -14,24 +14,13 @@ import AmplifyMapLibreAdapter
 /// `AMLMapView` including standard the view components:
 /// `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
-    @ObservedObject var mapState: AMLMapViewState
     @ObservedObject var mapSettings = AMLMapViewSettings()
     @ObservedObject var viewModel: AMLMapCompositeViewModel
-    
-    /// The display state of the composite view. Either `map` or `list`
-    @State var displayState: AMLSearchBar.DisplayState = .map
-    
-    /// The search text in the included `AMLSearchBar`
-    @Binding var searchText: String
 
     public init(
-        mapState: AMLMapViewState = .init(),
-        searchText: Binding<String> = .constant(""),
-        viewModel: AMLMapCompositeViewModel = .init()
+        viewModel: AMLMapCompositeViewModel = .init(mapState: .init())
     ) {
-        _searchText = searchText
         self.viewModel = viewModel
-        self.mapState = mapState
     }
     
     public var body: some View {
@@ -51,10 +40,10 @@ public struct AMLMapCompositeView: View {
                 HStack {
                     VStack {
                         AMLSearchBar(
-                            text: $searchText,
-                            displayState: $displayState,
-                            onCommit: search,
-                            onCancel: cancelSearch,
+                            text: $viewModel.searchText,
+                            displayState: $viewModel.displayState,
+                            onCommit: viewModel.search,
+                            onCancel: viewModel.cancelSearch,
                             showDisplayStateButton: false
                         )
                             .padding()
@@ -66,7 +55,7 @@ public struct AMLMapCompositeView: View {
                     }
 
                     Group {
-                        AMLMapView(mapState: mapState)
+                        AMLMapView(mapState: viewModel.mapState)
                             .edgesIgnoringSafeArea(.all)
                     }.frame(width: proxy.size.width * 0.67)
                 }
@@ -74,8 +63,8 @@ public struct AMLMapCompositeView: View {
                 HStack {
                     Spacer()
                     AMLMapControlView(
-                        zoomValue: $mapState.zoomLevel,
-                        headingValue: $mapState.heading
+                        zoomValue: $viewModel.mapState.zoomLevel,
+                        headingValue: $viewModel.mapState.heading
                     )
                 }
                 .padding(.trailing)
@@ -88,26 +77,26 @@ public struct AMLMapCompositeView: View {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
             
-            if displayState == .map {
-                AMLMapView(mapState: mapState)
+            if viewModel.displayState == .map {
+                AMLMapView(mapState: viewModel.mapState)
                     .edgesIgnoringSafeArea(.all)
             }
 
             VStack(alignment: .center) {
                 AMLSearchBar(
-                    text: $searchText,
-                    displayState: $displayState,
-                    onCommit: search,
-                    onCancel: cancelSearch
+                    text: $viewModel.searchText,
+                    displayState: $viewModel.displayState,
+                    onCommit: viewModel.search,
+                    onCancel: viewModel.cancelSearch
                 )
                     .padding()
 
-                if displayState == .map {
+                if viewModel.displayState == .map {
                     HStack {
                         Spacer()
                         AMLMapControlView(
-                            zoomValue: $mapState.zoomLevel,
-                            headingValue: $mapState.heading
+                            zoomValue: $viewModel.mapState.zoomLevel,
+                            headingValue: $viewModel.mapState.heading
                         )
                     }
                     .padding(.trailing)
@@ -117,14 +106,6 @@ public struct AMLMapCompositeView: View {
                 Spacer()
             }
         }
-    }
-
-    func cancelSearch() {
-        viewModel.features = []
-    }
-
-    func search() {
-        viewModel.search(searchText, area: .near(mapState.center))
     }
 }
 
