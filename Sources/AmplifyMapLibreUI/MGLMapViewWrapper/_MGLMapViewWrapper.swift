@@ -28,8 +28,6 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
     @Binding var features: [MGLPointFeature]
     /// The attribution string for the map data providers.
     @Binding var attribution: String?
-    /// UIImage that represents a feature on the map.
-//    let featureImage: UIImage
     /// The clustering behavior of the map.
     let clusteringBehavior: AMLMapView.ClusteringBehavior
     /// Implementation definitions for user interactions with the map.
@@ -58,6 +56,7 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         center: Binding<CLLocationCoordinate2D>,
         heading: Binding<CLLocationDirection>,
         userLocation: Binding<CLLocationCoordinate2D?>,
+        showUserLocation: Bool,
         features: Binding<[MGLPointFeature]>,
         attribution: Binding<String?>,
         featureImage: UIImage,
@@ -78,7 +77,8 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         self.mapView.centerCoordinate = center.wrappedValue
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
-        self.mapView.showsUserLocation = userLocation.wrappedValue != nil
+        self.mapView.showsUserLocation = showUserLocation || userLocation.wrappedValue != nil
+        
         self.mapView.style?.setImage(featureImage, forName: "aml_feature")
     }
     

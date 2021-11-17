@@ -12,7 +12,10 @@ import AmplifyMapLibreAdapter
 
 public class AMLMapCompositeViewModel: ObservableObject {
     @Published var places: [Geo.Place] = []
+    
     @ObservedObject var mapState: AMLMapViewState
+    
+    @ObservedObject var mapSettings = AMLMapViewSettings()
 
     /// The display state of the composite view. Either `map` or `list`
     @Published var displayState: AMLSearchBar.DisplayState = .map

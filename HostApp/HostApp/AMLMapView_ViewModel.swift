@@ -14,7 +14,7 @@ import AmplifyMapLibreUI
 class AMLMapView_ViewModel: ObservableObject {
 
     @Published var places: [Geo.Place] = []
-    @ObservedObject var mapState = AMLMapViewState()
+    @ObservedObject var mapState = AMLMapViewState(userLocation: .init())
     @Published var mapDisplayState = AMLSearchBar.DisplayState.map
     
     func search(

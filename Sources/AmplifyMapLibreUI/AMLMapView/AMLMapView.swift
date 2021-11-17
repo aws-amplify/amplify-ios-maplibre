@@ -17,12 +17,28 @@ public struct AMLMapView: View {
     @ObservedObject var mapState: AMLMapViewState
     
     /// Map configuration settings. Accessible through view modifiers.
-    @ObservedObject var mapSettings = AMLMapViewSettings()
+    @ObservedObject var mapSettings: AMLMapViewSettings
     
     /// Create an instance of `AMLMapView`
     /// - Parameter mapState: Object to track state changes.
     public init(mapState: AMLMapViewState = .init()) {
         self.mapState = mapState
+        self.mapSettings = AMLMapViewSettings()
+        if let mapView = mapState.mapView {
+            mapState.mapLoadingState.state = .complete(mapView)
+        }
+    }
+    
+    /// Create an instance of `AMLMapView`
+    /// - Parameter mapState: Object to track state changes.
+    
+    /// Internal initializer to pass mapSettings in from composite view.
+    /// - Parameters:
+    ///   - mapState: Object to track state changes.
+    ///   - mapSettings: Configurable settings for the map. Set through view modfiiers.
+    internal init(mapState: AMLMapViewState, mapSettings: AMLMapViewSettings) {
+        self.mapState = mapState
+        self.mapSettings = mapSettings
         if let mapView = mapState.mapView {
             mapState.mapLoadingState.state = .complete(mapView)
         }
@@ -38,6 +54,7 @@ public struct AMLMapView: View {
                 center: $mapState.center,
                 heading: $mapState.heading,
                 userLocation: $mapState.userLocation,
+                showUserLocation: mapSettings.showUserLocation,
                 features: $mapState.features,
                 attribution: $mapState.attribution,
                 featureImage: mapSettings.featureImage,

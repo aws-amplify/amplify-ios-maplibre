@@ -24,31 +24,39 @@ struct AMLMapView_View: View {
                 .edgesIgnoringSafeArea(.all)
             
             if viewModel.mapDisplayState == .map {
+                
+                // --------
                 AMLMapView(mapState: viewModel.mapState)
-                    .allowedZoomLevels(5...15)
-                    .hideAttributionButton(true)
-                    .compassPosition(.bottomRight)
-                    .featureImage {
-                        return UIImage(
-                            systemName: "paperplane.circle.fill",
-                            withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
-                        )!
-                    }
-                    .featureTapped(didSelectAnnotation)
-                    .shouldCluster(true)
-                    .clusterColor(.lightGray)
-                    .clusterColorSteps(
-                        [
-                            10: .yellow,
-                            20: .green,
-                            30: .red
-                        ]
-                    )
-                    .clusterNumberColor(.systemPurple)
+                    .showUserLocation(true)
+                    .onReceive(viewModel.mapState.$userLocation, perform: {
+                        print("USER LOCATION", $0)
+                    })
+                    
+//                    .allowedZoomLevels(5...15)
+//                    .hideAttributionButton(true)
+//                    .compassPosition(.bottomRight)
+//                    .featureImage {
+//                        return UIImage(
+//                            systemName: "paperplane.circle.fill",
+//                            withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
+//                        )!
+//                    }
+////                    .featureTapped(didSelectAnnotation)
+//                    .shouldCluster(true)
+//                    .clusterColor(.lightGray)
+//                    .clusterColorSteps(
+//                        [
+//                            10: .yellow,
+//                            20: .green,
+//                            30: .red
+//                        ]
+//                    )
+//                    .clusterNumberColor(.systemPurple)
                     .onReceive(viewModel.mapState.$heading) {
                         print("Heading is now: \($0)")
                     }
                     .edgesIgnoringSafeArea(.all)
+                // --------
             }
             VStack(alignment: .center) {
                 AMLSearchBar(

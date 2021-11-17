@@ -14,14 +14,14 @@ import Amplify
 
 struct AMLMapCompositeView_View: View {
     
-    @State private var center: CLLocationCoordinate2D = .init(
-        latitude: 37.785834,
-        longitude: -122.406417
-    )
-    
-    @State private var searchText = ""
-    
     var body: some View {
         AMLMapCompositeView()
+            .featureImage {
+                return UIImage(
+                    systemName: "paperplane.circle.fill",
+                    withConfiguration: UIImage.SymbolConfiguration.init(pointSize: 40)
+                )!
+            }
+            .clusterColor(.purple)
     }
 }

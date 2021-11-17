@@ -14,7 +14,6 @@ import AmplifyMapLibreAdapter
 /// `AMLMapView` including standard the view components:
 /// `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
-    @ObservedObject var mapSettings = AMLMapViewSettings()
     @ObservedObject var viewModel: AMLMapCompositeViewModel
 
     public init(
@@ -55,7 +54,10 @@ public struct AMLMapCompositeView: View {
                     }
 
                     Group {
-                        AMLMapView(mapState: viewModel.mapState)
+                        AMLMapView(
+                            mapState: viewModel.mapState,
+                            mapSettings: viewModel.mapSettings
+                        )
                             .edgesIgnoringSafeArea(.all)
                     }.frame(width: proxy.size.width * 0.67)
                 }
@@ -78,7 +80,10 @@ public struct AMLMapCompositeView: View {
                 .edgesIgnoringSafeArea(.all)
             
             if viewModel.displayState == .map {
-                AMLMapView(mapState: viewModel.mapState)
+                AMLMapView(
+                    mapState: viewModel.mapState,
+                    mapSettings: viewModel.mapSettings
+                )
                     .edgesIgnoringSafeArea(.all)
             }
 
