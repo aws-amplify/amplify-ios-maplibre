@@ -10,16 +10,16 @@ import Amplify
 
 /// View to display information from a `Geo.Place`. For use in a `List` or `ForEach`
 public struct AMLPlaceCellView: View {
-    
+
     /// Model of the place with location information.
     let place: Geo.Place
-    
+
     /// View to display information from a `Geo.Place`. For use in a `List` or `ForEach`
     /// - Parameter place: Model of the place with location information.
     public init(place: Geo.Place) {
         self.place = place
     }
-    
+
     public var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -34,7 +34,7 @@ public struct AMLPlaceCellView: View {
             Text(cityLine(for: place))
         }.padding()
     }
-    
+
     /// Given a `Geo.Place` this formats an address 1 line.
     ///
     /// Format:
@@ -48,7 +48,7 @@ public struct AMLPlaceCellView: View {
     private func addressLine(for place: Geo.Place) -> String {
         "\(place.addressNumber ?? "") \(place.street ?? "")"
     }
-    
+
     /// Given a `Geo.Place` this formats a `<municipality>, <region> <postalCode>` line.
     ///
     /// Example:
@@ -62,6 +62,7 @@ public struct AMLPlaceCellView: View {
     }
 }
 
+// swiftlint:disable type_name
 struct PlaceCellView_Preview: PreviewProvider {
     static var previews: some View {
         AMLPlaceCellView(
@@ -80,3 +81,4 @@ struct PlaceCellView_Preview: PreviewProvider {
         )
     }
 }
+// swiftlint:enable type_name

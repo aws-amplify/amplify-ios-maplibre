@@ -13,18 +13,18 @@ extension AMLMapCompositeView {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
-            
+
             AMLMapView(
                 mapState: viewModel.mapState,
                 mapSettings: viewModel.mapSettings
             )
                 .edgesIgnoringSafeArea(.all)
-            
+
             if viewModel.displayState == .list {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea(.all)
             }
-            
+
             VStack(alignment: .center) {
                 AMLSearchBar(
                     text: $viewModel.searchText,
@@ -33,7 +33,7 @@ extension AMLMapCompositeView {
                     onCancel: viewModel.cancelSearch
                 )
                     .padding()
-                
+
                 if viewModel.displayState == .map {
                     HStack {
                         Spacer()

@@ -15,10 +15,10 @@ import AmplifyMapLibreAdapter
 public struct AMLMapView: View {
     /// Object to track state changes in the map.
     @ObservedObject var mapState: AMLMapViewState
-    
+
     /// Map configuration settings. Accessible through view modifiers.
     @ObservedObject var mapSettings: AMLMapViewSettings
-    
+
     /// Create an instance of `AMLMapView`
     /// - Parameter mapState: Object to track state changes.
     public init(mapState: AMLMapViewState = .init()) {
@@ -28,7 +28,7 @@ public struct AMLMapView: View {
             mapState.mapLoadingState.state = .complete(mapView)
         }
     }
-    
+
     /// Create an instance of `AMLMapView`.
     ///
     /// Internal initializer to pass mapSettings in from composite view.
@@ -42,7 +42,7 @@ public struct AMLMapView: View {
             mapState.mapLoadingState.state = .complete(mapView)
         }
     }
-    
+
     public var body: some View {
         switch mapState.mapLoadingState.state {
         case .complete(let mapView):
@@ -72,7 +72,7 @@ public struct AMLMapView: View {
                 .onAppear(perform: createMap)
         }
     }
-    
+
     /// Handle aysnchronous request to create map from `AmplifyMapLibre`.
     private func createMap() {
         AmplifyMapLibre.createMap {

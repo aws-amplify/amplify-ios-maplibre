@@ -9,25 +9,25 @@ import SwiftUI
 
 /// A Search Bar used to take location user search input.
 public struct AMLSearchBar: View {
-    
+
     /// Is the search bar currently being edited.
     @State var isEditing = false
-    
+
     /// The text currently displayed in the search bar.
     @Binding var text: String
-    
+
     /// Action called on user tapping search.
     let onCommit: () -> Void
-    
+
     /// Action called on user tapping `x` button.
     let onCancel: () -> Void
-    
+
     /// Displaying a map or list.
     @Binding var displayState: DisplayState
-    
+
     /// Whether a display state button should be displayed. Default is true.
     let showDisplayStateButton: Bool
-    
+
     /// A Search Bar used to take location user search input.
     /// - Parameters:
     ///   - text: Is the search bar currently being edited.
@@ -48,7 +48,7 @@ public struct AMLSearchBar: View {
         self.onCancel = onCancel
         self.showDisplayStateButton = showDisplayStateButton
     }
-        
+
     public var body: some View {
         HStack {
             TextField("Search", text: $text, onCommit: onCommit)
@@ -82,17 +82,16 @@ public extension AMLSearchBar {
     struct DisplayState: Equatable {
         /// The name of  the system image displayed in the `AMLSearchBar` button.
         let imageName: String
-        
+
         /// Displaying a map.
         public static let map = DisplayState(imageName: "list.bullet")
-        
+
         /// Displaying a list.
         public static let list = DisplayState(imageName: "map")
-               
+
         /// Toggle state.
         mutating func toggle() {
-            if self == .list { self = .map }
-            else { self = .list }
+            if self == .list { self = .map } else { self = .list }
         }
     }
 }
@@ -127,12 +126,12 @@ struct SearchBar_Previews: PreviewProvider {
     }
 }
 
-fileprivate struct AMLSearchBarIconOverlay: View {
+private struct AMLSearchBarIconOverlay: View {
     @Binding var isEditing: Bool
     @Binding var text: String
     @Binding var displayState: AMLSearchBar.DisplayState
     let showDisplayStateButton: Bool
-    
+
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
@@ -143,7 +142,7 @@ fileprivate struct AMLSearchBarIconOverlay: View {
                     alignment: .leading
                 )
                 .padding(.leading, 8)
-            
+
             if isEditing {
                 Button(action: {
                     text = ""
@@ -155,13 +154,13 @@ fileprivate struct AMLSearchBarIconOverlay: View {
                         .padding(.trailing, 8)
                 })
             }
-            
+
             if showDisplayStateButton {
-                Button(action: {
+                Button {
                     isEditing = false
                     displayState.toggle()
                     endEditing()
-                }) {
+                } label: {
                     Image(systemName: displayState.imageName)
                         .font(.body.weight(.medium))
                         .foregroundColor(.primary)

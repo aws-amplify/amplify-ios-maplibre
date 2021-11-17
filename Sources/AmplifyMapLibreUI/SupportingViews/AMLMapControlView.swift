@@ -11,10 +11,10 @@ import SwiftUI
 public struct AMLMapControlView: View {
     /// The current zoom level of the map.
     @Binding var zoomValue: Double
-   
+
     /// The current heading of the map.
     @Binding var headingValue: Double
-    
+
     /// Create a new `AMLMapControlView` with three buttons to control zoom level and heading of the map.
     /// - Parameters:
     ///   - zoomValue: The current zoom level of the map.
@@ -26,7 +26,7 @@ public struct AMLMapControlView: View {
         _zoomValue = zoomValue
         _headingValue = headingValue
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             AMLMapControlButton(
@@ -36,10 +36,10 @@ public struct AMLMapControlView: View {
                 .accessibility(hint: Text("Zoom in on the map"))
                 .accessibility(label: Text("Zoom in"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
-            
+
             Divider()
                 .frame(width: 47)
-            
+
             AMLMapControlButton(
                 action: zoomOut,
                 systemName: "minus"
@@ -48,9 +48,9 @@ public struct AMLMapControlView: View {
                 .accessibility(label: Text("Zoom out"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
 
-            Divider()    
+            Divider()
                 .frame(width: 47)
-            
+
             AMLMapControlButton(
                 action: alignNorth,
                 systemName: "location.north.fill"
@@ -65,7 +65,7 @@ public struct AMLMapControlView: View {
                     .stroke(Color.secondary, lineWidth: 0.5)
         )
     }
-    
+
     private func zoomIn() { zoomValue += 1 }
     private func zoomOut() { zoomValue -= 1 }
     private func alignNorth() { headingValue = 0 }

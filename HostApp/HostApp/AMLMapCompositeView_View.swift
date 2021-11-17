@@ -12,11 +12,13 @@ import AmplifyMapLibreUI
 import Mapbox
 import Amplify
 
+// swiftlint:disable type_name
 struct AMLMapCompositeView_View: View {
-    
+
     var body: some View {
         AMLMapCompositeView()
             .clusterColor(.purple)
             .showUserLocation(true)
     }
 }
+// swiftlint:enable type_name

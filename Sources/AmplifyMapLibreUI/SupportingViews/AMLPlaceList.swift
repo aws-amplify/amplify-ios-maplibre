@@ -15,9 +15,9 @@ public struct AMLPlaceList: View {
     public init(_ places: [Geo.Place]) {
         self.places = places.map(_Place.init)
     }
-    
+
     let places: [_Place]
-    
+
     public var body: some View {
         VStack {
             if places.isEmpty {

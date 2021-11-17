@@ -12,42 +12,48 @@ import Mapbox
 internal class AMLMapViewSettings: ObservableObject {
     /// Whether the user's location is shown. Default is `false`
     /// Setting this triggers an OS location sharing prompt.
-    /// To access the user's location, location access must be enabled in the app, and the user must choose to allow access.
+    /// To access the user's location, location access must be enabled in the app,
+    /// and the user must choose to allow access.
     @Published internal var showUserLocation: Bool
-    
+
     /// The map's minimum allowed zoom level.
     @Published internal var minZoomLevel: Double
-    
+
     /// The map's maximum allowed zoom level.
     @Published internal var maxZoomLevel: Double
-    
+
     /// Whether the attribution button is hidden.
     @Published internal var hideAttributionButton: Bool
-    
+
     /// The compass position on the map.
     @Published internal var compassPosition: MGLOrnamentPosition
-    
+
     /// The image representing a feature on the map.
     @Published internal var featureImage: UIImage
-    
+
     /// Definition of the map's clustering behavior
     let clusteringBehavior: AMLMapView.ClusteringBehavior
-    
+
+    // swiftlint:disable weak_delegate
     /// Implementation definitions for user interactions with the map.
     let proxyDelegate: AMLMapView.ProxyDelegate
-    
+    // swiftlint:enable weak_delegate
+
     /// Create a new `AMLMapViewSettings` object that defines map settings.
     /// - Parameters:
     ///   - showUserLocation: Whether the user's location is shown. Default is `false`
     ///   Setting this triggers an OS location sharing prompt.
-    ///   To access the user's location, location access must be enabled in the app, and the user must choose to allow access.
+    ///   To access the user's location, location access must be enabled in the app,
+    ///   and the user must choose to allow access.
     ///   - minZoomLevel: The map's minimum allowed zoom level. Default is `0`
     ///   - maxZoomLevel: The map's maximum allowed zoom level. Default is `22`
     ///   - hideAttributionButton: Whether the attribution button is hidden. Default is `false`
     ///   - compassPosition: The position of the compass on the map. Default is `.bottomleft`
     ///   - featureImage: The image representing a feature on the map. Default is `AMLFeatureView`.
-    ///   - clusteringBehavior: Define the map views clustering behavior. Default implementation provided.
-    ///   - proxyDelegate: Define your own implementations of user interactions with the map. Default implementation provided.
+    ///   - clusteringBehavior: Define the map views clustering behavior.
+    ///   Default implementation provided.
+    ///   - proxyDelegate: Define your own implementations of user interactions with the map.
+    ///   Default implementation provided.
     internal init(
         showUserLocation: Bool = false,
         minZoomLevel: Double = 0,

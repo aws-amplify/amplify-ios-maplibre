@@ -21,7 +21,7 @@ extension _MGLMapViewWrapper {
         mapView.showsUserLocation = showLocation
         return self
     }
-    
+
     /// View modifier to set the map's maximum and minimum zoom levels.
     ///
     /// Zoom Level Approximation Reference:
@@ -43,7 +43,7 @@ extension _MGLMapViewWrapper {
         mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
         return self
     }
-    
+
     /// View modifier to set the map's maximum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -62,7 +62,7 @@ extension _MGLMapViewWrapper {
         mapView.maximumZoomLevel = min(maxZoomLevel, 22)
         return self
     }
-    
+
     /// View modifier to set the map's minimum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -81,7 +81,7 @@ extension _MGLMapViewWrapper {
         mapView.minimumZoomLevel = max(minZoomLevel, 0)
         return self
     }
-    
+
     /// Set map's attribution button to hidden or showing.
     /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of `_MGLMapViewWrapper`.
@@ -89,7 +89,7 @@ extension _MGLMapViewWrapper {
         mapView.attributionButton.isHidden = hide
         return self
     }
-    
+
     /// Set the position of the compass on the `MGLMapView`.
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
@@ -97,7 +97,7 @@ extension _MGLMapViewWrapper {
         mapView.compassViewPosition = position
         return self
     }
-        
+
     /// Define the behavior when a feature is tapped.
     ///
     /// The default implementation pans the feature to the center of the screen and presents an `AMLCalloutView`.
@@ -115,7 +115,7 @@ extension _MGLMapViewWrapper {
         proxyDelegate.featureTapped = implementation
         return self
     }
-    
+
     /// Define the behavior when a feature cluster is tapped.
     ///
     /// The default implementation zooms in on the map.
@@ -134,5 +134,3 @@ extension _MGLMapViewWrapper {
         return self
     }
 }
-
-

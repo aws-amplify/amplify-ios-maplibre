@@ -39,8 +39,19 @@ public extension MGLPointFeature {
                   case let postalCode? = attributes[\.postalCode],
                   case let country? = attributes[\.country]
             else { return nil }
-            
-            return Geo.Place(coordinates: coordinates, label: label, addressNumber: addressNumber, street: street, municipality: municipality, neighborhood: neighborhood, region: region, subRegion: subRegion, postalCode: postalCode, country: country)
+
+            return Geo.Place(
+                coordinates: coordinates,
+                label: label,
+                addressNumber: addressNumber,
+                street: street,
+                municipality: municipality,
+                neighborhood: neighborhood,
+                region: region,
+                subRegion: subRegion,
+                postalCode: postalCode,
+                country: country
+            )
         }
         set {
             attributes[\.coordinates] = newValue?.coordinates
@@ -62,11 +73,11 @@ public extension Geo.Place {
     var streetLabelLine: String {
         "\(addressNumber ?? "") \(street ?? "")"
     }
-    
+
     var cityLabelLine: String {
         "\(municipality ?? ""), \(region ?? "") \(postalCode ?? "")"
     }
-    
+
     // We should not have to do this string parsing. It's error prone and will lead to issues.
     // Ideally, we'd get just the name returned in a field.
     var labelLine: String? {
@@ -97,7 +108,7 @@ fileprivate extension Dictionary where Key == String, Value == Any {
         default: return "aml_geo.place_default"
         }
     }
-    
+
     subscript<T>(_ placeKeyPath: KeyPath<Geo.Place, T>) -> T? {
         get {
             if placeKeyPath ~= \.coordinates {
@@ -115,14 +126,14 @@ fileprivate extension Dictionary where Key == String, Value == Any {
             self[key] = newValue
         }
     }
-    
+
     mutating func setCoordinate<T>(_ value: T?) {
         guard let value = value as? Geo.Coordinates else { return }
         let (latKey, lonKey) = coordinateKeys
         self[latKey] = value.latitude
         self[lonKey] = value.longitude
     }
-    
+
     func getCoordinate() -> Geo.Coordinates? {
         let (latKey, lonKey) = coordinateKeys
         guard let lat = self[latKey] as? Double,
@@ -130,7 +141,7 @@ fileprivate extension Dictionary where Key == String, Value == Any {
         else { return nil }
         return Geo.Coordinates(latitude: lat, longitude: lon)
     }
-    
+
     private var coordinateKeys: (String, String) {
         ("aml_geo.place_coordinates_lat", "aml_geo.place_coordinates_lon")
     }

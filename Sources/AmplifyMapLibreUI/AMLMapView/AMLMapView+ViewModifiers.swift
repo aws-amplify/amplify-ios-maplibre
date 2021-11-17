@@ -21,7 +21,7 @@ extension AMLMapView {
         mapSettings.showUserLocation = showLocation
         return self
     }
-    
+
     /// View modifier to set the map's maximum and minimum zoom levels.
     ///
     /// Zoom Level Approximation Reference:
@@ -43,7 +43,7 @@ extension AMLMapView {
         mapSettings.maxZoomLevel = min(zoomLevels.upperBound, 22)
         return self
     }
-    
+
     /// View modifier to set the map's maximum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -62,7 +62,7 @@ extension AMLMapView {
         mapSettings.maxZoomLevel = min(maxZoomLevel, 22)
         return self
     }
-    
+
     /// View modifier to set the map's minimum zoom level.
     ///
     /// Zoom Level Approximation Reference:
@@ -81,7 +81,7 @@ extension AMLMapView {
         mapSettings.minZoomLevel = max(minZoomLevel, 0)
         return self
     }
-    
+
     /// Set map's attribution button to hidden or showing.
     /// - Parameter hide:`true` hides the button / `false` unhides the button
     /// - Returns: An instance of `AMLMapView`.
@@ -89,18 +89,20 @@ extension AMLMapView {
         mapSettings.hideAttributionButton = hide
         return self
     }
-    
+
     /// Provide an SwiftUI view that represents a point on a map.
     ///
-    /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s, this method turns a `SwiftUI` view into a `UIImage`.
-    ///   There may be hidden cost to using this. If you experience performance and / or rendering issues, please use the `featureImage(_:)` view modifier instead.
+    /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s,
+    ///   this method turns a `SwiftUI` view into a `UIImage`.
+    ///   There may be hidden cost to using this. If you experience performance and / or
+    ///   rendering issues, please use the `featureImage(_:)` view modifier instead.
     /// - Parameter view: The view to be displayed.
     /// - Returns: An instance of `AMLMapView`.
     public func featureView<T: View>(_ view: () -> T) -> AMLMapView {
         mapSettings.featureImage = view().snapshot()
         return self
     }
-    
+
     /// Provide an UIImage that represents a point on a map.
     /// - Parameter image: The image to be displayed.
     /// - Returns: An instance of `AMLMapView`.
@@ -108,7 +110,7 @@ extension AMLMapView {
         mapSettings.featureImage = image()
         return self
     }
-    
+
     /// Define the behavior when a feature is tapped.
     ///
     /// The default implementation pans the feature to the center of the screen and presents an `AMLCalloutView`.
@@ -126,7 +128,7 @@ extension AMLMapView {
         mapSettings.proxyDelegate.featureTapped = implementation
         return self
     }
-    
+
     /// Define the behavior when a feature cluster is tapped.
     ///
     /// The default implementation zooms in on the map.
@@ -144,7 +146,7 @@ extension AMLMapView {
         mapSettings.proxyDelegate.clusterTapped = implementation
         return self
     }
-    
+
     /// Set the position of the compass on the `MGLMapView`.
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `AMLMapView`.
@@ -152,7 +154,7 @@ extension AMLMapView {
         mapSettings.compassPosition = position
         return self
     }
-    
+
     /// Set whether the map features should cluster.
     /// - Parameter shouldCluster: Features displayed on the map should cluster.
     /// Corresponds to the `MGLShapeSourceOption` `.clustered`.
@@ -161,7 +163,7 @@ extension AMLMapView {
         mapSettings.clusteringBehavior.shouldCluster = shouldCluster
         return self
     }
-    
+
     /// Specifies the maximum zoom level at which to cluster points if clustering is enabled.
     /// - Parameter maxZoom: The maximum zoom level of clustering.
     ///   Corresponds to `MGLShapeSourceOption` `.maximumZoomLevelForClustering`.
@@ -170,7 +172,7 @@ extension AMLMapView {
         mapSettings.clusteringBehavior.maximumZoomLevel = maxZoom
         return self
     }
-    
+
     /// Set the fill color of the circle cluster.
     /// - Parameter color: The fill color of the circle cluster.
 	///   Sets the `MGLCircleStyleLayer` `circleColor` property.
@@ -179,7 +181,7 @@ extension AMLMapView {
         mapSettings.clusteringBehavior.clusterColor = color
         return self
     }
-    
+
     /// The text color of the number displayed in the circle cluster.
     /// - Parameter color: The color of text displaying the number within a cluster.
     ///   Sets the `MGLSymbolStyleLayer` `textColor` property.
@@ -188,15 +190,16 @@ extension AMLMapView {
         mapSettings.clusteringBehavior.clusterNumberColor = color
         return self
     }
-    
+
     /// Set colors for different cluster steps.
-    /// - Parameter steps: Dictionary representation of cluster color steps where the `key` is the number of features in a cluster and the `value` is the color for that corresponding number
+    /// - Parameter steps: Dictionary representation of cluster color steps where the
+    /// `key` is the number of features in a cluster and the `value` is the color for that corresponding number
     /// - Returns: An instance of `AMLMapView`.
     public func clusterColorSteps(_ steps: [Int: UIColor]) -> AMLMapView {
         mapSettings.clusteringBehavior.clusterColorSteps = steps
         return self
     }
-    
+
     /// Set the radius of each cluster if clustering is enabled.
     /// - Parameter radius: The cluster radius.
     ///   Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.

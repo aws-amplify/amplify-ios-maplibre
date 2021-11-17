@@ -13,7 +13,7 @@ import Amplify
 struct MapCreationStateMachine {
     /// The current state.
     var state: State
-    
+
     /// The underlying state cases.
     enum State {
         /// Async fetching should begin.
@@ -23,7 +23,7 @@ struct MapCreationStateMachine {
         /// Fetching has completed unsuccessfully.
         case error(Geo.Error)
     }
-    
+
     /// Transition to a new state based on a `Result<MGLMapView, Geo.Error>`
     /// - Parameters:
     ///   - input: The async operation's result.

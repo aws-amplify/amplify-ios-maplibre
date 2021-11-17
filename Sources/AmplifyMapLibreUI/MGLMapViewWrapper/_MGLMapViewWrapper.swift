@@ -10,29 +10,43 @@ import Amplify
 import AWSLocationGeoPlugin
 import Mapbox
 
+// swiftlint:disable type_name
 /// SwiftUI Wrapper for MGLMapView.
 internal struct _MGLMapViewWrapper: UIViewRepresentable {
+// swiftlint:enable type_name
+
     /// Underlying MGLMapView.
     let mapView: MGLMapView
+
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
+
     /// The coordinate bounds of the currently displayed area of the map.
     @Binding var bounds: MGLCoordinateBounds
+
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
+
     /// The current heading of the map in degrees.
     @Binding var heading: CLLocationDirection
+
     /// The user's current location.
     @Binding var userLocation: CLLocationCoordinate2D?
+
     /// Features that are displayed on the map.
     @Binding var features: [MGLPointFeature]
+
     /// The attribution string for the map data providers.
     @Binding var attribution: String?
+
     /// The clustering behavior of the map.
     let clusteringBehavior: AMLMapView.ClusteringBehavior
+
+// swiftlint:disable weak_delegate
     /// Implementation definitions for user interactions with the map.
     let proxyDelegate: AMLMapView.ProxyDelegate
-                
+// swiftlint:enable weak_delegate
+
     /// Create a `_MGLMapViewWrapper`.
     /// An internal SwiftUI wrapper View around MGLMapView.
     /// - Parameters:
@@ -78,38 +92,40 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = showUserLocation || userLocation.wrappedValue != nil
-        
+
         self.mapView.style?.setImage(featureImage, forName: "aml_feature")
     }
-    
+
     public func makeUIView(context: UIViewRepresentableContext<_MGLMapViewWrapper>) -> MGLMapView {
         mapView.delegate = context.coordinator
         return mapView
     }
-    
+
     public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<_MGLMapViewWrapper>) {
         handleZoomUpdate(in: uiView)
         handleCameraUpdate(in: uiView)
         handleFeatureUpdate(in: uiView)
     }
-    
+
     private func handleFeatureUpdate(in mapView: MGLMapView) {
-        guard let clusterSource = mapView.style?.source(withIdentifier: "aml_location_source") as? MGLShapeSource else { return }
+        guard let clusterSource = mapView.style?
+                .source(withIdentifier: "aml_location_source") as? MGLShapeSource
+        else { return }
         clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
     }
-    
+
     private func handleCameraUpdate(in mapView: MGLMapView) {
         guard mapView.camera.heading != heading else { return }
         let camera = mapView.camera
         camera.heading = heading
         mapView.setCamera(camera, animated: true)
     }
-    
+
     private func handleZoomUpdate(in mapView: MGLMapView) {
         guard mapView.zoomLevel != zoomLevel else { return }
         mapView.setZoomLevel(zoomLevel, animated: true)
     }
-        
+
     public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }

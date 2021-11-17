@@ -11,16 +11,16 @@ import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
 import Mapbox
 import Amplify
-
+// swiftlint:disable type_name
 struct AMLMapCompositeView_View: View {
-    
+// swiftlint:enable type_name
     @State private var center: CLLocationCoordinate2D = .init(
         latitude: 37.785834,
         longitude: -122.406417
     )
-    
+
     @State private var searchText = ""
-    
+
     var body: some View {
         AMLMapCompositeView(
             mapState: AMLMapViewState(center: center),

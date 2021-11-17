@@ -14,7 +14,7 @@ extension AMLMapCompositeView {
             ZStack(alignment: .top) {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea(.all)
-                
+
                 HStack {
                     VStack {
                         AMLSearchBar(
@@ -25,13 +25,13 @@ extension AMLMapCompositeView {
                             showDisplayStateButton: false
                         )
                             .padding()
-                        
+
                         AMLPlaceList(viewModel.places)
                             .frame(width: proxy.size.width * 0.33)
-                        
+
                         Spacer()
                     }
-                    
+
                     Group {
                         AMLMapView(
                             mapState: viewModel.mapState,
@@ -40,7 +40,7 @@ extension AMLMapCompositeView {
                             .edgesIgnoringSafeArea(.all)
                     }.frame(width: proxy.size.width * 0.67)
                 }
-                
+
                 HStack {
                     Spacer()
                     AMLMapControlView(

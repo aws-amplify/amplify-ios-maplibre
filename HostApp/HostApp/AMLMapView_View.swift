@@ -13,16 +13,18 @@ import Mapbox
 import Amplify
 import Combine
 
+// swiftlint:disable type_name
 struct AMLMapView_View: View {
+// swiftlint:enable type_name
     @State private var searchText = ""
-    
+
     @ObservedObject var viewModel = AMLMapView_ViewModel()
-    
+
     var body: some View {
         ZStack(alignment: .top) {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
-            
+
             if viewModel.mapDisplayState == .map {
                 // --------
                 AMLMapView(mapState: viewModel.mapState)
@@ -77,21 +79,23 @@ struct AMLMapView_View: View {
             }
         }
     }
-    
+
     func cancelSearch() {
         viewModel.mapState.features = []
     }
-    
+
     func search() {
         viewModel.search(searchText, area: .near(viewModel.mapState.center))
     }
 }
 
+// swiftlint:disable type_name
 struct AMLMapView_View_Previews: PreviewProvider {
     static var previews: some View {
         AMLMapView_View()
     }
 }
+// swiftlint:enable type_name
 
 extension AMLMapView_View {
     private func didSelectFeature(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {

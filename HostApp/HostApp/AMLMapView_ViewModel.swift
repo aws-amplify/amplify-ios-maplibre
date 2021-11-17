@@ -11,12 +11,14 @@ import Amplify
 import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
 
+// swiftlint:disable type_name
 class AMLMapView_ViewModel: ObservableObject {
+// swiftlint:enable type_name
 
     @Published var places: [Geo.Place] = []
     @ObservedObject var mapState = AMLMapViewState(userLocation: .init())
     @Published var mapDisplayState = AMLSearchBar.DisplayState.map
-    
+
     func search(
         _ text: String,
         area: Geo.SearchArea
@@ -39,7 +41,7 @@ extension Geo.Place {
     var streetLabelLine: String {
         "\(addressNumber ?? "") \(street ?? "")"
     }
-    
+
     var cityLabelLine: String {
         "\(municipality ?? ""), \(region ?? "") \(postalCode ?? "")"
     }

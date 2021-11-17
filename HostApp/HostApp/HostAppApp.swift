@@ -12,7 +12,7 @@ import AWSCognitoAuthPlugin
 
 @main
 struct HostAppApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
 //            SimpleAMLMapView_View()
@@ -20,11 +20,11 @@ struct HostAppApp: App {
             AMLMapCompositeView_View()
         }
     }
-    
+
     init() {
         configureAmplify()
     }
-    
+
     private func configureAmplify() {
         let authPlugin = AWSCognitoAuthPlugin()
         let geoPlugin = AWSLocationGeoPlugin()

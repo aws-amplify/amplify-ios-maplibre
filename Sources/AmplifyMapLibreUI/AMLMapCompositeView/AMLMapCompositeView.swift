@@ -15,16 +15,22 @@ import AmplifyMapLibreAdapter
 /// `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView`.
 public struct AMLMapCompositeView: View {
     @ObservedObject var viewModel: AMLMapCompositeViewModel
-    
+
     /// Create a new `AMLMapCompositeView`.
     ///
-    /// This leverages `AMLMapView`, `AMLSearchBar`, `AMLMapControlView`, and `AMLPlaceCellView` to create a full user experience.
+    /// To create a full user experience, this leverages
+    /// - `AMLMapView`
+    /// - `AMLSearchBar`
+    /// - `AMLMapControlView`
+    /// - `AMLPlaceCellView`
+    ///
     /// For more layout customizability, use `AMLMapView` directly.
-    /// - Parameter viewModel: The `AMLMapCompositeViewModel` that is configured with a `AMLMapViewState` object. Default implementations provided.
+    /// - Parameter viewModel: The `AMLMapCompositeViewModel`
+    /// that is configured with a `AMLMapViewState` object. Default implementations provided.
     public init(viewModel: AMLMapCompositeViewModel = .init()) {
         self.viewModel = viewModel
     }
-    
+
     public var body: some View {
         if UIDevice.current.userInterfaceIdiom == .phone {
             phoneView()
@@ -33,5 +39,3 @@ public struct AMLMapCompositeView: View {
         }
     }
 }
-
-
