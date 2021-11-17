@@ -14,7 +14,6 @@ import Amplify
 import Combine
 
 struct SimpleAMLMapView_View: View {
-    
     var body: some View {
         AMLMapView()
             .edgesIgnoringSafeArea(.all)

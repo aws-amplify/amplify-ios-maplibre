@@ -23,7 +23,7 @@ struct AMLMapView_View: View {
             Color(.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
             
-//            if viewModel.mapDisplayState == .map {
+            if viewModel.mapDisplayState == .map {
                 // --------
                 AMLMapView(mapState: viewModel.mapState)
                     .showUserLocation(true)
@@ -49,10 +49,9 @@ struct AMLMapView_View: View {
                     .onReceive(viewModel.mapState.$heading) {
                         print("Heading is now: \($0)")
                     }
-                    .hidden(viewModel.mapDisplayState != .map)
                     .edgesIgnoringSafeArea(.all)
                 // --------
-//            }
+            }
             VStack(alignment: .center) {
                 AMLSearchBar(
                     text: $searchText,
@@ -62,7 +61,7 @@ struct AMLMapView_View: View {
                 )
                     .padding()
 
-//                if viewModel.mapDisplayState == .map {
+                if viewModel.mapDisplayState == .map {
                     HStack {
                         Spacer()
                         AMLMapControlView(
@@ -71,12 +70,9 @@ struct AMLMapView_View: View {
                         )
                     }
                     .padding(.trailing)
-                    .hidden(viewModel.mapDisplayState != .map)
-//                } else {
+                } else {
                     AMLPlaceList(viewModel.places)
-                        .hidden(viewModel.mapDisplayState == .map)
-
-//                }
+                }
                 Spacer()
             }
         }
@@ -91,13 +87,6 @@ struct AMLMapView_View: View {
     }
 }
 
-public extension View {
-    @ViewBuilder func hidden(_ hide: Bool) -> some View {
-        opacity(hide ? 0 : 1)
-    }
-}
-
-
 struct AMLMapView_View_Previews: PreviewProvider {
     static var previews: some View {
         AMLMapView_View()
@@ -105,7 +94,7 @@ struct AMLMapView_View_Previews: PreviewProvider {
 }
 
 extension AMLMapView_View {
-    private func didSelectAnnotation(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {
+    private func didSelectFeature(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {
         let camera = MGLMapCamera(
             lookingAtCenter: pointFeature.coordinate,
             altitude: mapView.camera.altitude,
@@ -120,7 +109,6 @@ extension AMLMapView_View {
         )
     }
 }
-
 
 extension Geo.Place {
     init(_ place: Place) {
