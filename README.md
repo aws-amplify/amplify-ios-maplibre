@@ -1,6 +1,6 @@
 ## AmplifyMapLibreAdapter for iOS
 
-The AmplifyMapLibreAdapter is a library that  the Amplify Geo category and the MapLibre SDK.
+The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category and the MapLibre SDK.
 
 - Registers a custom URL protocol with MapLibre that intercepts and signs calls to AWS Location endpoints. This registration occers automatically the first time AmplifyMapLibreAdapter is used to create a map.
 
