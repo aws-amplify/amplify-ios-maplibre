@@ -5,8 +5,8 @@
         "package": "Amplify",
         "repositoryURL": "https://github.com/aws-amplify/amplify-ios",
         "state": {
-          "branch": "geo.main",
-          "revision": "abad240f6caf5e3541ac5c8e915d6b038f3f8560",
+          "branch": "main",
+          "revision": "9a30a190f09a9d4d35ad19d3925e7c2ecb493132",
           "version": null
         }
       },

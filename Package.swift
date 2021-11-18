@@ -6,7 +6,7 @@ import PackageDescription
 enum Amplify {
     static let packageName = "Amplify"
     static let packageURL = "https://github.com/aws-amplify/amplify-ios"
-    static let requirement: Package.Dependency.Requirement = .branch("geo.main")
+    static let requirement: Package.Dependency.Requirement = .branch("main")
     static let package: Package.Dependency = .package(
         name: Amplify.packageName,
         url: Amplify.packageURL,
@@ -56,10 +56,7 @@ let package = Package(
         ),
         .target(
             name: "AmplifyMapLibreUI",
-            dependencies: ["AmplifyMapLibreAdapter"],
-            resources: [
-                .process("Resources")
-            ]
+            dependencies: ["AmplifyMapLibreAdapter"]
         ),
         .testTarget(
             name: "AmplifyMapLibreAdapterTests",

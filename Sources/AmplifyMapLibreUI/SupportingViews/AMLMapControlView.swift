@@ -7,54 +7,54 @@
 
 import SwiftUI
 
-/// AMLMapControlView that displays zoom in, zoom out, and direction alignment buttons.
+/// AMLMapControlView that displays zoom in, zoom out, and align north buttons.
 public struct AMLMapControlView: View {
-    /// Action that is called when the zoom in button is tapped.
-    let zoomInAction: () -> Void
-    /// Action that is called when the zoom out button is tapped.
-    let zoomOutAction: () -> Void
-    /// Action that is called when the compass button is tapped.
-    let compassAction: () -> Void
-    /// The current zoom value of the map. This is used to set the accessibility value of the the zoom control buttons. Double value is truncated to Integer representation for the accessibility value.
-    let zoomValue: Double
-    
-    /// Initialize a new instance of AMLMapControlView
+    /// The current zoom level of the map.
+    @Binding var zoomValue: Double
+
+    /// The current heading of the map.
+    @Binding var headingValue: Double
+
+    /// Create a new `AMLMapControlView` with three buttons to control zoom level and heading of the map.
     /// - Parameters:
-    ///   - zoomValue: The current zoom value of the map. This is used to set the accessibility value of the the zoom control buttons. Double value is truncated to Integer representation for the accessibility value.
-    ///   - zoomInAction: Action that is called when the zoom in button is tapped.
-    ///   - zoomOutAction: Action that is called when the zoom out button is tapped.
-    ///   - compassAction: Action that is called when the compass button is tapped.
+    ///   - zoomValue: The current zoom level of the map.
+    ///   - headingValue: The current heading of the map.
     public init(
-        zoomValue: Double,
-        zoomInAction: @escaping () -> Void,
-        zoomOutAction: @escaping () -> Void,
-        compassAction: @escaping () -> Void
+        zoomValue: Binding<Double>,
+        headingValue: Binding<Double>
     ) {
-        self.zoomValue = zoomValue
-        self.zoomInAction = zoomInAction
-        self.zoomOutAction = zoomOutAction
-        self.compassAction = compassAction
+        _zoomValue = zoomValue
+        _headingValue = headingValue
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
-            AMLMapControlButton(action: zoomInAction, systemName: "plus")
+            AMLMapControlButton(
+                action: zoomIn,
+                systemName: "plus"
+            )
                 .accessibility(hint: Text("Zoom in on the map"))
                 .accessibility(label: Text("Zoom in"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
-            
+
             Divider()
                 .frame(width: 47)
-            
-            AMLMapControlButton(action: zoomOutAction, systemName: "minus")
+
+            AMLMapControlButton(
+                action: zoomOut,
+                systemName: "minus"
+            )
                 .accessibility(hint: Text("Zoom out on the map"))
                 .accessibility(label: Text("Zoom out"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
 
-            Divider()    
+            Divider()
                 .frame(width: 47)
-            
-            AMLMapControlButton(action: compassAction, systemName: "location.north.fill")
+
+            AMLMapControlButton(
+                action: alignNorth,
+                systemName: "location.north.fill"
+            )
                 .accessibility(hint: Text("Align map so that top of screen is North"))
                 .accessibility(label: Text("Align North"))
         }
@@ -65,9 +65,13 @@ public struct AMLMapControlView: View {
                     .stroke(Color.secondary, lineWidth: 0.5)
         )
     }
+
+    private func zoomIn() { zoomValue += 1 }
+    private func zoomOut() { zoomValue -= 1 }
+    private func alignNorth() { headingValue = 0 }
 }
 
-fileprivate extension Double {
+private extension Double {
     var accessibilityFormatted: String {
         String(Int(self))
     }
