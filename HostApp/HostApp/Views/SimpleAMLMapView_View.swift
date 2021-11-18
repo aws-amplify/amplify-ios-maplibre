@@ -15,8 +15,15 @@ import Combine
 
 // swiftlint:disable type_name
 struct SimpleAMLMapView_View: View {
+
+    @StateObject var mapState = AMLMapViewState()
+
+
     var body: some View {
-        AMLMapView()
+        AMLMapView(mapState: mapState)
+            .onReceive(mapState.$center) {
+                print($0)
+            }
             .edgesIgnoringSafeArea(.all)
     }
 }

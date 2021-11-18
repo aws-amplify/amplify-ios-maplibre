@@ -14,9 +14,6 @@ public class AMLMapViewState: ObservableObject {
     /// The underlying `MGLMapView`
     @Published public var mapView: MGLMapView?
 
-    /// Loading state for track asynchronous loading of map
-    @Published internal var mapLoadingState = MapCreationStateMachine(state: .begin)
-
     /// The current heading of the map in degrees.
     @Published public var heading: CLLocationDirection
 
@@ -72,13 +69,5 @@ public class AMLMapViewState: ObservableObject {
         self.userLocation = userLocation
         self.attribution = attribution
         self.features = features
-    }
-
-    /// Transition map loading state based on `Result` input.
-    ///
-    /// If `Result` is `.success`, the passed in `AMLMapView?` will be assigned it's associated value.
-    /// - Parameter input: The result of the request to create a map.
-    func transitionMapLoadingState(input: Result<MGLMapView, Geo.Error>) {
-        mapLoadingState.transition(input: input, assign: &mapView)
     }
 }

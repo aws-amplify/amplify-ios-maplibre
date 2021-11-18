@@ -18,7 +18,7 @@ struct AMLMapView_View: View {
 // swiftlint:enable type_name
     @State private var searchText = ""
 
-    @ObservedObject var viewModel = AMLMapView_ViewModel()
+    @StateObject var viewModel = AMLMapView_ViewModel()
 
     var body: some View {
         ZStack(alignment: .top) {

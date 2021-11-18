@@ -11,6 +11,8 @@ import AWSLocationGeoPlugin
 import Mapbox
 import AmplifyMapLibreAdapter
 
+
+
 /// The `SwiftUI` wrapper for `MGLMapView`
 public struct AMLMapView: View {
     /// Object to track state changes in the map.
@@ -19,13 +21,16 @@ public struct AMLMapView: View {
     /// Map configuration settings. Accessible through view modifiers.
     @ObservedObject var mapSettings: AMLMapViewSettings
 
+    /// Loading state for track asynchronous loading of map
+    @State private var mapLoadingState = MapCreationStateMachine(state: .begin)
+
     /// Create an instance of `AMLMapView`
     /// - Parameter mapState: Object to track state changes.
     public init(mapState: AMLMapViewState = .init()) {
         self.mapState = mapState
         self.mapSettings = AMLMapViewSettings()
         if let mapView = mapState.mapView {
-            mapState.mapLoadingState.state = .complete(mapView)
+            mapLoadingState.state = .complete(mapView)
         }
     }
 
@@ -39,12 +44,12 @@ public struct AMLMapView: View {
         self.mapState = mapState
         self.mapSettings = mapSettings
         if let mapView = mapState.mapView {
-            mapState.mapLoadingState.state = .complete(mapView)
+            mapLoadingState.state = .complete(mapView)
         }
     }
 
     public var body: some View {
-        switch mapState.mapLoadingState.state {
+        switch mapLoadingState.state {
         case .complete(let mapView):
             _MGLMapViewWrapper(
                 mapView: mapView,
@@ -76,8 +81,8 @@ public struct AMLMapView: View {
     /// Handle aysnchronous request to create map from `AmplifyMapLibre`.
     private func createMap() {
         AmplifyMapLibre.createMap {
-            mapState
-                .transitionMapLoadingState(input: $0)
+            mapLoadingState
+                .transition(input: $0, assign: &mapState.mapView)
         }
     }
 }
