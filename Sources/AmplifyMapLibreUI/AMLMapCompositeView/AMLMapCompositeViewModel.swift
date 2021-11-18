@@ -15,7 +15,7 @@ public class AMLMapCompositeViewModel: ObservableObject {
     @Published var places: [Geo.Place] = []
 
     /// Tracks state changes in the map.
-    @ObservedObject var mapState: AMLMapViewState
+    @ObservedObject public var mapState: AMLMapViewState
 
     /// Defines settings in the map.
     @ObservedObject var mapSettings = AMLMapViewSettings()
