@@ -38,7 +38,7 @@ Swift Pacakge Manager is distributed with Xcode. To add AmplifyMapLibreAdapter t
 
 We welcome you to use the GitHub issue tracker to report bugs or suggest features.
 
-When filing an issue, please check [exisiting open](https://github.com/aws-amplify/amplify-ios-maplibre/issues), or [recently closed](), issues to make sure somebody else hasn't already reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
+When filing an issue, please check [exisiting open](https://github.com/aws-amplify/amplify-ios-maplibre/issues), or [recently closed](https://github.com/aws-amplify/amplify-ios-maplibre/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aclosed%20), issues to make sure somebody else hasn't already reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:
 
 * Expected behavior and observed behavior.
 * A reproducible test case or series of steps.
