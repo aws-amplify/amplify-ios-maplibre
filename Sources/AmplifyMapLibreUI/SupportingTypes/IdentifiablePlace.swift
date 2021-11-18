@@ -9,7 +9,7 @@ import SwiftUI
 import Amplify
 
 /// An IdentifiablePlace and from a `Geo.Place` for use in SwiftUI views requiring `Identifiable` conformance.
-/// - Important: The `id` property is generated on creation and associated with a `Geo.Place`.
+/// - Important: The `id` property is generated on creation and NOT associated with a specific `Geo.Place`.
 @dynamicMemberLookup
 public struct IdentifiablePlace: Identifiable {
     public let id = UUID()
