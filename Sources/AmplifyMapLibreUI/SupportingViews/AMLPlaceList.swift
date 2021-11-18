@@ -13,10 +13,10 @@ public struct AMLPlaceList: View {
     /// Create a List of `Geo.Place`s.
     /// - Parameter places: The places to be displayed in the list.
     public init(_ places: [Geo.Place]) {
-        self.places = places.map(_Place.init)
+        self.places = places.map(IdentifiablePlace.init)
     }
 
-    let places: [_Place]
+    let places: [IdentifiablePlace]
 
     public var body: some View {
         VStack {
@@ -26,12 +26,12 @@ public struct AMLPlaceList: View {
             } else {
                 if #available(iOS 14, *) {
                     List(places) {
-                        AMLPlaceCellView(place: .init($0))
+                        AMLPlaceCellView(place: $0.place)
                     }
                     .listStyle(InsetGroupedListStyle())
                 } else {
                     List(places) {
-                        AMLPlaceCellView(place: .init($0))
+                        AMLPlaceCellView(place: $0.place)
                     }
                 }
             }

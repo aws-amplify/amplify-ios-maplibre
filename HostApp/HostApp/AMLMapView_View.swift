@@ -113,20 +113,3 @@ extension AMLMapView_View {
         )
     }
 }
-
-extension Geo.Place {
-    init(_ place: Place) {
-        self.init(
-            coordinates: place.coordinates,
-            label: place.label,
-            addressNumber: place.addressNumber,
-            street: place.street,
-            municipality: place.municipality,
-            neighborhood: place.neighborhood,
-            region: place.region,
-            subRegion: place.subRegion,
-            postalCode: place.postalCode,
-            country: place.country
-        )
-    }
-}
