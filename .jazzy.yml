@@ -1,4 +1,4 @@
-module: Amplify
+module: AmplifyMapLibre
 author: Amazon Web Services
 github_url: https://github.com/aws-amplify/amplify-ios-maplibre
 
@@ -8,11 +8,3 @@ undocumented_text: ""
 hide_documentation_coverage: true
 sdk: iphone
 theme: apple
-build_tool_arguments:
-  - -scheme
-  - AmplifyMapLibreAdapter-Package
-  - m
-  - AmplifyMapLibreAdapter
-  - AmplifyMapLibreUI
-
-docset_icon: readme-images/amplify-icon.png
