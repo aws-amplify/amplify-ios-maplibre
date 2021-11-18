@@ -10,10 +10,8 @@ import Amplify
 import AWSLocationGeoPlugin
 import Mapbox
 
-// swiftlint:disable type_name
 /// SwiftUI Wrapper for MGLMapView.
-internal struct _MGLMapViewWrapper: UIViewRepresentable {
-// swiftlint:enable type_name
+internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:this type_name
 
     /// Underlying MGLMapView.
     let mapView: MGLMapView
@@ -42,10 +40,8 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable {
     /// The clustering behavior of the map.
     let clusteringBehavior: AMLMapView.ClusteringBehavior
 
-// swiftlint:disable weak_delegate
     /// Implementation definitions for user interactions with the map.
-    let proxyDelegate: AMLMapView.ProxyDelegate
-// swiftlint:enable weak_delegate
+    let proxyDelegate: AMLMapView.ProxyDelegate // swiftlint:disable:this weak_delegate
 
     /// Create a `_MGLMapViewWrapper`.
     /// An internal SwiftUI wrapper View around MGLMapView.

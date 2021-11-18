@@ -62,7 +62,7 @@ public struct AMLPlaceCellView: View {
     }
 }
 
-// swiftlint:disable type_name
+// swiftlint:disable:next type_name
 struct PlaceCellView_Preview: PreviewProvider {
     static var previews: some View {
         AMLPlaceCellView(
@@ -81,4 +81,3 @@ struct PlaceCellView_Preview: PreviewProvider {
         )
     }
 }
-// swiftlint:enable type_name

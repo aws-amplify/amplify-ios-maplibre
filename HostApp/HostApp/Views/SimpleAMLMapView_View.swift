@@ -13,7 +13,7 @@ import Mapbox
 import Amplify
 import Combine
 
-// swiftlint:disable type_name
+// swiftlint:disable:next type_name
 struct SimpleAMLMapView_View: View {
 
     @StateObject var mapState = AMLMapViewState()
@@ -32,4 +32,3 @@ struct SimpleAMLMapView_View_Previews: PreviewProvider {
         SimpleAMLMapView_View()
     }
 }
-// swiftlint:enable type_name

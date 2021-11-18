@@ -13,9 +13,9 @@ import Mapbox
 import Amplify
 import Combine
 
-// swiftlint:disable type_name
+// swiftlint:disable:next type_name
 struct AMLMapView_View: View {
-// swiftlint:enable type_name
+
     @State private var searchText = ""
 
     @StateObject var viewModel = AMLMapView_ViewModel()
@@ -89,13 +89,12 @@ struct AMLMapView_View: View {
     }
 }
 
-// swiftlint:disable type_name
+// swiftlint:disable:next type_name
 struct AMLMapView_View_Previews: PreviewProvider {
     static var previews: some View {
         AMLMapView_View()
     }
 }
-// swiftlint:enable type_name
 
 extension AMLMapView_View {
     private func didSelectFeature(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {

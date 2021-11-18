@@ -11,9 +11,8 @@ import Amplify
 import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
 
-// swiftlint:disable type_name
+// swiftlint:disable:next type_name
 class AMLMapView_ViewModel: ObservableObject {
-// swiftlint:enable type_name
 
     @Published var places: [Geo.Place] = []
     @ObservedObject var mapState = AMLMapViewState(userLocation: .init())

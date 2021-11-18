@@ -35,13 +35,11 @@ public struct AMLActivityIndicator: UIViewRepresentable {
     }
 }
 
-// swiftlint:disable type_name
 /// SwiftUI preview for `AMLActivityIndicator`
-public struct AMLActivityIndicator_Preview: PreviewProvider {
+public struct AMLActivityIndicator_Preview: PreviewProvider { // swiftlint:disable:this type_name
     public static var previews: some View {
         AMLActivityIndicator(isAnimating: .constant(true))
             .frame(width: 100, height: 100)
             .foregroundColor(.orange)
     }
 }
-// swiftlint:enable type_name

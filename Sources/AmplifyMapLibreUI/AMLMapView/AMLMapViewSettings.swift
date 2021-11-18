@@ -34,10 +34,8 @@ internal class AMLMapViewSettings: ObservableObject {
     /// Definition of the map's clustering behavior
     let clusteringBehavior: AMLMapView.ClusteringBehavior
 
-    // swiftlint:disable weak_delegate
     /// Implementation definitions for user interactions with the map.
-    let proxyDelegate: AMLMapView.ProxyDelegate
-    // swiftlint:enable weak_delegate
+    let proxyDelegate: AMLMapView.ProxyDelegate  // swiftlint:disable:this weak_delegate
 
     /// Create a new `AMLMapViewSettings` object that defines map settings.
     /// - Parameters:
