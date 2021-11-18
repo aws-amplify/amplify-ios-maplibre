@@ -18,7 +18,6 @@ struct SimpleAMLMapView_View: View {
 
     @StateObject var mapState = AMLMapViewState()
 
-
     var body: some View {
         AMLMapView(mapState: mapState)
             .onReceive(mapState.$center) {

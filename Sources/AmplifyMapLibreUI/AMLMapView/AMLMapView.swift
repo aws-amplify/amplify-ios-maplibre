@@ -11,8 +11,6 @@ import AWSLocationGeoPlugin
 import Mapbox
 import AmplifyMapLibreAdapter
 
-
-
 /// The `SwiftUI` wrapper for `MGLMapView`
 public struct AMLMapView: View {
     /// Object to track state changes in the map.
