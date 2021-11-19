@@ -49,11 +49,11 @@ When filing an issue, please check [exisiting open](https://github.com/aws-ampli
 
 ## Open Source Contributions
 
-We welcome and and all contributions from the community! Make sure you read through our contribution guide [here](./CONTRIBUTING.md) before submitting any PR's.
+We welcome and and all contributions from the community! Make sure you read through our contribution guide [here](https://github.com/aws-amplify/amplify-ios-maplibre/blob/main/CONTRIBUTING.md) before submitting any PR's.
 
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING](https://github.com/aws-amplify/amplify-ios-maplibre/blob/main/CONTRIBUTING.md#security-issue-notifications) for more information.
 
 ## License
 
