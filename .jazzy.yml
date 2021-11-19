@@ -1,6 +1,6 @@
 module: AmplifyMapLibre
 author: Amazon Web Services
-github_url: https://github.com/aws-amplify/amplify-ios-maplibre
+github_url: https://aws-amplify.github.io/amplify-ios-maplibre/
 
 clean: true
 skip_undocumented: false
