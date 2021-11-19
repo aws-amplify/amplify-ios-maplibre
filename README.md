@@ -2,7 +2,7 @@
 
 The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category and the MapLibre SDK.
 
-- Registers a custom URL protocol with MapLibre that intercepts and signs calls to AWS Location endpoints. This registration occers automatically the first time AmplifyMapLibreAdapter is used to create a map.
+- Registers a custom URL protocol with MapLibre that intercepts and signs calls to AWS Location endpoints. This registration occurs automatically the first time AmplifyMapLibreAdapter is used to create a map.
 
 - Brokers communication between Amplify and MapLibre by providing functions and extensions that simplify using Amplify Geo with MapLibre.
 
