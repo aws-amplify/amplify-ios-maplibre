@@ -12,7 +12,7 @@ The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category a
 
 [Getting Started Guide](https://docs.amplify.aws/lib/geo/getting-started/q/platform/ios/)
 
-[API Documentation](https://aws-amplify.github.io/amplify-ios-maplibre/)
+[API Documentation](https://aws-amplify.github.io/amplify-ios-maplibre/docs/)
 
 ## Platform Support
 
