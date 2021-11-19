@@ -6,13 +6,13 @@ The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category a
 
 - Brokers communication between Amplify and MapLibre by providing functions and extensions that simplify using Amplify Geo with MapLibre.
 
-- SwiftUI wrappers `AMLMapView` (Amplify MapLibre MapView) and `AMLMapCompositeView` around MapLibre's MGLMapView. This introduces SwiftUI support to the MapLibre SDK for iOS. It provides a subset of MGLMapView functionality that can be used for displaying and interacting with a map; providing APIs to track state changes, inject custom implementations for user interaction, and define settings.
+- Provide SwiftUI support for MapLibre that adds `AMLMapView` (Amplify MapLibre MapView) and `AMLMapCompositeView` Views around MapLibre's MGLMapView. This introduces SwiftUI support to the MapLibre SDK for iOS. It provides a subset of MGLMapView functionality that can be used for displaying and interacting with a map; providing APIs to track state changes, inject custom implementations for user interaction, and define settings.
 
-**API Documentation**
-https://aws-amplify.github.io/amplify-ios-maplibre/docs/
+## Usage
 
-## Features/APIs
-https://docs.amplify.aws/lib/lib/geo/getting-started/q/platform/ios/
+[Getting Started Guide](https://docs.amplify.aws/lib/geo/getting-started/q/platform/ios/)
+
+[API Documentation](https://aws-amplify.github.io/amplify-ios-maplibre/)
 
 ## Platform Support
 
