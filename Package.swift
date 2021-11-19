@@ -3,16 +3,6 @@
 
 import PackageDescription
 
-enum Amplify {
-    static let packageName = "Amplify"
-    static let packageURL = "https://github.com/aws-amplify/amplify-ios"
-    static let requirement: Package.Dependency.Requirement = .branch("main")
-    static let package: Package.Dependency = .package(
-        name: Amplify.packageName,
-        url: Amplify.packageURL,
-        Amplify.requirement
-    )
-}
 // Package
 let package = Package(
     name: "AmplifyMapLibreAdapter",
@@ -31,9 +21,9 @@ let package = Package(
     dependencies: [
         // Amplify
         .package(
-            name: Amplify.packageName,
-            url: Amplify.packageURL,
-            Amplify.requirement
+            name: "Amplify",
+            url: "https://github.com/aws-amplify/amplify-ios",
+            .upToNextMajor(from: "1.16.1")
         ),
 
         // MapLibre
@@ -47,10 +37,10 @@ let package = Package(
         .target(
             name: "AmplifyMapLibreAdapter",
             dependencies: [
-                .product(name: "Amplify", package: Amplify.packageName),
-                .product(name: "AWSCognitoAuthPlugin", package: Amplify.packageName),
-                .product(name: "AWSLocationGeoPlugin", package: Amplify.packageName),
-                .product(name: "AWSPluginsCore", package: Amplify.packageName),
+                .product(name: "Amplify", package: "Amplify"),
+                .product(name: "AWSCognitoAuthPlugin", package: "Amplify"),
+                .product(name: "AWSLocationGeoPlugin", package: "Amplify"),
+                .product(name: "AWSPluginsCore", package: "Amplify"),
                 .product(name: "Mapbox", package: "MapLibre GL Native")
             ]
         ),

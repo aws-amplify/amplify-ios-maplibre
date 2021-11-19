@@ -27,6 +27,7 @@ struct SimpleAMLMapView_View: View {
     }
 }
 
+// swiftlint:disable:next type_name
 struct SimpleAMLMapView_View_Previews: PreviewProvider {
     static var previews: some View {
         SimpleAMLMapView_View()
