@@ -67,7 +67,7 @@ extension _MGLMapViewWrapper.Coordinator {
     ///     - Identifier: `"aml_cluster_number_layer"`
     /// - Parameter style: The `MGLStyle` that the layers will be added to.
     private func setupRenderingLayers(for style: MGLStyle) {
-        let locationSource = locationSource()
+        let locationSource = makeLocationSource()
         style.addSource(locationSource)
         let defaultImage = UIImage(
             named: "AMLFeatureView",
@@ -76,19 +76,19 @@ extension _MGLMapViewWrapper.Coordinator {
         )!
         style.setImage(defaultImage, forName: "aml_feature")
 
-        let featureLayer = featureLayer(for: locationSource)
+        let featureLayer = makeFeatureLayer(for: locationSource)
         style.addLayer(featureLayer)
 
-        let clusterCircleLayer = clusterCircleLayer(for: locationSource)
+        let clusterCircleLayer = makeClusterCircleLayer(for: locationSource)
         style.addLayer(clusterCircleLayer)
 
-        let clusterNumberLayer = clusterNumberLayer(for: locationSource)
+        let clusterNumberLayer = makeClusterNumberLayer(for: locationSource)
         style.addLayer(clusterNumberLayer)
     }
 
     /// Create the location source used to source features in the subsequent layers.
     /// - Returns: A `MGLShapeSource` with defined clustering options.
-    private func locationSource() -> MGLShapeSource {
+    private func makeLocationSource() -> MGLShapeSource {
         MGLShapeSource.init(
             identifier: "aml_location_source",
             shape: nil,
@@ -104,7 +104,7 @@ extension _MGLMapViewWrapper.Coordinator {
     /// Create the layer that renders features on the map.
     /// - Parameter source: The layer's source.
     /// - Returns: A `MGLSymbolStyleLayer` that will render features provided through the `source`.
-    private func featureLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
+    private func makeFeatureLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
         let featureLayer = MGLSymbolStyleLayer(identifier: "aml_feature_style_layer", source: source)
         featureLayer.iconImageName = NSExpression(forConstantValue: "aml_feature")
         featureLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
@@ -117,7 +117,7 @@ extension _MGLMapViewWrapper.Coordinator {
     /// - Parameter source: The layer's source. Generally the same as the feature layer's `source`.
     /// - Returns: A `MGLCircleStyleLayer` that will render feature clusters provided through the `source`.
     /// Clustering behavior defined through `ClusteringBehavior`.
-    private func clusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
+    private func makeClusterCircleLayer(for source: MGLSource) -> MGLCircleStyleLayer {
         let clusterCircleLayer = MGLCircleStyleLayer(identifier: "aml_cluster_circle_layer", source: source)
 
         clusterCircleLayer.circleRadius = NSExpression(
@@ -145,7 +145,7 @@ extension _MGLMapViewWrapper.Coordinator {
     /// Create the layer that renders numbers on the feature clusters on the map.
     /// - Parameter source: The layer's source. Generally the same as the cluster circle layer's `source`.
     /// - Returns: A `MGLSymbolStyleLayer` that renders numbers on feature clusters provided through the `source`.
-    private func clusterNumberLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
+    private func makeClusterNumberLayer(for source: MGLSource) -> MGLSymbolStyleLayer {
         let clusterNumberLayer = MGLSymbolStyleLayer(identifier: "aml_cluster_number_layer", source: source)
         clusterNumberLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
         clusterNumberLayer.textColor = NSExpression(forConstantValue: control.clusteringBehavior.clusterNumberColor)

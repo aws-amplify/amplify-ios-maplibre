@@ -96,29 +96,29 @@ public extension Geo.Place {
 fileprivate extension Dictionary where Key == String, Value == Any {
     private func placeKey<T>(for keyPath: KeyPath<Geo.Place, T>) -> String {
         switch keyPath {
-        case \.street: return "aml_geo.place_street"
-        case \.addressNumber: return "aml_geo.place_addressNumber"
-        case \.label: return "aml_geo.place_label"
-        case \.country: return "aml_geo.place_country"
-        case \.municipality: return "aml_geo.place_municipality"
-        case \.neighborhood: return "aml_geo.place_neighborhood"
-        case \.postalCode: return "aml_geo.place_postalCode"
-        case \.region: return "aml_geo.place_region"
-        case \.subRegion: return "aml_geo.place_subRegion"
+        case \Geo.Place.street: return "aml_geo.place_street"
+        case \Geo.Place.addressNumber: return "aml_geo.place_addressNumber"
+        case \Geo.Place.label: return "aml_geo.place_label"
+        case \Geo.Place.country: return "aml_geo.place_country"
+        case \Geo.Place.municipality: return "aml_geo.place_municipality"
+        case \Geo.Place.neighborhood: return "aml_geo.place_neighborhood"
+        case \Geo.Place.postalCode: return "aml_geo.place_postalCode"
+        case \Geo.Place.region: return "aml_geo.place_region"
+        case \Geo.Place.subRegion: return "aml_geo.place_subRegion"
         default: return "aml_geo.place_default"
         }
     }
 
     subscript<T>(_ placeKeyPath: KeyPath<Geo.Place, T>) -> T? {
         get {
-            if placeKeyPath ~= \.coordinates {
+            if placeKeyPath ~= \Geo.Place.coordinates {
                 return getCoordinate() as? T
             }
             let key = placeKey(for: placeKeyPath)
             return self[key] as? T
         }
         set {
-            if placeKeyPath ~= \.coordinates {
+            if placeKeyPath ~= \Geo.Place.coordinates {
                 setCoordinate(newValue)
                 return
             }

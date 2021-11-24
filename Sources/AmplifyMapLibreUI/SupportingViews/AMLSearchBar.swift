@@ -149,7 +149,7 @@ private struct AMLSearchBarIconOverlay: View {
                     endEditing()
                 }, label: {
                     Image(systemName: "multiply")
-                        .font(.body.weight(.medium))
+                        .font(Font.body.weight(.medium))
                         .foregroundColor(.primary)
                         .padding(.trailing, 8)
                 })
@@ -162,7 +162,7 @@ private struct AMLSearchBarIconOverlay: View {
                     endEditing()
                 } label: {
                     Image(systemName: displayState.imageName)
-                        .font(.body.weight(.medium))
+                        .font(Font.body.weight(.medium))
                         .foregroundColor(.primary)
                         .padding(.trailing, 8)
                 }
