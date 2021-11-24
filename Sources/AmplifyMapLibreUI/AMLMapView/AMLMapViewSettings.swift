@@ -58,7 +58,7 @@ internal class AMLMapViewSettings: ObservableObject {
         maxZoomLevel: Double = 22,
         hideAttributionButton: Bool = false,
         compassPosition: MGLOrnamentPosition = .bottomLeft,
-        featureImage: UIImage = .init(
+        featureImage: UIImage = UIImage(
             named: "AMLFeatureView",
             in: Bundle.module,
             compatibleWith: nil

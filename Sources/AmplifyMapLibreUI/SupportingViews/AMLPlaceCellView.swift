@@ -24,10 +24,10 @@ public struct AMLPlaceCellView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text(place.labelLine ?? "")
-                    .font(.headline.weight(.semibold))
+                    .font(Font.headline.weight(Font.Weight.semibold))
                 Spacer()
                 Text(place.neighborhood?.uppercased() ?? "")
-                    .font(.footnote.weight(.light))
+                    .font(Font.footnote.weight(Font.Weight.light))
                     .foregroundColor(.secondary)
             }
             Text(addressLine(for: place))
