@@ -47,28 +47,28 @@ final class AMLMapViewTestCase: XCTestCase {
 
         // Test range with allowed lower and upper bounds
         do {
-            let mapView = mapView.allowedZoomLevels(1.5...19)
+            let mapView = mapView.allowedZoomLevels(1.5 ... 19)
             XCTAssertEqual(mapView.mapSettings.minZoomLevel, 1.5)
             XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 19)
         }
 
         // Test range with allowed lower bound and unallowed upper bound
         do {
-            let mapView = mapView.allowedZoomLevels(2...40)
+            let mapView = mapView.allowedZoomLevels(2 ... 40)
             XCTAssertEqual(mapView.mapSettings.minZoomLevel, 2)
             XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 22)
         }
 
         // Test range with unallowed lower bound and allowed upper bound
         do {
-            let mapView = mapView.allowedZoomLevels(-4...20)
+            let mapView = mapView.allowedZoomLevels(-4 ... 20)
             XCTAssertEqual(mapView.mapSettings.minZoomLevel, 0)
             XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 20)
         }
 
         // Test range with unallowed lower and upper bounds
         do {
-            let mapView = mapView.allowedZoomLevels(-4...23)
+            let mapView = mapView.allowedZoomLevels(-4 ... 23)
             XCTAssertEqual(mapView.mapSettings.minZoomLevel, 0)
             XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 22)
         }
