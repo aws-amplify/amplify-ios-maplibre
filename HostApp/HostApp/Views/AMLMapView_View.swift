@@ -30,7 +30,6 @@ struct AMLMapView_View: View {
                 AMLMapView(mapState: viewModel.mapState)
                     .showUserLocation(true)
                     .allowedZoomLevels(5 ... 15)
-                    .hideAttributionButton(true)
                     .compassPosition(.bottomRight)
                     .featureImage {
                         return UIImage(

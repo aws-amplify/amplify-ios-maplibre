@@ -69,14 +69,12 @@ public struct AMLMapView: View {
                     .minZoomLevel(mapSettings.minZoomLevel)
                     .maxZoomLevel(mapSettings.maxZoomLevel)
 
-                if !mapSettings.hideAttributionButton {
-                    VStack {
-                        Spacer()
-                        AMLMapAttributionView(
-                            isAttributionTextDisplayed: $mapState.isAttributionTextDisplayed,
-                            attributionText: mapState.attribution
-                        )
-                    }
+                VStack {
+                    Spacer()
+                    AMLMapAttributionView(
+                        isAttributionTextDisplayed: $mapState.isAttributionTextDisplayed,
+                        attributionText: mapState.attribution
+                    )
                 }
             }
         case .error(let error):
