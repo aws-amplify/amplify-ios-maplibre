@@ -82,14 +82,6 @@ public extension AMLMapView {
         return self
     }
 
-    /// Set map's attribution button to hidden or showing.
-    /// - Parameter hide:`true` hides the button / `false` unhides the button
-    /// - Returns: An instance of `AMLMapView`.
-    func hideAttributionButton(_ hide: Bool) -> AMLMapView {
-        mapSettings.hideAttributionButton = hide
-        return self
-    }
-
     /// Provide an SwiftUI view that represents a point on a map.
     ///
     /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s,

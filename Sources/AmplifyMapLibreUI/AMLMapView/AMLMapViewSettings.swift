@@ -22,9 +22,6 @@ internal class AMLMapViewSettings: ObservableObject {
     /// The map's maximum allowed zoom level.
     @Published internal var maxZoomLevel: Double
 
-    /// Whether the attribution button is hidden.
-    @Published internal var hideAttributionButton: Bool
-
     /// The compass position on the map.
     @Published internal var compassPosition: MGLOrnamentPosition
 
@@ -45,7 +42,6 @@ internal class AMLMapViewSettings: ObservableObject {
     ///   and the user must choose to allow access.
     ///   - minZoomLevel: The map's minimum allowed zoom level. Default is `0`
     ///   - maxZoomLevel: The map's maximum allowed zoom level. Default is `22`
-    ///   - hideAttributionButton: Whether the attribution button is hidden. Default is `false`
     ///   - compassPosition: The position of the compass on the map. Default is `.bottomleft`
     ///   - featureImage: The image representing a feature on the map. Default is `AMLFeatureView`.
     ///   - clusteringBehavior: Define the map views clustering behavior.
@@ -56,7 +52,6 @@ internal class AMLMapViewSettings: ObservableObject {
         showUserLocation: Bool = false,
         minZoomLevel: Double = 0,
         maxZoomLevel: Double = 22,
-        hideAttributionButton: Bool = false,
         compassPosition: MGLOrnamentPosition = .bottomLeft,
         featureImage: UIImage = UIImage(
             named: "AMLFeatureView",
@@ -69,7 +64,6 @@ internal class AMLMapViewSettings: ObservableObject {
         self.showUserLocation = showUserLocation
         self.minZoomLevel = minZoomLevel
         self.maxZoomLevel = maxZoomLevel
-        self.hideAttributionButton = hideAttributionButton
         self.compassPosition = compassPosition
         self.featureImage = featureImage
         self.clusteringBehavior = clusteringBehavior
