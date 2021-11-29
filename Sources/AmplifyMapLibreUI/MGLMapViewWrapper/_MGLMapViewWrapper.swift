@@ -88,8 +88,8 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
         self.mapView.zoomLevel = zoomLevel.wrappedValue
         self.mapView.logoView.isHidden = true
         self.mapView.showsUserLocation = showUserLocation || userLocation.wrappedValue != nil
-
         self.mapView.style?.setImage(featureImage, forName: "aml_feature")
+        self.mapView.attributionButton.isHidden = true
     }
 
     public func makeUIView(context: UIViewRepresentableContext<_MGLMapViewWrapper>) -> MGLMapView {

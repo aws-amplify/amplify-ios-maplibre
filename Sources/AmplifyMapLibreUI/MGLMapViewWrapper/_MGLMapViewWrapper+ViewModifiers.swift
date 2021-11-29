@@ -82,14 +82,6 @@ extension _MGLMapViewWrapper {
         return self
     }
 
-    /// Set map's attribution button to hidden or showing.
-    /// - Parameter hide:`true` hides the button / `false` unhides the button
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func hideAttributionButton(_ hide: Bool) -> _MGLMapViewWrapper {
-        mapView.attributionButton.isHidden = hide
-        return self
-    }
-
     /// Set the position of the compass on the `MGLMapView`.
     /// - Parameter position: `MGLOrnamentPosition` defining the location.
     /// - Returns: An instance of `_MGLMapViewWrapper`.
