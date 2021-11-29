@@ -49,25 +49,36 @@ public struct AMLMapView: View {
     public var body: some View {
         switch mapLoadingState.state {
         case .complete(let mapView):
-            _MGLMapViewWrapper(
-                mapView: mapView,
-                zoomLevel: $mapState.zoomLevel,
-                bounds: $mapState.bounds,
-                center: $mapState.center,
-                heading: $mapState.heading,
-                userLocation: $mapState.userLocation,
-                showUserLocation: mapSettings.showUserLocation,
-                features: $mapState.features,
-                attribution: $mapState.attribution,
-                featureImage: mapSettings.featureImage,
-                clusteringBehavior: mapSettings.clusteringBehavior,
-                proxyDelegate: mapSettings.proxyDelegate
-            )
-                .showUserLocation(mapSettings.showUserLocation)
-                .compassPosition(mapSettings.compassPosition)
-                .minZoomLevel(mapSettings.minZoomLevel)
-                .maxZoomLevel(mapSettings.maxZoomLevel)
-                .hideAttributionButton(mapSettings.hideAttributionButton)
+            ZStack {
+                _MGLMapViewWrapper(
+                    mapView: mapView,
+                    zoomLevel: $mapState.zoomLevel,
+                    bounds: $mapState.bounds,
+                    center: $mapState.center,
+                    heading: $mapState.heading,
+                    userLocation: $mapState.userLocation,
+                    showUserLocation: mapSettings.showUserLocation,
+                    features: $mapState.features,
+                    attribution: $mapState.attribution,
+                    featureImage: mapSettings.featureImage,
+                    clusteringBehavior: mapSettings.clusteringBehavior,
+                    proxyDelegate: mapSettings.proxyDelegate
+                )
+                    .showUserLocation(mapSettings.showUserLocation)
+                    .compassPosition(mapSettings.compassPosition)
+                    .minZoomLevel(mapSettings.minZoomLevel)
+                    .maxZoomLevel(mapSettings.maxZoomLevel)
+
+                if !mapSettings.hideAttributionButton {
+                    VStack {
+                        Spacer()
+                        AMLMapAttributionView(
+                            isAttributionTextDisplayed: $mapState.isAttributionTextDisplayed,
+                            attributionText: mapState.attribution
+                        )
+                    }
+                }
+            }
         case .error(let error):
             Text("Error loading view: \(error.localizedDescription)")
         case .begin:

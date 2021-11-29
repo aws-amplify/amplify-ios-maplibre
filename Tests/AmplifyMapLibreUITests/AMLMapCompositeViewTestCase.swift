@@ -12,12 +12,12 @@ import Mapbox
 @testable import AmplifyMapLibreUI
 
 class AMLMapCompositeViewTestCase: XCTestCase {
-    
+
     private func compositeView(with mapState: AMLMapViewState) -> AMLMapCompositeView {
         let viewModel = AMLMapCompositeViewModel(mapState: mapState)
         return AMLMapCompositeView(viewModel: viewModel)
     }
-    
+
     func testShowUserLocation() {
         // User supplied map
         do {
@@ -25,7 +25,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .showUserLocation(true)
-            
+
             XCTAssertTrue(map.viewModel.mapSettings.showUserLocation)
         }
         // Framework generated map
@@ -35,7 +35,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
             XCTAssertTrue(map.viewModel.mapSettings.showUserLocation)
         }
     }
-    
+
     func testAllowedZoomLevels() {
         // User supplied map
         do {
@@ -43,7 +43,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .allowedZoomLevels(5 ... 15)
-            
+
             XCTAssertEqual(map.viewModel.mapSettings.minZoomLevel, 5)
             XCTAssertEqual(map.viewModel.mapSettings.maxZoomLevel, 15)
         }
@@ -51,12 +51,12 @@ class AMLMapCompositeViewTestCase: XCTestCase {
         do {
             let map = AMLMapCompositeView()
                 .allowedZoomLevels(5 ... 15)
-            
+
             XCTAssertEqual(map.viewModel.mapSettings.minZoomLevel, 5)
             XCTAssertEqual(map.viewModel.mapSettings.maxZoomLevel, 15)
         }
     }
-       
+
     func testMaxZoomLevel() {
         // User supplied map
         do {

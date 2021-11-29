@@ -35,6 +35,9 @@ public class AMLMapViewState: ObservableObject {
     /// The attribution string for the map data providers.
     @Published public var attribution: String?
 
+    /// Whether the attribution test is currently being displayed.
+    @Published internal(set) public var isAttributionTextDisplayed: Bool
+
     /// Create an `AMLMapViewState` object to track state changes.
     /// - Parameters:
     ///   - mapView: The underlying `MGLMapView`
@@ -69,5 +72,6 @@ public class AMLMapViewState: ObservableObject {
         self.userLocation = userLocation
         self.attribution = attribution
         self.features = features
+        self.isAttributionTextDisplayed = false
     }
 }

@@ -153,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				90E379FC2746E6B2006FC938 /* AMLMapView_ViewModel.swift */,
-				90E379FD2746E6B2006FC938 /* SimpleAMLMapView_View.swift */,
 				90E379FE2746E6B2006FC938 /* AMLMapView_View.swift */,
+				90E379FD2746E6B2006FC938 /* SimpleAMLMapView_View.swift */,
 				90E379FF2746E6B2006FC938 /* AMLMapCompositeView_View.swift */,
 			);
 			path = Views;
