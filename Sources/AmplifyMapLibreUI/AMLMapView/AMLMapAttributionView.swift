@@ -29,6 +29,7 @@ struct AMLMapAttributionView: View {
                 }
                 .padding()
                 .padding(.bottom)
+                .accessibility(identifier: "amlmapview_attribution_text")
         } else {
             HStack {
                 Spacer()
@@ -42,6 +43,8 @@ struct AMLMapAttributionView: View {
                         .padding()
                         .padding(.bottom)
                 }
+                .accessibility(label: Text("Map Attribution"))
+                .accessibility(identifier: "amlmapview_attribution_button")
             }
         }
     }

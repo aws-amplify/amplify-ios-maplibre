@@ -63,6 +63,8 @@ public struct AMLSearchBar: View {
                             style: StrokeStyle(lineWidth: 1.0)
                         )
                 )
+                .accessibility(label: Text("Place Search"))
+                .accessibility(identifier: "amlsearchbar")
                 .cornerRadius(8)
                 .searchBarIconOverlay(
                     isEditing: $isEditing,
@@ -92,6 +94,26 @@ public extension AMLSearchBar {
         /// Toggle state.
         mutating func toggle() {
             if self == .list { self = .map } else { self = .list }
+        }
+
+        /// Accessibility identifier for the button currently displayed.
+        /// - Note: Value reflects the opposite of the current state.
+        internal var accessibilityIdentifier: String {
+            switch self {
+            case .list: return "amlsearchbar_map_button"
+            case .map: return "amlsearchbar_list_button"
+            default: fatalError("Invalid State")
+            }
+        }
+
+        /// Accessibility identifier for the button currently displayed.
+        /// - Note: Value reflects the opposite of the current state.
+        internal var accessibilityLabel: String {
+            switch self {
+            case .list: return "Show Map"
+            case .map: return "Show List"
+            default: fatalError("Invalid State")
+            }
         }
     }
 }
@@ -142,6 +164,7 @@ private struct AMLSearchBarIconOverlay: View {
                     alignment: .leading
                 )
                 .padding(.leading, 8)
+                .accessibility(hidden: true)
 
             if isEditing {
                 Button(action: {
@@ -153,6 +176,9 @@ private struct AMLSearchBarIconOverlay: View {
                         .foregroundColor(.primary)
                         .padding(.trailing, 8)
                 })
+                    .accessibility(hint: Text("Deletes search text and brings focus back to map."))
+                    .accessibility(label: Text("Cancel editing"))
+                    .accessibility(identifier: "amlsearchbar_button_cancel")
             }
 
             if showDisplayStateButton {
@@ -167,6 +193,8 @@ private struct AMLSearchBarIconOverlay: View {
                         .padding(.trailing, 8)
                 }
                 .padding(.trailing, 10)
+                .accessibility(label: Text(displayState.accessibilityLabel))
+                .accessibility(identifier: displayState.accessibilityIdentifier)
                 .transition(.move(edge: .trailing))
             }
         }

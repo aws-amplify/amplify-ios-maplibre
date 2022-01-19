@@ -19,8 +19,5 @@ struct AMLMapCompositeView_View: View {
 
     var body: some View {
         AMLMapCompositeView(viewModel: viewModel)
-            .onReceive(viewModel.mapState.$center) {
-                dump($0)
-            }
     }
 }

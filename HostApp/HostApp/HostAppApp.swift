@@ -15,7 +15,7 @@ struct HostAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AMLMapCompositeView_View()
+            MainView()
         }
     }
 

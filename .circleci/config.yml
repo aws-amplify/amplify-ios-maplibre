@@ -17,6 +17,18 @@ jobs:
                 command: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit
 
 
+    host_app_ui_testing:
+        working_directory: ~/amplify-ios-maplibre/HostApp
+        macos:
+            xcode: 13.0.0
+        steps:
+            - checkout
+            - run:
+                name: UI Test HostApp
+                command: xcodebuild test -scheme HostApp -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit
+
+
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -24,4 +36,5 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
         jobs:
         - xcodebuild_and_test
+        - host_app_ui_testing
     

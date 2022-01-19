@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='AmplifyMapLibreUITests.xctest' tests='12' failures='0'>
+  <testsuite name='AmplifyMapLibreAdapterTests.AmplifyMapLibreAdapterTests' tests='4' failures='0'>
+    <testcase classname='AmplifyMapLibreAdapterTests.AmplifyMapLibreAdapterTests' name='testGeoBoundingBoxWithMGLCoordinateBounds' time='0.015'/>
+    <testcase classname='AmplifyMapLibreAdapterTests.AmplifyMapLibreAdapterTests' name='testGeoSearchAreaWithMGLCoordinateBounds' time='0.003'/>
+    <testcase classname='AmplifyMapLibreAdapterTests.AmplifyMapLibreAdapterTests' name='testMGLPointFeatureWithTitleAndCoordinates' time='0.009'/>
+    <testcase classname='AmplifyMapLibreAdapterTests.AmplifyMapLibreAdapterTests' name='testRegisterAWSMapURLProtocol' time='0.015'/>
+  </testsuite>
+  <testsuite name='AmplifyMapLibreUITests.AMLMapCompositeViewTestCase' tests='4' failures='0'>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapCompositeViewTestCase' name='testAllowedZoomLevels' time='0.201'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapCompositeViewTestCase' name='testMaxZoomLevel' time='0.030'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapCompositeViewTestCase' name='testMinZoomLevel' time='0.036'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapCompositeViewTestCase' name='testShowUserLocation' time='0.033'/>
+  </testsuite>
+  <testsuite name='AmplifyMapLibreUITests.AMLMapViewTestCase' tests='4' failures='0'>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapViewTestCase' name='testAllowedZoomLevels' time='0.015'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapViewTestCase' name='testMaxZoomLevel' time='0.015'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapViewTestCase' name='testMinZoomLevel' time='0.025'/>
+    <testcase classname='AmplifyMapLibreUITests.AMLMapViewTestCase' name='testShowUserLocation' time='0.021'/>
+  </testsuite>
+</testsuites>

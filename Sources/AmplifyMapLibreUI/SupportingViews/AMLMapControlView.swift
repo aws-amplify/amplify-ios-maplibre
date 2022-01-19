@@ -36,6 +36,7 @@ public struct AMLMapControlView: View {
                 .accessibility(hint: Text("Zoom in on the map"))
                 .accessibility(label: Text("Zoom in"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
+                .accessibility(identifier: "amlmapcontrolbutton_zoom_in")
 
             Divider()
                 .frame(width: 47)
@@ -47,6 +48,7 @@ public struct AMLMapControlView: View {
                 .accessibility(hint: Text("Zoom out on the map"))
                 .accessibility(label: Text("Zoom out"))
                 .accessibility(value: Text("Current zoom: \(zoomValue.accessibilityFormatted)"))
+                .accessibility(identifier: "amlmapcontrolbutton_zoom_out")
 
             Divider()
                 .frame(width: 47)
@@ -57,6 +59,7 @@ public struct AMLMapControlView: View {
             )
                 .accessibility(hint: Text("Align map so that top of screen is North"))
                 .accessibility(label: Text("Align North"))
+                .accessibility(identifier: "amlmapcontrolbutton_align_north")
         }
         .background(Color(UIColor.secondarySystemBackground))
         .cornerRadius(7.5)

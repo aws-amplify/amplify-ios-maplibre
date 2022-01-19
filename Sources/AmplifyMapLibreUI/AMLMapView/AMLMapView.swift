@@ -68,6 +68,8 @@ public struct AMLMapView: View {
                     .compassPosition(mapSettings.compassPosition)
                     .minZoomLevel(mapSettings.minZoomLevel)
                     .maxZoomLevel(mapSettings.maxZoomLevel)
+                    .accessibility(label: Text("Map"))
+                    .accessibility(identifier: "amlmapview")
 
                 VStack {
                     Spacer()
