@@ -1,8 +1,8 @@
 //
-//  AMLMapCompositeViewScreen.swift
-//  HostAppUITests
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 1/19/22.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import XCTest
