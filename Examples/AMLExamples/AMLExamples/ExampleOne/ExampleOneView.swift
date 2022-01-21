@@ -32,7 +32,7 @@ struct ExampleOneView: View {
                             .font(.system(size: 28))
                     }
                     .padding([.leading, .trailing])
-                    
+
                     ScrollView(viewModel.scrollViewAxes, showsIndicators: false) {
                         if viewModel.displayPlacesInBottomSheetContent {
                             SearchResultsView(places: viewModel.places)

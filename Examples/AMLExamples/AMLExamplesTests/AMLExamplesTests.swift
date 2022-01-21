@@ -17,6 +17,6 @@ class AMLExamplesTests: XCTestCase {
     func testExample() throws { }
 
     func testPerformanceExample() throws {
-        self.measure { }
+        measure { }
     }
 }

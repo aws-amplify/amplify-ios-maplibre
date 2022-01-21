@@ -60,5 +60,3 @@ extension Array where Element == Favorite {
         )
     ]
 }
-
-
