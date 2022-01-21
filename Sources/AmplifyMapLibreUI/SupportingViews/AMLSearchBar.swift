@@ -9,12 +9,14 @@ import SwiftUI
 
 /// A Search Bar used to take location user search input.
 public struct AMLSearchBar: View {
-
     /// Is the search bar currently being edited.
-    @State var isEditing = false
+    @State private var isEditing = false
 
     /// The text currently displayed in the search bar.
     @Binding var text: String
+
+    /// Action called on searchbar entering focus.
+    let onEditing: () -> Void
 
     /// Action called on user tapping search.
     let onCommit: () -> Void
@@ -30,14 +32,16 @@ public struct AMLSearchBar: View {
 
     /// A Search Bar used to take location user search input.
     /// - Parameters:
-    ///   - text: Is the search bar currently being edited.
-    ///   - displayState: The text currently displayed in the search bar.
+    ///   - text: The text currently displayed in the search bar.
+    ///   - displayState: Displaying a map or list.
+    ///   - onEditing: Action called on searchbar entering focus.
     ///   - onCommit: Action called on user tapping search.
-    ///   - onCancel: Displaying a map or list.
+    ///   - onCancel: Action called on user tapping `x` button.
     ///   - showDisplayStateButton: Whether a display state button should be displayed. Default is true.
     public init(
         text: Binding<String>,
         displayState: Binding<DisplayState>,
+        onEditing: @escaping () -> Void,
         onCommit: @escaping () -> Void,
         onCancel: @escaping () -> Void,
         showDisplayStateButton: Bool = true
@@ -46,6 +50,7 @@ public struct AMLSearchBar: View {
         _displayState = displayState
         self.onCommit = onCommit
         self.onCancel = onCancel
+        self.onEditing = onEditing
         self.showDisplayStateButton = showDisplayStateButton
     }
 
@@ -70,9 +75,11 @@ public struct AMLSearchBar: View {
                     isEditing: $isEditing,
                     text: $text,
                     displayState: $displayState,
-                    showDisplayStateButton: showDisplayStateButton
+                    showDisplayStateButton: showDisplayStateButton,
+                    onCancel: onCancel
                 )
                 .onTapGesture {
+                    onEditing()
                     isEditing = true
                 }
         }
@@ -124,14 +131,16 @@ private extension View {
         isEditing: Binding<Bool>,
         text: Binding<String>,
         displayState: Binding<AMLSearchBar.DisplayState>,
-        showDisplayStateButton: Bool
+        showDisplayStateButton: Bool,
+        onCancel: @escaping () -> Void
     ) -> some View {
         overlay(
             AMLSearchBarIconOverlay(
                 isEditing: isEditing,
                 text: text,
                 displayState: displayState,
-                showDisplayStateButton: showDisplayStateButton
+                showDisplayStateButton: showDisplayStateButton,
+                onCancel: onCancel
             )
         )
     }
@@ -142,6 +151,7 @@ struct SearchBar_Previews: PreviewProvider {
         AMLSearchBar(
             text: .constant(""),
             displayState: .constant(.map),
+            onEditing: {},
             onCommit: {},
             onCancel: {}
         )
@@ -153,6 +163,7 @@ private struct AMLSearchBarIconOverlay: View {
     @Binding var text: String
     @Binding var displayState: AMLSearchBar.DisplayState
     let showDisplayStateButton: Bool
+    let onCancel: () -> Void
 
     var body: some View {
         HStack {
@@ -169,6 +180,8 @@ private struct AMLSearchBarIconOverlay: View {
             if isEditing {
                 Button(action: {
                     text = ""
+                    isEditing = false
+                    onCancel()
                     endEditing()
                 }, label: {
                     Image(systemName: "multiply")
