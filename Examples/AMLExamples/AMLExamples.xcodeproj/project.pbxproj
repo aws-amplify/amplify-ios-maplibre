@@ -33,6 +33,7 @@
 		90724193279B1886000FAC35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9072416C2799F3B8000FAC35 /* awsconfiguration.json */; };
 		90724195279B1B2D000FAC35 /* ExampleOneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90724194279B1B2D000FAC35 /* ExampleOneViewModel.swift */; };
 		90724197279B2B5E000FAC35 /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90724196279B2B5E000FAC35 /* SearchResultsView.swift */; };
+		907241A0279B2F57000FAC35 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9072419F279B2F57000FAC35 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		9072419C279B2E67000FAC35 /* map_bottom_sheet_search_results_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_bottom_sheet_search_results_full.png; sourceTree = "<group>"; };
 		9072419D279B2E67000FAC35 /* map_bottom_sheet_search_results_half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_bottom_sheet_search_results_half.png; sourceTree = "<group>"; };
 		9072419E279B2E68000FAC35 /* map_bottom_sheet_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_bottom_sheet_full.png; sourceTree = "<group>"; };
+		9072419F279B2F57000FAC35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		9072413E2799F2EE000FAC35 /* AMLExamples */ = {
 			isa = PBXGroup;
 			children = (
+				9072419F279B2F57000FAC35 /* README.md */,
 				9072416F2799F404000FAC35 /* ExampleOne */,
 				9072416A2799F3B8000FAC35 /* Configuration */,
 				9072413F2799F2EE000FAC35 /* AMLExamplesApp.swift */,
@@ -362,6 +365,7 @@
 			files = (
 				90724193279B1886000FAC35 /* awsconfiguration.json in Resources */,
 				907241472799F2EF000FAC35 /* Preview Assets.xcassets in Resources */,
+				907241A0279B2F57000FAC35 /* README.md in Resources */,
 				90724192279B1883000FAC35 /* amplifyconfiguration.json in Resources */,
 				907241442799F2EF000FAC35 /* Assets.xcassets in Resources */,
 			);
