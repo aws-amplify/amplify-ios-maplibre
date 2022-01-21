@@ -28,6 +28,7 @@ xcuserdata
 ######################
 .build/
 build
+build/**
 builtFramework
 AWS*.framework
 node_modules
