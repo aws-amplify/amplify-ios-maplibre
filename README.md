@@ -14,6 +14,8 @@ The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category a
 
 [API Documentation](https://aws-amplify.github.io/amplify-ios-maplibre/docs/)
 
+[Examples](Examples/AMLExamples/README.md)
+
 ## Platform Support
 
 AmplifyMapLibreAdapter supports iOS 13 and above.
