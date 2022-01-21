@@ -11,6 +11,7 @@ Once you've done that, check out the example code in the [`ExampleOne`](AMLExamp
 
 Images
 
+![Map Screencast](AMLExamples/ExampleOne/Screenshots/map_screencast_optimized.gif)
 ![Map Bottom Sheet Closed](AMLExamples/ExampleOne/Screenshots/map_bottom_sheet_closed.png)
 ![Map Bottom Sheet Half](AMLExamples/ExampleOne/Screenshots/map_bottom_sheet_half.png)
 ![Map Bottom Sheet Full](AMLExamples/ExampleOne/Screenshots/map_bottom_sheet_full.png)
