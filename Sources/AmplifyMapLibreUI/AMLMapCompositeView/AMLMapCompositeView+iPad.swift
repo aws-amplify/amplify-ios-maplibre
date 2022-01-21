@@ -20,6 +20,7 @@ extension AMLMapCompositeView {
                         AMLSearchBar(
                             text: $viewModel.searchText,
                             displayState: $viewModel.displayState,
+                            onEditing: { },
                             onCommit: viewModel.search,
                             onCancel: viewModel.cancelSearch,
                             showDisplayStateButton: false

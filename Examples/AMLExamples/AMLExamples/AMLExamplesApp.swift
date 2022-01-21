@@ -1,8 +1,8 @@
 //
-//  AMLExamplesApp.swift
-//  AMLExamples
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 1/20/22.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import SwiftUI
@@ -19,18 +19,18 @@ struct AMLExamplesApp: App {
     }
 
     init() {
-//        configureAmplify()
+        configureAmplify()
     }
 
-//    private func configureAmplify() {
-//        let authPlugin = AWSCognitoAuthPlugin()
-//        let geoPlugin = AWSLocationGeoPlugin()
-//        do {
-//            try Amplify.add(plugin: authPlugin)
-//            try Amplify.add(plugin: geoPlugin)
-//            try Amplify.configure()
-//        } catch {
-//            print("Error configuring Amplify \(error)")
-//        }
-//    }
+    private func configureAmplify() {
+        let authPlugin = AWSCognitoAuthPlugin()
+        let geoPlugin = AWSLocationGeoPlugin()
+        do {
+            try Amplify.add(plugin: authPlugin)
+            try Amplify.add(plugin: geoPlugin)
+            try Amplify.configure()
+        } catch {
+            print("Error configuring Amplify \(error)")
+        }
+    }
 }

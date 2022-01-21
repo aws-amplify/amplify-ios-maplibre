@@ -1,14 +1,13 @@
 //
-//  AMLExamplesUITestsLaunchTests.swift
-//  AMLExamplesUITests
+// Copyright Amazon.com Inc. or its affiliates.
+// All Rights Reserved.
 //
-//  Created by Saultz, Ian on 1/20/22.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import XCTest
 
 class AMLExamplesUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
@@ -20,9 +19,6 @@ class AMLExamplesUITestsLaunchTests: XCTestCase {
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "Launch Screen"
