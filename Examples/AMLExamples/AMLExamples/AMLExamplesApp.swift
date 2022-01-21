@@ -19,18 +19,18 @@ struct AMLExamplesApp: App {
     }
 
     init() {
-        configureAmplify()
+//        configureAmplify()
     }
 
-    private func configureAmplify() {
-        let authPlugin = AWSCognitoAuthPlugin()
-        let geoPlugin = AWSLocationGeoPlugin()
-        do {
-            try Amplify.add(plugin: authPlugin)
-            try Amplify.add(plugin: geoPlugin)
-            try Amplify.configure()
-        } catch {
-            print("Error configuring Amplify \(error)")
-        }
-    }
+//    private func configureAmplify() {
+//        let authPlugin = AWSCognitoAuthPlugin()
+//        let geoPlugin = AWSLocationGeoPlugin()
+//        do {
+//            try Amplify.add(plugin: authPlugin)
+//            try Amplify.add(plugin: geoPlugin)
+//            try Amplify.configure()
+//        } catch {
+//            print("Error configuring Amplify \(error)")
+//        }
+//    }
 }

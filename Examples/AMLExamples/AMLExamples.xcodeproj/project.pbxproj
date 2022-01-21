@@ -14,8 +14,6 @@
 		907241512799F2F0000FAC35 /* AMLExamplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907241502799F2F0000FAC35 /* AMLExamplesTests.swift */; };
 		9072415B2799F2F0000FAC35 /* AMLExamplesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9072415A2799F2F0000FAC35 /* AMLExamplesUITests.swift */; };
 		9072415D2799F2F0000FAC35 /* AMLExamplesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9072415C2799F2F0000FAC35 /* AMLExamplesUITestsLaunchTests.swift */; };
-		9072416D2799F3B8000FAC35 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9072416B2799F3B8000FAC35 /* amplifyconfiguration.json */; };
-		9072416E2799F3B8000FAC35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9072416C2799F3B8000FAC35 /* awsconfiguration.json */; };
 		907241712799F417000FAC35 /* ExampleOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907241702799F417000FAC35 /* ExampleOneView.swift */; };
 		907241742799F425000FAC35 /* AmplifyMapLibreAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 907241732799F425000FAC35 /* AmplifyMapLibreAdapter */; };
 		907241762799F425000FAC35 /* AmplifyMapLibreUI in Frameworks */ = {isa = PBXBuildFile; productRef = 907241752799F425000FAC35 /* AmplifyMapLibreUI */; };
@@ -277,9 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9072416E2799F3B8000FAC35 /* awsconfiguration.json in Resources */,
 				907241472799F2EF000FAC35 /* Preview Assets.xcassets in Resources */,
-				9072416D2799F3B8000FAC35 /* amplifyconfiguration.json in Resources */,
 				907241442799F2EF000FAC35 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

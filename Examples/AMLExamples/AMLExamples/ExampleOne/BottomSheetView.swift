@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 public enum BottomSheetDisplayState {
     case fullScreen
     case halfScreen

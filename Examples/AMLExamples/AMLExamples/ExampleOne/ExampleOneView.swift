@@ -9,65 +9,84 @@ import SwiftUI
 import AmplifyMapLibreUI
 
 struct ExampleOneView: View {
-    @State var displayType: BottomSheetDisplayState = .halfScreen
+    @State var displayType: BottomSheetDisplayState = .fullScreen
     @State var searchBarText: String = ""
-
+    
     private var axis: Axis.Set {
         displayType == .fullScreen
         ? .vertical
         : []
     }
-
+    
     var body: some View {
-        ZStack {
-            AMLMapView()
-                .edgesIgnoringSafeArea(.all)
-            BottomSheetView(displayType: $displayType) {
-                HStack {
-                    AMLSearchBar(
-                        text: $searchBarText,
-                        displayState: .constant(.map),
-                        onCommit: { /* search */ },
-                        onCancel: { /* end editing */ },
-                        showDisplayStateButton: false
-                    )
-                    Image(systemName: "person.crop.circle.fill")
-                        .font(.system(size: 28))
-                }
-                .padding([.leading, .trailing])
-
-                ScrollView(axis, showsIndicators: false) {
-                    VStack {
-                        HStack {
-                            Text("Favorites")
-                                .font(.callout)
-                                .fontWeight(.medium)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Button("More") {
-                                // ...
-                            }.font(.caption)
-
-                        }
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            favorites
-                                .padding(4)
-                                .background(Color.tertiaryBackground)
-                                .frame(maxWidth: .infinity)
-                                .cornerRadius(8)
-                        }
-
-
-
+        GeometryReader { proxy in
+            ZStack {
+                Color.brown
+                    .edgesIgnoringSafeArea(.all)
+                
+                //            AMLMapView()
+                BottomSheetView(displayType: $displayType) {
+                    HStack {
+                        AMLSearchBar(
+                            text: $searchBarText,
+                            displayState: .constant(.map),
+                            onCommit: { /* search */ },
+                            onCancel: { /* end editing */ },
+                            showDisplayStateButton: false
+                        )
+                        Image(systemName: "person.crop.circle.fill")
+                            .font(.system(size: 28))
                     }
-
+                    .padding([.leading, .trailing])
+                    
+                    ScrollView(axis, showsIndicators: false) {
+                        VStack(spacing: 28) {
+                            FavoritesSectionView(
+                                moreTapped: {},
+                                minWidth: proxy.size.width,
+                                favorites: favoritesModel
+                            )
+                            
+                            RecentsSectionView(
+                                moreTapped: {},
+                                recents: [
+                                    .init(
+                                        index: 0,
+                                        title: "Dropped Pin",
+                                        subtitle: "90210 Beverly Hills",
+                                        imageSystemName: "mappin",
+                                        imageForegroundColor: .white,
+                                        imageBackgroundColor: .red
+                                    ),
+                                    .init(
+                                        index: 1,
+                                        title: "Dropped Pin",
+                                        subtitle: "90210 Beverly Hills",
+                                        imageSystemName: "mappin",
+                                        imageForegroundColor: .white,
+                                        imageBackgroundColor: .red
+                                    ),
+                                    .init(
+                                        index: 2,
+                                        title: "Dropped Pin",
+                                        subtitle: "90210 Beverly Hills",
+                                        imageSystemName: "mappin",
+                                        imageForegroundColor: .white,
+                                        imageBackgroundColor: .red
+                                    )
+                                ]
+                            )
+                        }
+                        
+                    }
+                    .padding()
                 }
-                .padding()
-            }.edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all)
+            }
+            
         }
     }
-
+    
     private var favorites: some View {
         HStack(spacing: 25) {
             ForEach(favoritesModel) {
@@ -75,7 +94,7 @@ struct ExampleOneView: View {
             }
         }
     }
-
+    
     let favoritesModel: [FavoriteView.Model] = [
         .init(
             systemImageName: "house.fill",
@@ -95,7 +114,7 @@ struct ExampleOneView: View {
             systemImageName: "mappin",
             imageForegroundColor: .white,
             imageBackgroundColor: .red,
-            primaryText: "Point ...",
+            primaryText: "12 Main...",
             secondaryText: "5.1 mi"
         ),
         .init(
@@ -108,26 +127,154 @@ struct ExampleOneView: View {
     ]
 }
 
+struct SectionHeader: View {
+    let title: String
+    let moreTapped: () -> Void
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.callout)
+                .fontWeight(.medium)
+                .foregroundColor(.secondary)
+            Spacer()
+            Button("More") {
+                moreTapped()
+            }.font(.caption)
+        }
+    }
+}
 
+struct SectionView<Content: View>: View {
+    let title: String
+    let moreTapped: () -> Void
+    let content: Content
+    
+    init(
+        title: String,
+        moreTapped: @escaping () -> Void,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.title = title
+        self.moreTapped = moreTapped
+        self.content = content()
+    }
+    
+    var body: some View {
+        VStack {
+            SectionHeader(title: title, moreTapped: moreTapped)
+            content
+        }
+    }
+}
+
+struct RecentsSectionView: View {
+    let moreTapped: () -> Void
+    let recents: [Recent]
+    
+    var body: some View {
+        SectionView(title: "Recents", moreTapped: moreTapped) {
+            
+                    
+            ForEach(recents) { recent in
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        CircularSystemImageView(
+                            font: .system(size: 16),
+                            systemImageName: recent.imageSystemName,
+                            foregroundColor: recent.imageForegroundColor,
+                            backgroundColor: recent.imageBackgroundColor
+                        )
+                            .padding(8)
+                        
+                        VStack(alignment: .leading) {
+                            Text(recent.title)
+                                .font(.headline)
+                            Text(recent.subtitle)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                    }
+                    
+                    if recent != recents.last { Divider() }
+                }.background(Color.white)
+                
+            }
+            
+                
+                
+            
+            
+        }
+    }
+}
+
+struct Recent: Identifiable, Equatable {
+    let id = UUID()
+    let index: Int
+    let title: String
+    let subtitle: String
+    let imageSystemName: String
+    let imageForegroundColor: Color
+    let imageBackgroundColor: Color
+}
+
+struct FavoritesSectionView: View {
+    let moreTapped: () -> Void
+    let minWidth: CGFloat
+    let favorites: [FavoriteView.Model]
+    
+    var body: some View {
+        SectionView(title: "Favorites", moreTapped: moreTapped) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 25) {
+                    ForEach(favorites) {
+                        FavoriteView(model: $0)
+                    }
+                }
+                .frame(minWidth: minWidth, alignment: .leading)
+                .padding(8)
+                .background(Color.tertiaryBackground)
+                .cornerRadius(8)
+            }
+        }
+    }
+}
+
+struct CircularSystemImageView: View {
+    let font: Font
+    let systemImageName: String
+    let foregroundColor: Color
+    let backgroundColor: Color
+    
+    var body: some View {
+        Image(systemName: systemImageName)
+            .font(font)
+            .foregroundColor(foregroundColor)
+            .padding()
+            .background(backgroundColor)
+            .clipShape(Circle())
+    }
+}
 
 struct FavoriteView: View {
     let model: Model
-
+    
     var body: some View {
         VStack {
             Button {
                 /* Do thing */
             } label: {
-                Image(systemName: model.systemImageName)
-                    .font(.system(size: 24))
-                    .foregroundColor(model.imageForegroundColor)
-                    .padding()
-                    .background(model.imageBackgroundColor)
-                    .clipShape(Circle())
-
+                CircularSystemImageView(
+                    font: .system(size: 24),
+                    systemImageName: model.systemImageName,
+                    foregroundColor: model.imageForegroundColor,
+                    backgroundColor: model.imageBackgroundColor
+                )
             }
-
-
+            
             Text(model.primaryText)
             Text(model.secondaryText)
                 .font(.caption)
@@ -165,7 +312,7 @@ extension Color {
             }
         )
     )
-
+    
     static let quaternaryBackground = Color(
         UIColor(
             dynamicProvider: {
@@ -176,5 +323,5 @@ extension Color {
             }
         )
     )
-
+    
 }
