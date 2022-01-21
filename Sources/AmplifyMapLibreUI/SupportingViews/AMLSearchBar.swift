@@ -15,14 +15,14 @@ public struct AMLSearchBar: View {
     /// The text currently displayed in the search bar.
     @Binding var text: String
 
+    /// Action called on searchbar entering focus.
+    let onEditing: () -> Void
+
     /// Action called on user tapping search.
     let onCommit: () -> Void
 
     /// Action called on user tapping `x` button.
     let onCancel: () -> Void
-
-    /// Action called on searchbar entering focus.
-    let onEditing: () -> Void
 
     /// Displaying a map or list.
     @Binding var displayState: DisplayState
@@ -32,10 +32,11 @@ public struct AMLSearchBar: View {
 
     /// A Search Bar used to take location user search input.
     /// - Parameters:
-    ///   - text: Is the search bar currently being edited.
-    ///   - displayState: The text currently displayed in the search bar.
+    ///   - text: The text currently displayed in the search bar.
+    ///   - displayState: Displaying a map or list.
+    ///   - onEditing: Action called on searchbar entering focus.
     ///   - onCommit: Action called on user tapping search.
-    ///   - onCancel: Displaying a map or list.
+    ///   - onCancel: Action called on user tapping `x` button.
     ///   - showDisplayStateButton: Whether a display state button should be displayed. Default is true.
     public init(
         text: Binding<String>,
