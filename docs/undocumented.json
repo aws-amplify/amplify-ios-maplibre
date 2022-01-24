@@ -1,0 +1,103 @@
+{
+  "warnings": [
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 10,
+      "symbol": "AWSMapURLProtocolError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 11,
+      "symbol": "AWSMapURLProtocolError.configurationError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 12,
+      "symbol": "AWSMapURLProtocolError.missingRegion",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 13,
+      "symbol": "AWSMapURLProtocolError.signatureError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 14,
+      "symbol": "AWSMapURLProtocolError.unexpectedNil",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AWSMapURLProtocolError.swift",
+      "line": 17,
+      "symbol": "AWSMapURLProtocolError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/AmplifyMapLibre.swift",
+      "line": 13,
+      "symbol": "AmplifyMapLibre",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/Extensions/MGLPointFeature+Geo.Place.swift",
+      "line": 29,
+      "symbol": "MGLPointFeature.amlGeoPlace",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/Extensions/MGLPointFeature+Geo.Place.swift",
+      "line": 73,
+      "symbol": "Geo.Place.streetLabelLine",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/Extensions/MGLPointFeature+Geo.Place.swift",
+      "line": 77,
+      "symbol": "Geo.Place.cityLabelLine",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreAdapter/Extensions/MGLPointFeature+Geo.Place.swift",
+      "line": 83,
+      "symbol": "Geo.Place.labelLine",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreUI/AMLMapCompositeView/AMLMapCompositeViewModel.swift",
+      "line": 13,
+      "symbol": "AMLMapCompositeViewModel",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreUI/SupportingTypes/IdentifiablePlace.swift",
+      "line": 16,
+      "symbol": "IdentifiablePlace.place",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr/Sources/AmplifyMapLibreUI/SupportingTypes/IdentifiablePlace.swift",
+      "line": 24,
+      "symbol": "IdentifiablePlace.subscript(dynamicMember:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/private/var/folders/nk/jdc2x25j66vcrp9wwd78nz6h0000gs/T/amplify-map-libre-release.CAf8AEDr"
+}
