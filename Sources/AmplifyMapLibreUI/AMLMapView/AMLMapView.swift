@@ -56,6 +56,7 @@ public struct AMLMapView: View {
                     bounds: $mapState.bounds,
                     center: $mapState.center,
                     heading: $mapState.heading,
+                    pitch: $mapState.pitch,
                     userLocation: $mapState.userLocation,
                     showUserLocation: mapSettings.showUserLocation,
                     features: $mapState.features,

@@ -16,10 +16,16 @@ import Combine
 // swiftlint:disable:next type_name
 struct SimpleAMLMapView_View: View {
 
-    @StateObject var mapState = AMLMapViewState()
+    @StateObject var mapState = AMLMapViewState(pitch: 60)
 
     var body: some View {
         AMLMapView(mapState: mapState)
+            .onReceive(mapState.$zoomLevel, perform: {
+                print("zoom level ", $0)
+            })
+            .onReceive(mapState.$pitch, perform: {
+                print("pitch ", $0)
+            })
             .edgesIgnoringSafeArea(.all)
     }
 }

@@ -12,14 +12,14 @@
 		9010ED912798A0130025F66C /* AMLMapCompositeViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9010ED902798A0130025F66C /* AMLMapCompositeViewScreen.swift */; };
 		9010ED932798A14A0025F66C /* AMLMapViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9010ED922798A14A0025F66C /* AMLMapViewTestCase.swift */; };
 		9010ED952798A1670025F66C /* AMLMapCompositeViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9010ED942798A1670025F66C /* AMLMapCompositeViewTestCase.swift */; };
-		9055BE02274828E100D7E80B /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9055BE00274828E000D7E80B /* amplifyconfiguration.json */; };
-		9055BE03274828E100D7E80B /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9055BE01274828E100D7E80B /* awsconfiguration.json */; };
 		90608223272886D600662A60 /* HostAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90608222272886D600662A60 /* HostAppApp.swift */; };
 		90608227272886D900662A60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90608226272886D900662A60 /* Assets.xcassets */; };
 		9060822A272886D900662A60 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90608229272886D900662A60 /* Preview Assets.xcassets */; };
 		90608234272886D900662A60 /* HostAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90608233272886D900662A60 /* HostAppTests.swift */; };
 		9060823E272886D900662A60 /* UITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9060823D272886D900662A60 /* UITestCase.swift */; };
 		90608240272886D900662A60 /* HostAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9060823F272886D900662A60 /* HostAppUITestsLaunchTests.swift */; };
+		908A648C27DA74660031B177 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 908A648A27DA745F0031B177 /* amplifyconfiguration.json */; };
+		908A648D27DA746A0031B177 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 908A648B27DA745F0031B177 /* awsconfiguration.json */; };
 		90A8E08B273AECE4008D83DE /* AmplifyMapLibreAdapter in Frameworks */ = {isa = PBXBuildFile; productRef = 90A8E08A273AECE4008D83DE /* AmplifyMapLibreAdapter */; };
 		90A8E08D273AECE4008D83DE /* AmplifyMapLibreUI in Frameworks */ = {isa = PBXBuildFile; productRef = 90A8E08C273AECE4008D83DE /* AmplifyMapLibreUI */; };
 		90E37A002746E6B2006FC938 /* AMLMapView_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E379FC2746E6B2006FC938 /* AMLMapView_ViewModel.swift */; };
@@ -51,8 +51,6 @@
 		9010ED902798A0130025F66C /* AMLMapCompositeViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMLMapCompositeViewScreen.swift; sourceTree = "<group>"; };
 		9010ED922798A14A0025F66C /* AMLMapViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMLMapViewTestCase.swift; sourceTree = "<group>"; };
 		9010ED942798A1670025F66C /* AMLMapCompositeViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMLMapCompositeViewTestCase.swift; sourceTree = "<group>"; };
-		9055BE00274828E000D7E80B /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		9055BE01274828E100D7E80B /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90589ADE2746EAE30054AF83 /* amplify-ios-maplibre */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "amplify-ios-maplibre"; path = ..; sourceTree = "<group>"; };
 		9060821F272886D600662A60 /* HostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90608222272886D600662A60 /* HostAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAppApp.swift; sourceTree = "<group>"; };
@@ -63,6 +61,8 @@
 		90608239272886D900662A60 /* HostAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HostAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9060823D272886D900662A60 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
 		9060823F272886D900662A60 /* HostAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		908A648A27DA745F0031B177 /* amplifyconfiguration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		908A648B27DA745F0031B177 /* awsconfiguration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		90E379FC2746E6B2006FC938 /* AMLMapView_ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMLMapView_ViewModel.swift; sourceTree = "<group>"; };
 		90E379FD2746E6B2006FC938 /* SimpleAMLMapView_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleAMLMapView_View.swift; sourceTree = "<group>"; };
 		90E379FE2746E6B2006FC938 /* AMLMapView_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMLMapView_View.swift; sourceTree = "<group>"; };
@@ -185,8 +185,8 @@
 		90E78C6C2729BB7D0061DF48 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				9055BE00274828E000D7E80B /* amplifyconfiguration.json */,
-				9055BE01274828E100D7E80B /* awsconfiguration.json */,
+				908A648A27DA745F0031B177 /* amplifyconfiguration.json */,
+				908A648B27DA745F0031B177 /* awsconfiguration.json */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -300,9 +300,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908A648D27DA746A0031B177 /* awsconfiguration.json in Resources */,
 				9060822A272886D900662A60 /* Preview Assets.xcassets in Resources */,
-				9055BE03274828E100D7E80B /* awsconfiguration.json in Resources */,
-				9055BE02274828E100D7E80B /* amplifyconfiguration.json in Resources */,
+				908A648C27DA74660031B177 /* amplifyconfiguration.json in Resources */,
 				90608227272886D900662A60 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,7 +579,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WQ8PHYV36N;
+				DEVELOPMENT_TEAM = G3Q4R66M4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HostAppTests/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -606,7 +606,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WQ8PHYV36N;
+				DEVELOPMENT_TEAM = G3Q4R66M4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HostAppTests/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -632,7 +632,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WQ8PHYV36N;
+				DEVELOPMENT_TEAM = G3Q4R66M4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -655,7 +655,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WQ8PHYV36N;
+				DEVELOPMENT_TEAM = G3Q4R66M4R;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

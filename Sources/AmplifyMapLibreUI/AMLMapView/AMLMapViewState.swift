@@ -17,6 +17,9 @@ public class AMLMapViewState: ObservableObject {
     /// The current heading of the map in degrees.
     @Published public var heading: CLLocationDirection
 
+    /// The current pitch of the map.
+    @Published public var pitch: CGFloat
+    
     /// Current zoom level of the map.
     @Published public var zoomLevel: Double
 
@@ -42,6 +45,7 @@ public class AMLMapViewState: ObservableObject {
     /// - Parameters:
     ///   - mapView: The underlying `MGLMapView`
     ///   - heading: The current heading of the map in degrees. Default is `0` (North).
+    ///   - pitch: The current pitch towards the horizon measured in degrees. Default is `0`.
     ///   - zoomLevel: Current zoom level of the map. Default is `14`.
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   Default is an empty `MGLCoordinateBounds`.
@@ -54,6 +58,7 @@ public class AMLMapViewState: ObservableObject {
     public init(
         mapView: MGLMapView? = nil,
         heading: CLLocationDirection = 0,
+        pitch: CGFloat = 0,
         zoomLevel: Double = 14,
         bounds: MGLCoordinateBounds = .init(),
         center: CLLocationCoordinate2D = .init(
@@ -66,6 +71,7 @@ public class AMLMapViewState: ObservableObject {
     ) {
         self.mapView = mapView
         self.heading = heading
+        self.pitch = pitch
         self.zoomLevel = zoomLevel
         self.bounds = bounds
         self.center = center
