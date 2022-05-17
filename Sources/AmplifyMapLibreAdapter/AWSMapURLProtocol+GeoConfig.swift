@@ -6,14 +6,14 @@
 //
 
 import Foundation
-import AWSCore
 import Amplify
 import AWSLocationGeoPlugin
+import AWSClientRuntime
 
 extension AWSMapURLProtocol {
     struct GeoConfig {
         let regionName: String
-        let credentialsProvider: AWSCredentialsProvider
+        let credentialsProvider: CredentialsProvider
         let hostName: String
 
         init?() {
