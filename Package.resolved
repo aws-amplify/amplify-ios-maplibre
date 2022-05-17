@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "Amplify",
-        "repositoryURL": "https://github.com/aws-amplify/amplify-ios",
+        "repositoryURL": "https://github.com/aws-amplify/amplify-ios.git",
         "state": {
-          "branch": null,
-          "revision": "598a3f62da6eb0c23167a494d74a50c2f80372f3",
-          "version": "1.16.1"
+          "branch": "dev-preview-geo-updated",
+          "revision": "cc15ce965fc6788907822534fe1f0f4d65ea1324",
+          "version": null
         }
       },
       {
@@ -15,17 +15,26 @@
         "repositoryURL": "https://github.com/aws-amplify/aws-appsync-realtime-client-ios.git",
         "state": {
           "branch": null,
-          "revision": "55d670f329b9cf9f4830d5f1b37e50b100934d09",
-          "version": "1.5.0"
+          "revision": "810a305a8e2200db90d3a237c687b20cfc610268",
+          "version": "1.9.1"
         }
       },
       {
-        "package": "AWSiOSSDKV2",
-        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
+        "package": "AwsCrt",
+        "repositoryURL": "https://github.com/awslabs/aws-crt-swift.git",
         "state": {
           "branch": null,
-          "revision": "75abac6f2cedda11b2d4f42971c88ab1288431c5",
-          "version": "2.26.5"
+          "revision": "d654b82a55aec736ad8b4354027acab17394a060",
+          "version": "0.2.2"
+        }
+      },
+      {
+        "package": "AWSSwiftSDK",
+        "repositoryURL": "https://github.com/awslabs/aws-sdk-swift",
+        "state": {
+          "branch": null,
+          "revision": "e907e654466a8bfafbcd79a78cb87964abecb1a0",
+          "version": "0.2.4"
         }
       },
       {
@@ -35,6 +44,15 @@
           "branch": null,
           "revision": "d524c18d8c572db72c753f88492c36b9749725e1",
           "version": "5.12.0"
+        }
+      },
+      {
+        "package": "ClientRuntime",
+        "repositoryURL": "https://github.com/awslabs/smithy-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "5c76b8f05f70f2b24276a2ae192fa8bd9c04beb6",
+          "version": "0.2.3"
         }
       },
       {
@@ -51,17 +69,35 @@
         "repositoryURL": "https://github.com/daltoniam/Starscream",
         "state": {
           "branch": null,
-          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
-          "version": "3.1.1"
+          "revision": "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+          "version": "4.0.4"
         }
       },
       {
-        "package": "swift-nio-zlib-support",
-        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
-          "version": "1.0.0"
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "XMLCoder",
+        "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
+        "state": {
+          "branch": null,
+          "revision": "f30119af03996939cc4f54e0bf0dda9f88a84da5",
+          "version": "0.13.1"
         }
       }
     ]

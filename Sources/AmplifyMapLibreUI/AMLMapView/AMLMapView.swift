@@ -89,9 +89,13 @@ public struct AMLMapView: View {
 
     /// Handle aysnchronous request to create map from `AmplifyMapLibre`.
     private func createMap() {
-        AmplifyMapLibre.createMap {
-            mapLoadingState
-                .transition(input: $0, assign: &mapState.mapView)
+        Task {
+            do {
+                let mapView = try await AmplifyMapLibre.createMap()
+                mapLoadingState.transition(input: .success(mapView), assign: &mapState.mapView)
+            } catch {
+                mapLoadingState.transition(input: .failure(error as! Geo.Error), assign: &mapState.mapView)
+            }
         }
     }
 }

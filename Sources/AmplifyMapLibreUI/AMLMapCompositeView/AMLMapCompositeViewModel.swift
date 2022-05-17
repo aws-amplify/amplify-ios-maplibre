@@ -36,14 +36,12 @@ public class AMLMapCompositeViewModel: ObservableObject {
     func search() {
         let text = searchText
         let searchOptions = Geo.SearchForTextOptions(area: .near(mapState.center))
-        Amplify.Geo.search(for: text, options: searchOptions) { [weak self] result in
-            switch result {
-            case .success(let places):
-                DispatchQueue.main.async {
-                    self?.places = places
-                    self?.mapState.features = AmplifyMapLibre.createFeatures(places)
-                }
-            case .failure(let error):
+        Task {
+            do {
+                let places = try await Amplify.Geo.search(for: text, options: searchOptions)
+                self.places = places
+                self.mapState.features = AmplifyMapLibre.createFeatures(places)
+            } catch {
                 print(error)
             }
         }
