@@ -30,15 +30,10 @@ public class AmplifyMapLibre {
     
     /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
     /// Location Service using the default map
-    public class func createMap() async throws -> MGLMapView {
+    @MainActor public class func createMap() async throws -> MGLMapView {
         AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
-        do {
-            let map = try await Amplify.Geo.defaultMap()
-            return await MGLMapView(frame: .zero, styleURL: map.styleURL)
-        } catch {
-            throw error as! Geo.Error
-        }
-        
+        let map = try await Amplify.Geo.defaultMap()
+        return MGLMapView(frame: .zero, styleURL: map.styleURL)
     }
 
     /// Creates an instance of MGLMapView configured to work with Amplify and Amazon

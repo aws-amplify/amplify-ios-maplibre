@@ -57,6 +57,7 @@ struct AMLMapView_View: View {
                 AMLSearchBar(
                     text: $searchText,
                     displayState: $viewModel.mapDisplayState,
+                    onEditing: { },
                     onCommit: search,
                     onCancel: cancelSearch
                 )
