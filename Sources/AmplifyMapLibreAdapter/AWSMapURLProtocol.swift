@@ -5,8 +5,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import AWSCore
 import Foundation
+import ClientRuntime
+import AWSClientRuntime
+import AwsCommonRuntimeKit
 
 class AWSMapURLProtocol: URLProtocol {
     private var urlSession = URLSession(configuration: .default)
@@ -84,29 +86,29 @@ class AWSMapURLProtocol: URLProtocol {
             return
         }
 
-        var signedRequest = request
-
-        signedRequest.url = originalURLComponents.url
-        signedRequest.addValue(host, forHTTPHeaderField: "host")
-
-        AWSSignatureV4Signer.sigV4SignedURL(with: signedRequest,
-                                            credentialProvider: geoConfig.credentialsProvider,
-                                            regionName: geoConfig.regionName,
-                                            serviceName: "geo",
-                                            date: Date(),
-                                            expireDuration: 60,
-                                            signBody: true,
-                                            signSessionToken: true).continueWith { task in
-
-            if let url = task.result as URL? {
-                signedRequest.url = url
-                completionHandler(.success(signedRequest))
-            } else if let error = task.error {
-                completionHandler(.failure(error))
-            } else {
+        let requestBuilder = SdkHttpRequestBuilder()
+            .withHost(host)
+            .withPath(originalURLComponents.path)
+            .withMethod(.get)
+            .withPort(443)
+            .withProtocol(.https)
+            .withHeader(name: "host", value: host)
+        
+        Task {
+            var signedRequest = request
+            signedRequest.url = originalURLComponents.url
+            signedRequest.addValue(host, forHTTPHeaderField: "host")
+            guard let url = await AWSSigV4Signer.sigV4SignedURL(requestBuilder: requestBuilder,
+                                          credentialsProvider: geoConfig.credentialsProvider,
+                                          signingName: "geo",
+                                          signingRegion: geoConfig.regionName,
+                                          date: Date(),
+                                                                expiration: 60) else {
                 completionHandler(.failure(AWSMapURLProtocolError.signatureError))
+                return
             }
-            return nil
+            signedRequest.url = url
+            completionHandler(.success(signedRequest))
         }
     }
 

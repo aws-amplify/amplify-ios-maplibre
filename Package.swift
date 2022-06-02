@@ -22,8 +22,8 @@ let package = Package(
         // Amplify
         .package(
             name: "Amplify",
-            url: "https://github.com/aws-amplify/amplify-ios",
-            .upToNextMajor(from: "1.16.1")
+            url: "https://github.com/aws-amplify/amplify-ios.git",
+            .branch("dev-preview")
         ),
 
         // MapLibre
@@ -40,7 +40,6 @@ let package = Package(
                 .product(name: "Amplify", package: "Amplify"),
                 .product(name: "AWSCognitoAuthPlugin", package: "Amplify"),
                 .product(name: "AWSLocationGeoPlugin", package: "Amplify"),
-                .product(name: "AWSPluginsCore", package: "Amplify"),
                 .product(name: "Mapbox", package: "MapLibre GL Native")
             ]
         ),
@@ -58,4 +57,3 @@ let package = Package(
         )
     ]
 )
-

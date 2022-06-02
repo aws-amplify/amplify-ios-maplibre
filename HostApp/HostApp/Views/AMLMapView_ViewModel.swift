@@ -22,14 +22,12 @@ class AMLMapView_ViewModel: ObservableObject {
         _ text: String,
         area: Geo.SearchArea
     ) {
-        Amplify.Geo.search(for: text, options: .init(area: area)) { [weak self] result in
-            switch result {
-            case .success(let places):
-                DispatchQueue.main.async {
-                    self?.places = places
-                    self?.mapState.features = AmplifyMapLibre.createFeatures(places)
-                }
-            case .failure(let error):
+        Task {
+            do {
+                let places = try await Amplify.Geo.search(for: text, options: .init(area: area))
+                self.places = places
+                self.mapState.features = AmplifyMapLibre.createFeatures(places)
+            } catch {
                 print(error)
             }
         }

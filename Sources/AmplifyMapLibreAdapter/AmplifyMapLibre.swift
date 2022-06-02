@@ -9,11 +9,13 @@ import Foundation
 import CoreLocation
 import Mapbox
 import Amplify
+import AWSLocationGeoPlugin
 
 public class AmplifyMapLibre {
     /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
     /// Location Service using the default map
     /// - Parameter completionHandler: The completion handler.
+    @available(*, deprecated, message: "Use createMap() async throws -> MGLMapView")
     public class func createMap(completionHandler: @escaping Geo.ResultsHandler<MGLMapView>) {
         AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
         Amplify.Geo.defaultMap { result in
@@ -24,6 +26,14 @@ public class AmplifyMapLibre {
                 completionHandler(.failure(error))
             }
         }
+    }
+    
+    /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
+    /// Location Service using the default map
+    @MainActor public class func createMap() async throws -> MGLMapView {
+        AWSMapURLProtocol.register(sessionConfig: MGLNetworkConfiguration.sharedManager.sessionConfiguration)
+        let map = try await Amplify.Geo.defaultMap()
+        return MGLMapView(frame: .zero, styleURL: map.styleURL)
     }
 
     /// Creates an instance of MGLMapView configured to work with Amplify and Amazon
