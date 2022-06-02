@@ -5,8 +5,8 @@
         "package": "Amplify",
         "repositoryURL": "https://github.com/aws-amplify/amplify-ios.git",
         "state": {
-          "branch": "dev-preview-geo-updated",
-          "revision": "cc15ce965fc6788907822534fe1f0f4d65ea1324",
+          "branch": "dev-preview",
+          "revision": "ba8b557fb1952412691203c761af03f06bb5893f",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/aws-amplify/aws-appsync-realtime-client-ios.git",
         "state": {
           "branch": null,
-          "revision": "810a305a8e2200db90d3a237c687b20cfc610268",
-          "version": "1.9.1"
+          "revision": "28f61d7ca362699941cc8844d34d082f1eb49602",
+          "version": "1.10.0"
         }
       },
       {
@@ -30,7 +30,7 @@
       },
       {
         "package": "AWSSwiftSDK",
-        "repositoryURL": "https://github.com/awslabs/aws-sdk-swift",
+        "repositoryURL": "https://github.com/awslabs/aws-sdk-swift.git",
         "state": {
           "branch": null,
           "revision": "e907e654466a8bfafbcd79a78cb87964abecb1a0",
