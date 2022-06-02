@@ -20,16 +20,10 @@ let package = Package(
     ],
     dependencies: [
         // Amplify
-//        .package(
-//            name: "Amplify",
-//            url: "https://github.com/aws-amplify/amplify-ios",
-//            .upToNextMajor(from: "1.16.1")
-//        ),
-        
         .package(
             name: "Amplify",
             url: "https://github.com/aws-amplify/amplify-ios.git",
-            .branch("dev-preview-geo-updated")
+            .branch("dev-preview")
         ),
 
         // MapLibre
