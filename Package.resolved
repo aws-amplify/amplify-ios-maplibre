@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "Amplify",
-        "repositoryURL": "https://github.com/aws-amplify/amplify-ios.git",
+        "repositoryURL": "https://github.com/aws-amplify/amplify-ios",
         "state": {
           "branch": "dev-preview",
-          "revision": "ba8b557fb1952412691203c761af03f06bb5893f",
+          "revision": "8d01f958001cb38784c10d8426512f1594838d84",
           "version": null
         }
       },
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/aws-amplify/aws-appsync-realtime-client-ios.git",
         "state": {
           "branch": null,
-          "revision": "28f61d7ca362699941cc8844d34d082f1eb49602",
-          "version": "1.10.0"
+          "revision": "da88cf1cab82e281e7277cd9feb9efc87a057041",
+          "version": "2.1.1"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/awslabs/aws-sdk-swift.git",
         "state": {
           "branch": null,
-          "revision": "e907e654466a8bfafbcd79a78cb87964abecb1a0",
-          "version": "0.2.4"
+          "revision": "eea9a9ac6aab16e99eec10169a56336f79ce2e37",
+          "version": "0.2.6"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/awslabs/smithy-swift.git",
         "state": {
           "branch": null,
-          "revision": "5c76b8f05f70f2b24276a2ae192fa8bd9c04beb6",
-          "version": "0.2.3"
+          "revision": "5b7b9bdc459b599d394d6f38ef6c61d6f0ed2090",
+          "version": "0.3.0"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
-          "version": "1.0.2"
+          "revision": "f504716c27d2e5d4144fa4794b12129301d17729",
+          "version": "1.0.3"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
+          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
+          "version": "1.4.4"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
         "state": {
           "branch": null,
-          "revision": "f30119af03996939cc4f54e0bf0dda9f88a84da5",
-          "version": "0.13.1"
+          "revision": "ca932442d7481700f5434a7b138c47dd42d9902b",
+          "version": "0.14.0"
         }
       }
     ]

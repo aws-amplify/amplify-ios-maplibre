@@ -26,11 +26,11 @@ struct AMLMapViewScreen: Screen {
     func testTapToZoom() -> Self {
         let mapView = app.otherElements[Identifiers.mapView]
         // Default starting zoom
-        XCTAssertEqual(mapView.value as? String, "Zoom 15x")
+        XCTAssertEqual(mapView.value as? String, "Zoom 15x.")
         // Zoom in
         mapView.doubleTap()
         // Zoom value updated
-        XCTAssertEqual(mapView.value as? String, "Zoom 16x")
+        XCTAssertEqual(mapView.value as? String, "Zoom 16x.")
         return self
     }
 

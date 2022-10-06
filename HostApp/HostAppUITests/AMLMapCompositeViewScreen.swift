@@ -30,18 +30,18 @@ struct AMLMapCompositeViewScreen: Screen {
     func testMapControlButtons() -> Self {
         let mapView = app.otherElements[Identifiers.mapView]
         // Default starting zoom
-        XCTAssertEqual(mapView.value as? String, "Zoom 15x")
+        XCTAssertEqual(mapView.value as? String, "Zoom 15x.")
         // Zoom in
         let zoomInButton = app.buttons[Identifiers.zoomInButton]
         zoomInButton.tap()
         // Zoom value updated
-        XCTAssertEqual(mapView.value as? String, "Zoom 16x")
+        XCTAssertEqual(mapView.value as? String, "Zoom 16x.")
 
         let zoomOutButton = app.buttons[Identifiers.zoomOutButton]
         zoomOutButton.tap()
         zoomOutButton.tap()
         // After tapping zoom out button twice, accessibility value of mapview should reflect zoom level of 14.
-        XCTAssertEqual(mapView.value as? String, "Zoom 14x")
+        XCTAssertEqual(mapView.value as? String, "Zoom 14x.")
 
         let alignNorthButton = app.buttons[Identifiers.alignNorthButton]
         XCTAssert(alignNorthButton.isHittable)
