@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AmplifyMapLibre  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a title="AmplifyMapLibre  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">AmplifyMapLibre Docs</a></p>
+        <p class="header-right"><a href="https://aws-amplify.github.io/amplify-ios-maplibre/"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">AmplifyMapLibre Reference</a>
+        <img id="carat" src="img/carat.png" alt=""/>
+        AmplifyMapLibre  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AMLMapCompositeViewModel.html">AMLMapCompositeViewModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AMLMapViewState.html">AMLMapViewState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AmplifyMapLibre.html">AmplifyMapLibre</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/AWSMapURLProtocolError.html">AWSMapURLProtocolError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Geo.html">Geo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Geo/BoundingBox.html">– BoundingBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Geo/SearchArea.html">– SearchArea</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Geo/Place.html">– Place</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/MGLPointFeature.html">MGLPointFeature</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AMLActivityIndicator.html">AMLActivityIndicator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLActivityIndicator_Preview.html">AMLActivityIndicator_Preview</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLMapCompositeView.html">AMLMapCompositeView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLMapControlView.html">AMLMapControlView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLMapView.html">AMLMapView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLPlaceCellView.html">AMLPlaceCellView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLPlaceList.html">AMLPlaceList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLSearchBar.html">AMLSearchBar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AMLSearchBar/DisplayState.html">– DisplayState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/IdentifiablePlace.html">IdentifiablePlace</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h2 id='amplifymaplibreadapter-for-ios' class='heading'>AmplifyMapLibreAdapter for iOS</h2>
+
+<p>The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category and the MapLibre SDK.</p>
+
+<ul>
+<li><p>Registers a custom URL protocol with MapLibre that intercepts and signs calls to AWS Location endpoints. This registration occurs automatically the first time AmplifyMapLibreAdapter is used to create a map.</p></li>
+<li><p>Brokers communication between Amplify and MapLibre by providing functions and extensions that simplify using Amplify Geo with MapLibre.</p></li>
+<li><p>Provide SwiftUI support for MapLibre that adds <code><a href="Structs/AMLMapView.html">AMLMapView</a></code> (Amplify MapLibre MapView) and <code><a href="Structs/AMLMapCompositeView.html">AMLMapCompositeView</a></code> Views around MapLibre&rsquo;s MGLMapView. This introduces SwiftUI support to the MapLibre SDK for iOS. It provides a subset of MGLMapView functionality that can be used for displaying and interacting with a map; providing APIs to track state changes, inject custom implementations for user interaction, and define settings.</p></li>
+</ul>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p><a href="https://docs.amplify.aws/lib/geo/getting-started/q/platform/ios/">Getting Started Guide</a></p>
+
+<p><a href="https://aws-amplify.github.io/amplify-ios-maplibre/docs/">API Documentation</a></p>
+
+<p><a href="Examples/AMLExamples/README.md">Examples</a></p>
+<h2 id='platform-support' class='heading'>Platform Support</h2>
+
+<p>AmplifyMapLibreAdapter supports iOS 13 and above.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='swift-package-manager' class='heading'>Swift Package Manager</h3>
+
+<p>Swift Pacakge Manager is distributed with Xcode. To add AmplifyMapLibreAdapter to your iOS project, take the following steps: </p>
+
+<ol>
+<li>Open your project in Xcode.</li>
+<li>Select your application in the <strong>Project Navigator</strong>.</li>
+<li>Select your project in the <strong>Project List</strong> pane.</li>
+<li>Select <strong>Package Dependencies</strong>.</li>
+<li>Click the + (plus) button.</li>
+<li>Enter the AmplifyMapLibreAdapter GitHub repo URL (<code>https://github.com/aws-amplify/amplify-ios-maplibre</code>) in the search bar labeled <strong>Search or Enter Package URL</strong>.</li>
+<li>Click <strong>Add Package</strong> and select your desired <strong>Dependency Rule</strong></li>
+<li>Select the targets you would like to add.
+
+<ul>
+<li><strong>AmplifyMapLibreAdapter</strong> will allow you to create a <code>MGLMapView</code> configured to work with Amplify Geo.</li>
+<li><strong>AmplifyMapLibreUI</strong> provides SwiftUI Map Views, <code><a href="Structs/AMLMapView.html">AMLMapView</a></code> and <code><a href="Structs/AMLMapCompositeView.html">AMLMapCompositeView</a></code>. Additionally, it also provides other map related UI components with applicable functionality, such as a <code><a href="Structs/AMLSearchBar.html">AMLSearchBar</a></code>, <code><a href="Structs/AMLPlaceList.html">AMLPlaceList</a></code>, <code><a href="Structs/AMLMapControlView.html">AMLMapControlView</a></code>, and more. All of which seamlessly integrate with Amplify Geo.</li>
+</ul></li>
+</ol>
+<h2 id='reporting-bugs-feature-requests' class='heading'>Reporting Bugs/Feature Requests</h2>
+
+<p>We welcome you to use the GitHub issue tracker to report bugs or suggest features.</p>
+
+<p>When filing an issue, please check <a href="https://github.com/aws-amplify/amplify-ios-maplibre/issues">exisiting open</a>, or <a href="https://github.com/aws-amplify/amplify-ios-maplibre/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aclosed%20">recently closed</a>, issues to make sure somebody else hasn&rsquo;t already reported the issue. Please try to include as much information as you can. Details like these are incredibly useful:</p>
+
+<ul>
+<li>Expected behavior and observed behavior.</li>
+<li>A reproducible test case or series of steps.</li>
+<li>The version of our code being used.</li>
+<li>Any modications you&rsquo;ve made relecant to the bug.</li>
+<li>Anything custom about your environment or deployment.</li>
+<li>Stack Trace in text form (if applicable).</li>
+</ul>
+<h2 id='open-source-contributions' class='heading'>Open Source Contributions</h2>
+
+<p>We welcome and and all contributions from the community! Make sure you read through our contribution guide <a href="https://github.com/aws-amplify/amplify-ios-maplibre/blob/main/CONTRIBUTING.md">here</a> before submitting any PR&rsquo;s.</p>
+<h2 id='security' class='heading'>Security</h2>
+
+<p>See <a href="https://github.com/aws-amplify/amplify-ios-maplibre/blob/main/CONTRIBUTING.md#security-issue-notifications">CONTRIBUTING</a> for more information.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>This project is licensed under the Apache-2.0 License.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener">Amazon Web Services</a>. All rights reserved. (Last updated: 2022-12-14)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
