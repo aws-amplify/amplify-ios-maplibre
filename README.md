@@ -60,3 +60,4 @@ See [CONTRIBUTING](https://github.com/aws-amplify/amplify-ios-maplibre/blob/main
 ## License
 
 This project is licensed under the Apache-2.0 License.
+test
