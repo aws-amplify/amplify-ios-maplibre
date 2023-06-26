@@ -98,12 +98,14 @@ class AWSMapURLProtocol: URLProtocol {
             var signedRequest = request
             signedRequest.url = originalURLComponents.url
             signedRequest.addValue(host, forHTTPHeaderField: "host")
-            guard let url = await AWSSigV4Signer.sigV4SignedURL(requestBuilder: requestBuilder,
-                                          credentialsProvider: geoConfig.credentialsProvider,
-                                          signingName: "geo",
-                                          signingRegion: geoConfig.regionName,
-                                          date: Date(),
-                                                                expiration: 60) else {
+            guard let url = await AWSSigV4Signer.sigV4SignedURL(
+                requestBuilder: requestBuilder,
+                credentialsProvider: geoConfig.credentialsProvider,
+                signingName: "geo",
+                signingRegion: geoConfig.regionName,
+                date: Date(),
+                expiration: 60,
+                signingAlgorithm: .sigv4) else {
                 completionHandler(.failure(AWSMapURLProtocolError.signatureError))
                 return
             }
