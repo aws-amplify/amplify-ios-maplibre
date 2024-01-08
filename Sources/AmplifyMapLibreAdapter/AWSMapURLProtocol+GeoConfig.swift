@@ -13,7 +13,7 @@ import AWSClientRuntime
 extension AWSMapURLProtocol {
     struct GeoConfig {
         let regionName: String
-        let credentialsProvider: CredentialsProvider
+        let credentialsProvider: CredentialsProviding
         let hostName: String
 
         init?() {
