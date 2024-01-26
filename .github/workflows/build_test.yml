@@ -15,4 +15,19 @@ jobs:
           persist-credentials: false
 
       - name: Build and test
-        run: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit && exit ${PIPESTATUS[0]}
+        run: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 11 Pro" -derivedDataPath Build/ -enableCodeCoverage YES -clonedSourcePackagesDirPath ~/Library/Developer/Xcode/DerivedData/AmplifyMapLibreAdapter | xcpretty --simple --color --report junit && exit ${PIPESTATUS[0]}
+
+      - name: Generate Coverage Report
+        continue-on-error: true
+        run: |
+          cd Build/Build/ProfileData
+          cd $(ls -d */|head -n 1)
+          pathCoverage=Build/Build/ProfileData/${PWD##*/}/Coverage.profdata
+          cd ${{ github.workspace }}
+          xcrun llvm-cov export -format="lcov" -instr-profile $pathCoverage Build/Build/Products/Debug-iphonesimulator/AmplifyMapLibreAdapter.o > AmplifyMapLibreAdapter-Coverage.lcov
+      
+      - name: Upload Report
+        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+        with:
+          flags: AmplifyMapLibreAdapter
+          verbose: true
