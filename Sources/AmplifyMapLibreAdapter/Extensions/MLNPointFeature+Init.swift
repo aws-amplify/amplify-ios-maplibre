@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import Mapbox
+import MapLibre
 
-public extension MGLPointFeature {
-    /// Initialize an MGLPointFeature with a given title and coordinates
+public extension MLNPointFeature {
+    /// Initialize an MLNPointFeature with a given title and coordinates
     /// - Parameters:
     ///   - title: The feature title.
     ///   - coordinates: The feature coordinates.

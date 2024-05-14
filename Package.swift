@@ -28,9 +28,9 @@ let package = Package(
 
         // MapLibre
         .package(
-            name: "MapLibre GL Native",
+            name: "MapLibre Native",
             url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-            .exact("5.12.0")
+            .exact("6.4.1")
         )
     ],
     targets: [
@@ -40,7 +40,7 @@ let package = Package(
                 .product(name: "Amplify", package: "Amplify"),
                 .product(name: "AWSCognitoAuthPlugin", package: "Amplify"),
                 .product(name: "AWSLocationGeoPlugin", package: "Amplify"),
-                .product(name: "Mapbox", package: "MapLibre GL Native")
+                .product(name: "MapLibre", package: "MapLibre Native")
             ]
         ),
         .target(

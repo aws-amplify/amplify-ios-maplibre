@@ -9,7 +9,7 @@ import SwiftUI
 import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
 import CoreLocation
-import Mapbox
+import MapLibre
 import Amplify
 import Combine
 
@@ -97,8 +97,8 @@ struct AMLMapView_View_Previews: PreviewProvider {
 }
 
 extension AMLMapView_View {
-    private func didSelectFeature(_ mapView: MGLMapView, _ pointFeature: MGLPointFeature) {
-        let camera = MGLMapCamera(
+    private func didSelectFeature(_ mapView: MLNMapView, _ pointFeature: MLNPointFeature) {
+        let camera = MLNMapCamera(
             lookingAtCenter: pointFeature.coordinate,
             altitude: mapView.camera.altitude,
             pitch: mapView.camera.pitch,

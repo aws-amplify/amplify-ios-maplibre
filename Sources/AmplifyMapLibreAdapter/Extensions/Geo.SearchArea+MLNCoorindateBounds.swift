@@ -7,14 +7,14 @@
 
 import Foundation
 import Amplify
-import Mapbox
+import MapLibre
 
 public extension Geo.SearchArea {
     /// Creates a SearchArea that only returns places within the provided
-    /// MGLCoordinateBounds.
+    /// MLNCoordinateBounds.
     /// - Parameter bounds: The bounds for the search area.
     /// - Returns: The SearchArea.
-    static func within(_ bounds: MGLCoordinateBounds) -> Geo.SearchArea {
+    static func within(_ bounds: MLNCoordinateBounds) -> Geo.SearchArea {
         .within(Geo.BoundingBox(bounds))
     }
 }

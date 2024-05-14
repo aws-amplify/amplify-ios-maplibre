@@ -7,13 +7,13 @@
 
 import Foundation
 import Amplify
-import Mapbox
+import MapLibre
 
 public extension Geo.BoundingBox {
-    /// Initialize a BoundingBox from a MGLCoordinateBounds
+    /// Initialize a BoundingBox from a MLNCoordinateBounds
     /// - Parameter bounds: The CLLocationCoordinate2D to use to initialize the
     /// Location.
-    init(_ bounds: MGLCoordinateBounds) {
+    init(_ bounds: MLNCoordinateBounds) {
         let southwest = Geo.Coordinates(bounds.sw)
         let northeast = Geo.Coordinates(bounds.ne)
 

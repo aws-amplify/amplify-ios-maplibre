@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 import AmplifyMapLibreAdapter
 import AmplifyMapLibreUI
-import Mapbox
+import MapLibre
 import Amplify
 
 // swiftlint:disable:next type_name

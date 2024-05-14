@@ -7,7 +7,7 @@
 
 import SwiftUI
 import XCTest
-import Mapbox
+import MapLibre
 @testable import AmplifyMapLibreAdapter
 @testable import AmplifyMapLibreUI
 
@@ -21,7 +21,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
     func testShowUserLocation() {
         // User supplied map
         do {
-            let mapView = MGLMapView()
+            let mapView = MLNMapView()
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .showUserLocation(true)
@@ -39,7 +39,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
     func testAllowedZoomLevels() {
         // User supplied map
         do {
-            let mapView = MGLMapView()
+            let mapView = MLNMapView()
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .allowedZoomLevels(5 ... 15)
@@ -60,7 +60,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
     func testMaxZoomLevel() {
         // User supplied map
         do {
-            let mapView = MGLMapView()
+            let mapView = MLNMapView()
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .maxZoomLevel(3)
@@ -79,7 +79,7 @@ class AMLMapCompositeViewTestCase: XCTestCase {
     func testMinZoomLevel() {
         // User supplied map
         do {
-            let mapView = MGLMapView()
+            let mapView = MLNMapView()
             let mapState = AMLMapViewState(mapView: mapView)
             let map = compositeView(with: mapState)
                 .minZoomLevel(14)

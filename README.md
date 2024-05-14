@@ -6,7 +6,7 @@ The AmplifyMapLibreAdapter is a library that combines the Amplify Geo category a
 
 - Brokers communication between Amplify and MapLibre by providing functions and extensions that simplify using Amplify Geo with MapLibre.
 
-- Provide SwiftUI support for MapLibre that adds `AMLMapView` (Amplify MapLibre MapView) and `AMLMapCompositeView` Views around MapLibre's MGLMapView. This introduces SwiftUI support to the MapLibre SDK for iOS. It provides a subset of MGLMapView functionality that can be used for displaying and interacting with a map; providing APIs to track state changes, inject custom implementations for user interaction, and define settings.
+- Provide SwiftUI support for MapLibre that adds `AMLMapView` (Amplify MapLibre MapView) and `AMLMapCompositeView` Views around MapLibre's MLNMapView. This introduces SwiftUI support to the MapLibre SDK for iOS. It provides a subset of MLNMapView functionality that can be used for displaying and interacting with a map; providing APIs to track state changes, inject custom implementations for user interaction, and define settings.
 
 ## Usage
 
@@ -33,7 +33,7 @@ Swift Pacakge Manager is distributed with Xcode. To add AmplifyMapLibreAdapter t
 6. Enter the AmplifyMapLibreAdapter GitHub repo URL (`https://github.com/aws-amplify/amplify-ios-maplibre`) in the search bar labeled **Search or Enter Package URL**.
 7. Click **Add Package** and select your desired **Dependency Rule**
 8. Select the targets you would like to add.
-    - **AmplifyMapLibreAdapter** will allow you to create a `MGLMapView` configured to work with Amplify Geo.
+    - **AmplifyMapLibreAdapter** will allow you to create a `MLNMapView` configured to work with Amplify Geo.
     - **AmplifyMapLibreUI** provides SwiftUI Map Views, `AMLMapView` and `AMLMapCompositeView`. Additionally, it also provides other map related UI components with applicable functionality, such as a `AMLSearchBar`, `AMLPlaceList`, `AMLMapControlView`, and more. All of which seamlessly integrate with Amplify Geo.
 
 ## Reporting Bugs/Feature Requests

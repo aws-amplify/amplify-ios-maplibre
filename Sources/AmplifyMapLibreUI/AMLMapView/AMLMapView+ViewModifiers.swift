@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-import Mapbox
+import MapLibre
 import SwiftUI
 
 public extension AMLMapView {
@@ -84,7 +84,7 @@ public extension AMLMapView {
 
     /// Provide an SwiftUI view that represents a point on a map.
     ///
-    /// - Important: Because the underlying `MGLMapView` consumes `UIImage`s,
+    /// - Important: Because the underlying `MLNMapView` consumes `UIImage`s,
     ///   this method turns a `SwiftUI` view into a `UIImage`.
     ///   There may be hidden cost to using this. If you experience performance and / or
     ///   rendering issues, please use the `featureImage(_:)` view modifier instead.
@@ -108,13 +108,13 @@ public extension AMLMapView {
     /// The default implementation pans the feature to the center of the screen and presents an `AMLCalloutView`.
     /// Defining an implementation here will override this behavior.
     ///
-    /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeature`.
+    /// - Parameter implementation: Closure provided a `MLNMapView` and `MLNPointFeature`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeature` as needed.
     /// - Returns: An instance of `AMLMapView`.
     func featureTapped(
         _ implementation: @escaping (
-            _ mapView: MGLMapView,
-            _ pointFeature: MGLPointFeature
+            _ mapView: MLNMapView,
+            _ pointFeature: MLNPointFeature
         ) -> Void
     ) -> AMLMapView {
         mapSettings.proxyDelegate.featureTapped = implementation
@@ -126,30 +126,30 @@ public extension AMLMapView {
     /// The default implementation zooms in on the map.
     /// Defining an implementation here will override this behavior.
     ///
-    /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeatureCluster`.
+    /// - Parameter implementation: Closure provided a `MLNMapView` and `MLNPointFeatureCluster`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeatureCluster` as needed.
     /// - Returns: An instance of `AMLMapView`.
     func featureClusterTapped(
         _ implementation: @escaping (
-            _ mapView: MGLMapView,
-            _ pointFeatureCluster: MGLPointFeatureCluster
+            _ mapView: MLNMapView,
+            _ pointFeatureCluster: MLNPointFeatureCluster
         ) -> Void
     ) -> AMLMapView {
         mapSettings.proxyDelegate.clusterTapped = implementation
         return self
     }
 
-    /// Set the position of the compass on the `MGLMapView`.
-    /// - Parameter position: `MGLOrnamentPosition` defining the location.
+    /// Set the position of the compass on the `MLNMapView`.
+    /// - Parameter position: `MLNOrnamentPosition` defining the location.
     /// - Returns: An instance of `AMLMapView`.
-    func compassPosition(_ position: MGLOrnamentPosition) -> AMLMapView {
+    func compassPosition(_ position: MLNOrnamentPosition) -> AMLMapView {
         mapSettings.compassPosition = position
         return self
     }
 
     /// Set whether the map features should cluster.
     /// - Parameter shouldCluster: Features displayed on the map should cluster.
-    /// Corresponds to the `MGLShapeSourceOption` `.clustered`.
+    /// Corresponds to the `MLNShapeSourceOption` `.clustered`.
     /// - Returns: An instance of `AMLMapView`.
     func shouldCluster(_ shouldCluster: Bool) -> AMLMapView {
         mapSettings.clusteringBehavior.shouldCluster = shouldCluster
@@ -158,7 +158,7 @@ public extension AMLMapView {
 
     /// Specifies the maximum zoom level at which to cluster points if clustering is enabled.
     /// - Parameter maxZoom: The maximum zoom level of clustering.
-    ///   Corresponds to `MGLShapeSourceOption` `.maximumZoomLevelForClustering`.
+    ///   Corresponds to `MLNShapeSourceOption` `.maximumZoomLevelForClustering`.
     /// - Returns: An instance of `AMLMapView`.
     func maximumClusterZoomLevel(_ maxZoom: Int) -> AMLMapView {
         mapSettings.clusteringBehavior.maximumZoomLevel = maxZoom
@@ -167,7 +167,7 @@ public extension AMLMapView {
 
     /// Set the fill color of the circle cluster.
     /// - Parameter color: The fill color of the circle cluster.
-	///   Sets the `MGLCircleStyleLayer` `circleColor` property.
+	///   Sets the `MLNCircleStyleLayer` `circleColor` property.
     /// - Returns: An instance of `AMLMapView`.
     func clusterColor(_ color: UIColor) -> AMLMapView {
         mapSettings.clusteringBehavior.clusterColor = color
@@ -176,7 +176,7 @@ public extension AMLMapView {
 
     /// The text color of the number displayed in the circle cluster.
     /// - Parameter color: The color of text displaying the number within a cluster.
-    ///   Sets the `MGLSymbolStyleLayer` `textColor` property.
+    ///   Sets the `MLNSymbolStyleLayer` `textColor` property.
     /// - Returns: An instance of `AMLMapView`.
     func clusterNumberColor(_ color: UIColor) -> AMLMapView {
         mapSettings.clusteringBehavior.clusterNumberColor = color
@@ -194,7 +194,7 @@ public extension AMLMapView {
 
     /// Set the radius of each cluster if clustering is enabled.
     /// - Parameter radius: The cluster radius.
-    ///   Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.
+    ///   Corresponds to the `MLNShapeSourceOption` `.clusterRadius`.
     /// - Returns: An instance of `AMLMapView`.
     func clusterRadius(_ radius: Int) -> AMLMapView {
         mapSettings.clusteringBehavior.clusterRadius = radius

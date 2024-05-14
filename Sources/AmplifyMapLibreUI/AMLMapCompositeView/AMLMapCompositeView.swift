@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreLocation
-import Mapbox
+import MapLibre
 import Amplify
 import AmplifyMapLibreAdapter
 

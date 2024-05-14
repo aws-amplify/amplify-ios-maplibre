@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Mapbox
+import MapLibre
 
 /// Configurable map settings. These values are set through view modifiers on `AMLMapView`.
 internal class AMLMapViewSettings: ObservableObject {
@@ -23,7 +23,7 @@ internal class AMLMapViewSettings: ObservableObject {
     @Published internal var maxZoomLevel: Double
 
     /// The compass position on the map.
-    @Published internal var compassPosition: MGLOrnamentPosition
+    @Published internal var compassPosition: MLNOrnamentPosition
 
     /// The image representing a feature on the map.
     @Published internal var featureImage: UIImage
@@ -52,7 +52,7 @@ internal class AMLMapViewSettings: ObservableObject {
         showUserLocation: Bool = false,
         minZoomLevel: Double = 0,
         maxZoomLevel: Double = 22,
-        compassPosition: MGLOrnamentPosition = .bottomLeft,
+        compassPosition: MLNOrnamentPosition = .bottomLeft,
         featureImage: UIImage = UIImage(
             named: "AMLFeatureView",
             in: Bundle.module,

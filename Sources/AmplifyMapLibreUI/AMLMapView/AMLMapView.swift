@@ -8,10 +8,10 @@
 import SwiftUI
 import Amplify
 import AWSLocationGeoPlugin
-import Mapbox
+import MapLibre
 import AmplifyMapLibreAdapter
 
-/// The `SwiftUI` wrapper for `MGLMapView`
+/// The `SwiftUI` wrapper for `MLNMapView`
 public struct AMLMapView: View {
     /// Object to track state changes in the map.
     @ObservedObject var mapState: AMLMapViewState
@@ -50,7 +50,7 @@ public struct AMLMapView: View {
         switch mapLoadingState.state {
         case .complete(let mapView):
             ZStack {
-                _MGLMapViewWrapper(
+                _MLNMapViewWrapper(
                     mapView: mapView,
                     zoomLevel: $mapState.zoomLevel,
                     bounds: $mapState.bounds,

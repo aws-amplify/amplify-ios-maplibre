@@ -10,9 +10,9 @@ jobs:
   xcodebuild_and_test:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
         with:
           persist-credentials: false
 
       - name: Build and test
-        run: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 11 Pro" | xcpretty --simple --color --report junit && exit ${PIPESTATUS[0]}
+        run: xcodebuild test -scheme "AmplifyMapLibreAdapter-Package" -destination "platform=iOS Simulator,name=iPhone 15 Pro" | xcpretty --simple --color --report junit && exit ${PIPESTATUS[0]}

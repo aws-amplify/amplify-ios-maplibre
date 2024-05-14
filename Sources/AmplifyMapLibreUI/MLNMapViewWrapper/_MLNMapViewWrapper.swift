@@ -8,19 +8,19 @@
 import SwiftUI
 import Amplify
 import AWSLocationGeoPlugin
-import Mapbox
+import MapLibre
 
-/// SwiftUI Wrapper for MGLMapView.
-internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:this type_name
+/// SwiftUI Wrapper for MLNMapView.
+internal struct _MLNMapViewWrapper: UIViewRepresentable { // swiftlint:disable:this type_name
 
-    /// Underlying MGLMapView.
-    let mapView: MGLMapView
+    /// Underlying MLNMapView.
+    let mapView: MLNMapView
 
     /// Current zoom level of the map
     @Binding var zoomLevel: Double
 
     /// The coordinate bounds of the currently displayed area of the map.
-    @Binding var bounds: MGLCoordinateBounds
+    @Binding var bounds: MLNCoordinateBounds
 
     /// The center coordinates of the currently displayed area of the map.
     @Binding var center: CLLocationCoordinate2D
@@ -32,7 +32,7 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
     @Binding var userLocation: CLLocationCoordinate2D?
 
     /// Features that are displayed on the map.
-    @Binding var features: [MGLPointFeature]
+    @Binding var features: [MLNPointFeature]
 
     /// The attribution string for the map data providers.
     @Binding var attribution: String?
@@ -43,10 +43,10 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
     /// Implementation definitions for user interactions with the map.
     let proxyDelegate: AMLMapView.ProxyDelegate // swiftlint:disable:this weak_delegate
 
-    /// Create a `_MGLMapViewWrapper`.
-    /// An internal SwiftUI wrapper View around MGLMapView.
+    /// Create a `_MLNMapViewWrapper`.
+    /// An internal SwiftUI wrapper View around MLNMapView.
     /// - Parameters:
-    ///   - mapView: The underlying MGLMapView.
+    ///   - mapView: The underlying MLNMapView.
     ///   - zoomLevel: Current zoom level of the map.
     ///   - bounds: The coordinate bounds of the currently displayed area of the map.
     ///   - center: The center coordinates of the currently displayed area of the map.
@@ -60,14 +60,14 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
     ///   - clusteringBehavior: The clustering behavior of the map.
     ///   - proxyDelegate: Implementation definitions for user interactions with the map.
     init(
-        mapView: MGLMapView,
+        mapView: MLNMapView,
         zoomLevel: Binding<Double>,
-        bounds: Binding<MGLCoordinateBounds>,
+        bounds: Binding<MLNCoordinateBounds>,
         center: Binding<CLLocationCoordinate2D>,
         heading: Binding<CLLocationDirection>,
         userLocation: Binding<CLLocationCoordinate2D?>,
         showUserLocation: Bool,
-        features: Binding<[MGLPointFeature]>,
+        features: Binding<[MLNPointFeature]>,
         attribution: Binding<String?>,
         featureImage: UIImage,
         clusteringBehavior: AMLMapView.ClusteringBehavior,
@@ -90,34 +90,35 @@ internal struct _MGLMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
         self.mapView.showsUserLocation = showUserLocation || userLocation.wrappedValue != nil
         self.mapView.style?.setImage(featureImage, forName: "aml_feature")
         self.mapView.attributionButton.isHidden = true
+
     }
 
-    public func makeUIView(context: UIViewRepresentableContext<_MGLMapViewWrapper>) -> MGLMapView {
+    public func makeUIView(context: UIViewRepresentableContext<_MLNMapViewWrapper>) -> MLNMapView {
         mapView.delegate = context.coordinator
         return mapView
     }
 
-    public func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<_MGLMapViewWrapper>) {
+    public func updateUIView(_ uiView: MLNMapView, context: UIViewRepresentableContext<_MLNMapViewWrapper>) {
         handleZoomUpdate(in: uiView)
         handleCameraUpdate(in: uiView)
         handleFeatureUpdate(in: uiView)
     }
 
-    private func handleFeatureUpdate(in mapView: MGLMapView) {
+    private func handleFeatureUpdate(in mapView: MLNMapView) {
         guard let clusterSource = mapView.style?
-                .source(withIdentifier: "aml_location_source") as? MGLShapeSource
+                .source(withIdentifier: "aml_location_source") as? MLNShapeSource
         else { return }
-        clusterSource.shape = MGLShapeCollectionFeature.init(shapes: features)
+        clusterSource.shape = MLNShapeCollectionFeature.init(shapes: features)
     }
 
-    private func handleCameraUpdate(in mapView: MGLMapView) {
+    private func handleCameraUpdate(in mapView: MLNMapView) {
         guard mapView.camera.heading != heading else { return }
         let camera = mapView.camera
         camera.heading = heading
         mapView.setCamera(camera, animated: true)
     }
 
-    private func handleZoomUpdate(in mapView: MGLMapView) {
+    private func handleZoomUpdate(in mapView: MLNMapView) {
         guard mapView.zoomLevel != zoomLevel else { return }
         mapView.setZoomLevel(zoomLevel, animated: true)
     }
