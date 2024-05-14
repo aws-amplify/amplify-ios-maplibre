@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Mapbox
+import MapLibre
 import Amplify
 
 /// Simple internal state machine representing the different stages of loading a map asynchronously.
@@ -19,18 +19,18 @@ struct MapCreationStateMachine {
         /// Async fetching should begin.
         case begin
         /// Fetching has completed successfully.
-        case complete(MGLMapView)
+        case complete(MLNMapView)
         /// Fetching has completed unsuccessfully.
         case error(Geo.Error)
     }
 
-    /// Transition to a new state based on a `Result<MGLMapView, Geo.Error>`
+    /// Transition to a new state based on a `Result<MLNMapView, Geo.Error>`
     /// - Parameters:
     ///   - input: The async operation's result.
-    ///   - map: An optional `MGLMapView` that gets assigned if the `Result` was successful.
+    ///   - map: An optional `MLNMapView` that gets assigned if the `Result` was successful.
     mutating func transition(
-        input: Result<MGLMapView, Geo.Error>,
-        assign map: inout MGLMapView?
+        input: Result<MLNMapView, Geo.Error>,
+        assign map: inout MLNMapView?
     ) {
         switch input {
         case .success(let mapView):

@@ -7,17 +7,17 @@
 
 import Foundation
 import CoreLocation
-import Mapbox
+import MapLibre
 import SwiftUI
 
-extension _MGLMapViewWrapper {
+extension _MLNMapViewWrapper {
     /// View modifier to enable showing the user's location on the map.
     ///
     /// To access the user's location, location access must be enabled in the app, and
     /// the user must choose to allow access.
     /// - Parameter showLocation: Enables showing the user's location on the map.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func showUserLocation(_ showLocation: Bool) -> _MGLMapViewWrapper {
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
+    func showUserLocation(_ showLocation: Bool) -> _MLNMapViewWrapper {
         mapView.showsUserLocation = showLocation
         return self
     }
@@ -37,8 +37,8 @@ extension _MGLMapViewWrapper {
     /// - Important:
     /// The minimum allowable zoom level is 0 and the maximum allowable zoom level is 22.
     /// Any value set below 0 or above 22 will revert to 0 or 22 accordingly.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> _MGLMapViewWrapper {
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
+    func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> _MLNMapViewWrapper {
         mapView.minimumZoomLevel = max(zoomLevels.lowerBound, 0)
         mapView.maximumZoomLevel = min(zoomLevels.upperBound, 22)
         return self
@@ -57,8 +57,8 @@ extension _MGLMapViewWrapper {
     /// - Parameter maxZoomLevel: The maximum zoom level allowed by the map.
     /// - Important:
     /// The maximum zoom level is 22. Any value set above 22 will revert to 22.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func maxZoomLevel(_ maxZoomLevel: Double) -> _MGLMapViewWrapper {
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
+    func maxZoomLevel(_ maxZoomLevel: Double) -> _MLNMapViewWrapper {
         mapView.maximumZoomLevel = min(maxZoomLevel, 22)
         return self
     }
@@ -76,16 +76,16 @@ extension _MGLMapViewWrapper {
     /// - Parameter minZoomLevel: The minimum zoom level allowed by the map.
     /// - Important:
     ///  The minimum allowable zoom level is 0. Any value set below 0 revert to 0.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func minZoomLevel(_ minZoomLevel: Double) -> _MGLMapViewWrapper {
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
+    func minZoomLevel(_ minZoomLevel: Double) -> _MLNMapViewWrapper {
         mapView.minimumZoomLevel = max(minZoomLevel, 0)
         return self
     }
 
-    /// Set the position of the compass on the `MGLMapView`.
-    /// - Parameter position: `MGLOrnamentPosition` defining the location.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
-    func compassPosition(_ position: MGLOrnamentPosition) -> _MGLMapViewWrapper {
+    /// Set the position of the compass on the `MLNMapView`.
+    /// - Parameter position: `MLNOrnamentPosition` defining the location.
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
+    func compassPosition(_ position: MLNOrnamentPosition) -> _MLNMapViewWrapper {
         mapView.compassViewPosition = position
         return self
     }
@@ -95,15 +95,15 @@ extension _MGLMapViewWrapper {
     /// The default implementation pans the feature to the center of the screen and presents an `AMLCalloutView`.
     /// Defining an implementation here will override this behavior.
     ///
-    /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeature`.
+    /// - Parameter implementation: Closure provided a `MLNMapView` and `MLNPointFeature`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeature` as needed.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
     func featureTapped(
         _ implementation: @escaping (
-            _ mapView: MGLMapView,
-            _ pointFeature: MGLPointFeature
+            _ mapView: MLNMapView,
+            _ pointFeature: MLNPointFeature
         ) -> Void
-    ) -> _MGLMapViewWrapper {
+    ) -> _MLNMapViewWrapper {
         proxyDelegate.featureTapped = implementation
         return self
     }
@@ -113,15 +113,15 @@ extension _MGLMapViewWrapper {
     /// The default implementation zooms in on the map.
     /// Defining an implementation here will override this behavior.
     ///
-    /// - Parameter implementation: Closure provided a `MGLMapView` and `MGLPointFeatureCluster`.
+    /// - Parameter implementation: Closure provided a `MLNMapView` and `MLNPointFeatureCluster`.
     /// Define your desired behavior on the `mapView` using information from the `pointFeatureCluster` as needed.
-    /// - Returns: An instance of `_MGLMapViewWrapper`.
+    /// - Returns: An instance of `_MLNMapViewWrapper`.
     func featureClusterTapped(
         _ implementation: @escaping (
-            _ mapView: MGLMapView,
-            _ pointFeatureCluster: MGLPointFeatureCluster
+            _ mapView: MLNMapView,
+            _ pointFeatureCluster: MLNPointFeatureCluster
         ) -> Void
-    ) -> _MGLMapViewWrapper {
+    ) -> _MLNMapViewWrapper {
         proxyDelegate.clusterTapped = implementation
         return self
     }

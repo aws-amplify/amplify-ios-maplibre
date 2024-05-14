@@ -7,23 +7,23 @@
 
 import SwiftUI
 import XCTest
-import Mapbox
+import MapLibre
 @testable import AmplifyMapLibreAdapter
 @testable import AmplifyMapLibreUI
 
 final class AMLMapViewTestCase: XCTestCase {
 
-    var mglMapView: MGLMapView!
+    var mlnMapView: MLNMapView!
 
     override func setUp() {
-        mglMapView = .init()
+        mlnMapView = .init()
     }
 
     // MARK: View Modifier Test Cases
 
     // public func showUserLocation(_ showLocation: Bool) -> AMLMapView
     func testShowUserLocation() {
-        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mlnMapView))
         // `showUserLocation` defaults to false if `AMLMapView` is instantiated without a `userLocation`
         XCTAssertFalse(mapView.mapSettings.showUserLocation)
 
@@ -40,7 +40,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func allowedZoomLevels(_ zoomLevels: ClosedRange<Double>) -> AMLMapView
     func testAllowedZoomLevels() {
-        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mlnMapView))
         // Test default behavior
         XCTAssertEqual(mapView.mapSettings.minZoomLevel, 0)
         XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 22)
@@ -76,7 +76,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func maxZoomLevel(_ maxZoomLevel: Double) -> AMLMapView
     func testMaxZoomLevel() {
-        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mlnMapView))
             .maxZoomLevel(19)
         XCTAssertEqual(mapView.mapSettings.maxZoomLevel, 19)
 
@@ -88,7 +88,7 @@ final class AMLMapViewTestCase: XCTestCase {
 
     // public func minZoomLevel(_ minZoomLevel: Double) -> AMLMapView
     func testMinZoomLevel() {
-        let mapView = AMLMapView(mapState: .init(mapView: mglMapView))
+        let mapView = AMLMapView(mapState: .init(mapView: mlnMapView))
             .minZoomLevel(4)
         XCTAssertEqual(mapView.mapSettings.minZoomLevel, 4)
 

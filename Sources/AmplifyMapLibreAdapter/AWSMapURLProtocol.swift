@@ -88,7 +88,7 @@ class AWSMapURLProtocol: URLProtocol {
 
         let requestBuilder = SdkHttpRequestBuilder()
             .withHost(host)
-            .withPath(originalURLComponents.path)
+            .withPath(originalURLComponents.path.urlPercentEncoding(encodeForwardSlash: false))
             .withMethod(.get)
             .withPort(443)
             .withProtocol(.https)

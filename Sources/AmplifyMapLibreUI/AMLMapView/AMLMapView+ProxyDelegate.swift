@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
-import Mapbox
+import MapLibre
 import UIKit
 
 extension AMLMapView {
     /// An object that holds user defined or default behavior implementations
-    /// for actions taken with the underling `MGLMapView`.
+    /// for actions taken with the underling `MLNMapView`.
     class ProxyDelegate {
 
         init() { }
 
         /// The implementation that gets executed when a feature is tapped on the map.
-        var featureTapped: ((MGLMapView, MGLPointFeature) -> Void) = { mapView, pointFeature in
+        var featureTapped: ((MLNMapView, MLNPointFeature) -> Void) = { mapView, pointFeature in
 
             mapView.setCenter(
                 pointFeature.coordinate,
@@ -46,8 +46,8 @@ extension AMLMapView {
             /// If so, it removes it before add a new one.
             /// - Parameters:
             ///   - calloutView: The UIView to be presented as a callout view.
-            ///   - mapView: The MGLMapView on which the callout view will be presented.
-            func addCalloutView(_ calloutView: UIView, to mapView: MGLMapView) {
+            ///   - mapView: The MLNMapView on which the callout view will be presented.
+            func addCalloutView(_ calloutView: UIView, to mapView: MLNMapView) {
                 if let existingCalloutView = mapView.subviews.first(where: { $0.tag == 42 }) {
                     mapView.willRemoveSubview(existingCalloutView)
                     existingCalloutView.removeFromSuperview()
@@ -61,7 +61,7 @@ extension AMLMapView {
         }
 
         /// The implementation that gets executed when a feature cluster is tapped on the map.
-        var clusterTapped: ((MGLMapView, MGLPointFeatureCluster) -> Void) = { mapView, cluster in
+        var clusterTapped: ((MLNMapView, MLNPointFeatureCluster) -> Void) = { mapView, cluster in
             mapView.setCenter(
                 cluster.coordinate,
                 zoomLevel: min(15, mapView.zoomLevel + 2),

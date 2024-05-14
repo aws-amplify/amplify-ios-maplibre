@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Mapbox
+import MapLibre
 import Amplify
 import AmplifyMapLibreAdapter
 

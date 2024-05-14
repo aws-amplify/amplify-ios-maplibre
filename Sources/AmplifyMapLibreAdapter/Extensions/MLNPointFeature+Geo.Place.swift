@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import Mapbox
+import MapLibre
 import Amplify
 
-public extension MGLPointFeature {
-    /// Initialize an MGLPointFeature with the title and coordinates of a given Geo.Place
-    /// - Parameter place: The Geo.Place from which to initialize the MGLPointFeature.
+public extension MLNPointFeature {
+    /// Initialize an MLNPointFeature with the title and coordinates of a given Geo.Place
+    /// - Parameter place: The Geo.Place from which to initialize the MLNPointFeature.
     convenience init(_ place: Geo.Place) {
         self.init()
         title = place.label
@@ -24,8 +24,8 @@ public extension MGLPointFeature {
     }
 }
 
-// MARK: MGLPointFeature+Geo.Place property
-public extension MGLPointFeature {
+// MARK: MLNPointFeature+Geo.Place property
+public extension MLNPointFeature {
     var amlGeoPlace: Geo.Place? {
         get {
             guard let coordinates = attributes[\.coordinates],
