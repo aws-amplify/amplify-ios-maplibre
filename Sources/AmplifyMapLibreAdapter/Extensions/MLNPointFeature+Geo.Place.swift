@@ -84,7 +84,8 @@ public extension Geo.Place {
         if let placeLabel = label,
            let street = street,
            let streetIndex = label?.range(of: street)?.lowerBound,
-           let commaIndex = placeLabel[..<streetIndex].range(of: ",", options: .backwards)?.lowerBound {
+           let commaIndex = placeLabel[..<streetIndex].range(of: ",", options: .backwards)?.lowerBound
+        {
             return String(placeLabel[..<commaIndex])
         } else {
             return label
@@ -93,7 +94,7 @@ public extension Geo.Place {
 }
 
 // MARK: Fileprivate subscript helpers
-fileprivate extension Dictionary where Key == String, Value == Any {
+private extension Dictionary where Key == String, Value == Any {
     private func placeKey<T>(for keyPath: KeyPath<Geo.Place, T>) -> String {
         switch keyPath {
         case \Geo.Place.street: return "aml_geo.place_street"

@@ -90,7 +90,7 @@ internal struct _MLNMapViewWrapper: UIViewRepresentable { // swiftlint:disable:t
         self.mapView.showsUserLocation = showUserLocation || userLocation.wrappedValue != nil
         self.mapView.style?.setImage(featureImage, forName: "aml_feature")
         self.mapView.attributionButton.isHidden = true
-        
+
     }
 
     public func makeUIView(context: UIViewRepresentableContext<_MLNMapViewWrapper>) -> MLNMapView {

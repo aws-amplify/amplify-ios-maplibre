@@ -99,7 +99,7 @@ final class AMLMapViewTestCase: XCTestCase {
     }
 }
 
-fileprivate extension Double {
+private extension Double {
     func rounded(places: Double) -> Double {
         let divisor = pow(10, places)
         return (self * divisor).rounded() / divisor

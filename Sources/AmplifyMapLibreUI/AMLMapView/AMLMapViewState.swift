@@ -36,7 +36,7 @@ public class AMLMapViewState: ObservableObject {
     @Published public var attribution: String?
 
     /// Whether the attribution test is currently being displayed.
-    @Published internal(set) public var isAttributionTextDisplayed: Bool
+    @Published public internal(set) var isAttributionTextDisplayed: Bool
 
     /// Create an `AMLMapViewState` object to track state changes.
     /// - Parameters:
