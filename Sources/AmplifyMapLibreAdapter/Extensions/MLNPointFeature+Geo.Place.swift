@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import Mapbox
+import MapLibre
 import Amplify
 
-public extension MGLPointFeature {
-    /// Initialize an MGLPointFeature with the title and coordinates of a given Geo.Place
-    /// - Parameter place: The Geo.Place from which to initialize the MGLPointFeature.
+public extension MLNPointFeature {
+    /// Initialize an MLNPointFeature with the title and coordinates of a given Geo.Place
+    /// - Parameter place: The Geo.Place from which to initialize the MLNPointFeature.
     convenience init(_ place: Geo.Place) {
         self.init()
         title = place.label
@@ -24,8 +24,8 @@ public extension MGLPointFeature {
     }
 }
 
-// MARK: MGLPointFeature+Geo.Place property
-public extension MGLPointFeature {
+// MARK: MLNPointFeature+Geo.Place property
+public extension MLNPointFeature {
     var amlGeoPlace: Geo.Place? {
         get {
             guard let coordinates = attributes[\.coordinates],
@@ -84,7 +84,8 @@ public extension Geo.Place {
         if let placeLabel = label,
            let street = street,
            let streetIndex = label?.range(of: street)?.lowerBound,
-           let commaIndex = placeLabel[..<streetIndex].range(of: ",", options: .backwards)?.lowerBound {
+           let commaIndex = placeLabel[..<streetIndex].range(of: ",", options: .backwards)?.lowerBound
+        {
             return String(placeLabel[..<commaIndex])
         } else {
             return label
@@ -93,7 +94,7 @@ public extension Geo.Place {
 }
 
 // MARK: Fileprivate subscript helpers
-fileprivate extension Dictionary where Key == String, Value == Any {
+private extension Dictionary where Key == String, Value == Any {
     private func placeKey<T>(for keyPath: KeyPath<Geo.Place, T>) -> String {
         switch keyPath {
         case \Geo.Place.street: return "aml_geo.place_street"

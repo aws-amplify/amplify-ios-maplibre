@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Mapbox
+import MapLibre
 
 /// Internal default callout view displayed when a user taps a feature.
 class AMLCalloutUIView: UIView {
@@ -27,8 +27,8 @@ class AMLCalloutUIView: UIView {
     /// Initializes an `AMLCalloutView` with information displayed from the feature.
     /// - Parameters:
     ///   - frame: The view's specified frame rectangle.
-    ///   - feature: The `MGLPointFeature` for the callout view.
-    init(frame: CGRect, feature: MGLPointFeature) {
+    ///   - feature: The `MLNPointFeature` for the callout view.
+    init(frame: CGRect, feature: MLNPointFeature) {
         super.init(frame: frame)
         configureView()
         configureSubviews()
@@ -36,7 +36,7 @@ class AMLCalloutUIView: UIView {
         setLabelText(for: feature)
     }
 
-    private func setLabelText(for feature: MGLPointFeature) {
+    private func setLabelText(for feature: MLNPointFeature) {
         nameLabel.text = feature.attributes["aml_display_label"] as? String
         addressLineOneLabel.text = feature.attributes["aml_display_addressLineOne"] as? String
         addressLineTwoLabel.text = feature.attributes["aml_display_addressLineTwo"] as? String

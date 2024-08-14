@@ -88,12 +88,12 @@ class AWSMapURLProtocol: URLProtocol {
 
         let requestBuilder = SdkHttpRequestBuilder()
             .withHost(host)
-            .withPath(originalURLComponents.path)
+            .withPath(originalURLComponents.path.urlPercentEncoding(encodeForwardSlash: false))
             .withMethod(.get)
             .withPort(443)
             .withProtocol(.https)
             .withHeader(name: "host", value: host)
-        
+
         Task {
             var signedRequest = request
             signedRequest.url = originalURLComponents.url
@@ -105,7 +105,8 @@ class AWSMapURLProtocol: URLProtocol {
                 signingRegion: geoConfig.regionName,
                 date: Date(),
                 expiration: 60,
-                signingAlgorithm: .sigv4) else {
+                signingAlgorithm: .sigv4)
+            else {
                 completionHandler(.failure(AWSMapURLProtocolError.signatureError))
                 return
             }

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/aws-amplify/amplify-swift.git",
         "state": {
           "branch": null,
-          "revision": "5268948fdd0323bb5ef2a487c36d4b64b2a31c83",
-          "version": "2.12.0"
+          "revision": "99c72db23217c8944dda92a9be26f7c0d0d5de3f",
+          "version": "2.37.0"
         }
       },
       {
@@ -15,17 +15,8 @@
         "repositoryURL": "https://github.com/aws-amplify/amplify-swift-utils-notifications.git",
         "state": {
           "branch": null,
-          "revision": "f970384ad1035732f99259255cd2f97564807e41",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "AppSyncRealTimeClient",
-        "repositoryURL": "https://github.com/aws-amplify/aws-appsync-realtime-client-ios.git",
-        "state": {
-          "branch": null,
-          "revision": "b036e83716789c13a3480eeb292b70caa54114f2",
-          "version": "3.1.0"
+          "revision": "959eec669ba97c7d923b963c3e66ca8a0b2737f6",
+          "version": "1.1.1"
         }
       },
       {
@@ -33,8 +24,8 @@
         "repositoryURL": "https://github.com/awslabs/aws-crt-swift",
         "state": {
           "branch": null,
-          "revision": "6feec6c3787877807aa9a00fad09591b96752376",
-          "version": "0.6.1"
+          "revision": "0d0a0cf2e2cb780ceeceac190b4ede94f4f96902",
+          "version": "0.26.0"
         }
       },
       {
@@ -42,26 +33,26 @@
         "repositoryURL": "https://github.com/awslabs/aws-sdk-swift.git",
         "state": {
           "branch": null,
-          "revision": "24bae88a2391fe75da8a940a544d1ef6441f5321",
-          "version": "0.13.0"
+          "revision": "47922c05dd66be717c7bce424651a534456717b7",
+          "version": "0.36.2"
         }
       },
       {
-        "package": "MapLibre GL Native",
+        "package": "MapLibre Native",
         "repositoryURL": "https://github.com/maplibre/maplibre-gl-native-distribution",
         "state": {
           "branch": null,
-          "revision": "d524c18d8c572db72c753f88492c36b9749725e1",
-          "version": "5.12.0"
+          "revision": "6579f48fe126ce2916f7b5d0c84c1869d790c4e4",
+          "version": "6.4.1"
         }
       },
       {
         "package": "smithy-swift",
-        "repositoryURL": "https://github.com/awslabs/smithy-swift",
+        "repositoryURL": "https://github.com/smithy-lang/smithy-swift",
         "state": {
           "branch": null,
-          "revision": "7b28da158d92cd06a3549140d43b8fbcf64a94a6",
-          "version": "0.15.0"
+          "revision": "8a5b0105c1b8a1d26a9435fb0af3959a7f5de578",
+          "version": "0.41.1"
         }
       },
       {
@@ -69,26 +60,8 @@
         "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
         "state": {
           "branch": null,
-          "revision": "5f5ad81ac0d0a0f3e56e39e646e8423c617df523",
-          "version": "0.13.2"
-        }
-      },
-      {
-        "package": "Starscream",
-        "repositoryURL": "https://github.com/daltoniam/Starscream",
-        "state": {
-          "branch": null,
-          "revision": "df8d82047f6654d8e4b655d1b1525c64e1059d21",
-          "version": "4.0.4"
-        }
-      },
-      {
-        "package": "swift-collections",
-        "repositoryURL": "https://github.com/apple/swift-collections",
-        "state": {
-          "branch": null,
-          "revision": "937e904258d22af6e447a0b72c0bc67583ef64a2",
-          "version": "1.0.4"
+          "revision": "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
+          "version": "0.15.3"
         }
       },
       {
@@ -96,17 +69,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "32e8d724467f8fe623624570367e3d50c5638e46",
-          "version": "1.5.2"
-        }
-      },
-      {
-        "package": "XMLCoder",
-        "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
-        "state": {
-          "branch": null,
-          "revision": "b1e944cbd0ef33787b13f639a5418d55b3bed501",
-          "version": "0.17.1"
+          "revision": "9cb486020ebf03bfa5b5df985387a14a98744537",
+          "version": "1.6.1"
         }
       }
     ]

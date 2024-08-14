@@ -18,20 +18,20 @@ extension AMLMapView {
         /// Define custom clustering behavior.
         /// - Parameters:
         ///   - shouldCluster: Whether the features displayed on the map should cluster. Default is `true`.
-        ///   Corresponds to the `MGLShapeSourceOption` `.clustered`.
+        ///   Corresponds to the `MLNShapeSourceOption` `.clustered`.
         ///
         ///   - maximumZoomLevel: Specifies the maximum zoom level at which to cluster points if clustering is enabled.
-        ///   Corresponds to `MGLShapeSourceOption` `.maximumZoomLevelForClustering`.
+        ///   Corresponds to `MLNShapeSourceOption` `.maximumZoomLevelForClustering`.
         ///
         ///   - clusterColor: The fill color of the circle cluster.
-        ///   Sets the `MGLCircleStyleLayer` `circleColor` property.
+        ///   Sets the `MLNCircleStyleLayer` `circleColor` property.
         ///
         ///   - clusterColorSteps: Dictionary representation of cluster color steps where the
         ///   `key` is the number of features in a cluster and the
         ///   `value` is the color for that corresponding number.
         ///
         ///   - clusterRadius: Specifies the radius of each cluster if clustering is enabled.
-        ///   Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.
+        ///   Corresponds to the `MLNShapeSourceOption` `.clusterRadius`.
         init(
             shouldCluster: Bool = true,
             maximumZoomLevel: Int = 13,
@@ -51,19 +51,19 @@ extension AMLMapView {
         }
 
         /// Whether the features displayed on the map should cluster. Default is `true`.
-        /// Corresponds to the `MGLShapeSourceOption` `.clustered`.
+        /// Corresponds to the `MLNShapeSourceOption` `.clustered`.
         var shouldCluster: Bool
 
         /// Specifies the maximum zoom level at which to cluster points if clustering is enabled.
-        /// Corresponds to `MGLShapeSourceOption` `.maximumZoomLevelForClustering`.
+        /// Corresponds to `MLNShapeSourceOption` `.maximumZoomLevelForClustering`.
         var maximumZoomLevel: Int
 
         /// The fill color of the circle cluster.
-        /// Sets the `MGLCircleStyleLayer` `circleColor` property.
+        /// Sets the `MLNCircleStyleLayer` `circleColor` property.
         var clusterColor: UIColor
 
         /// The text color of the number displayed in the circle cluster.
-        /// Sets the `MGLSymbolStyleLayer` `textColor` property.
+        /// Sets the `MLNSymbolStyleLayer` `textColor` property.
         var clusterNumberColor: UIColor
 
         /// Dictionary representation of cluster color steps where the
@@ -72,7 +72,7 @@ extension AMLMapView {
         var clusterColorSteps: [Int: UIColor]
 
         /// Specifies the radius of each cluster if clustering is enabled.
-        /// Corresponds to the `MGLShapeSourceOption` `.clusterRadius`.
+        /// Corresponds to the `MLNShapeSourceOption` `.clusterRadius`.
         var clusterRadius: Int
     }
 }
