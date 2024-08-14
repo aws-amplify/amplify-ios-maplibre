@@ -9,6 +9,7 @@ import Foundation
 import Amplify
 import AWSLocationGeoPlugin
 import AWSClientRuntime
+import InternalAmplifyCredentials
 
 extension AWSMapURLProtocol {
     struct GeoConfig {
@@ -21,7 +22,10 @@ extension AWSMapURLProtocol {
                 assertionFailure(AWSMapURLProtocolError.configurationError.localizedDescription)
                 return nil
             }
-            self.credentialsProvider = plugin.authService.getCredentialsProvider()
+            guard let credentiaslProvider = plugin.authService as? AWSAuthCredentialsProviderBehavior else {
+                return nil
+            }
+            self.credentialsProvider = credentiaslProvider.getCredentialsProvider()
             self.regionName = plugin.pluginConfig.regionName
             self.hostName = "maps.geo.\(regionName).amazonaws.com"
         }
