@@ -8,13 +8,13 @@
 import Foundation
 import Amplify
 import AWSLocationGeoPlugin
-import AWSClientRuntime
 import InternalAmplifyCredentials
+import SmithyIdentity
 
 extension AWSMapURLProtocol {
     struct GeoConfig {
         let regionName: String
-        let credentialsProvider: CredentialsProviding
+        let identityResolver: any AWSCredentialIdentityResolver
         let hostName: String
 
         init?() {
@@ -25,7 +25,7 @@ extension AWSMapURLProtocol {
             guard let credentiaslProvider = plugin.authService as? AWSAuthCredentialsProviderBehavior else {
                 return nil
             }
-            self.credentialsProvider = credentiaslProvider.getCredentialsProvider()
+            self.identityResolver = credentiaslProvider.getCredentialIdentityResolver()
             self.regionName = plugin.pluginConfig.regionName
             self.hostName = "maps.geo.\(regionName).amazonaws.com"
         }
