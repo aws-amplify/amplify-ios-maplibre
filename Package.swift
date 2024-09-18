@@ -23,7 +23,7 @@ let package = Package(
         .package(
             name: "Amplify",
             url: "https://github.com/aws-amplify/amplify-swift.git",
-            .upToNextMajor(from: "2.2.0")
+            .upToNextMajor(from: "2.41.0")
         ),
 
         // MapLibre

@@ -9,12 +9,15 @@ import Foundation
 import ClientRuntime
 import AWSClientRuntime
 import AwsCommonRuntimeKit
+import AWSSDKHTTPAuth
+import SmithyHTTPAPI
 
 class AWSMapURLProtocol: URLProtocol {
     private var urlSession = URLSession(configuration: .default)
     private var dataTask: URLSessionDataTask?
     private static var globallyRegistered = false
     private static var geoConfig = GeoConfig()
+    private static let signer = AWSSigV4Signer()
 
     /// Register the custom URL Protocol.
     /// - Parameter sessionConfig: Optional URLSessionConfiguration for URLSession you want to proxy.
@@ -86,7 +89,7 @@ class AWSMapURLProtocol: URLProtocol {
             return
         }
 
-        let requestBuilder = SdkHttpRequestBuilder()
+        let requestBuilder = HTTPRequestBuilder()
             .withHost(host)
             .withPath(originalURLComponents.path.urlPercentEncoding(encodeForwardSlash: false))
             .withMethod(.get)
@@ -98,9 +101,9 @@ class AWSMapURLProtocol: URLProtocol {
             var signedRequest = request
             signedRequest.url = originalURLComponents.url
             signedRequest.addValue(host, forHTTPHeaderField: "host")
-            guard let url = await AWSSigV4Signer.sigV4SignedURL(
+            guard let url = await Self.signer.sigV4SignedURL(
                 requestBuilder: requestBuilder,
-                credentialsProvider: geoConfig.credentialsProvider,
+                awsCredentialIdentityResolver: geoConfig.identityResolver,
                 signingName: "geo",
                 signingRegion: geoConfig.regionName,
                 date: Date(),
