@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "CSQLite",
+        "repositoryURL": "https://github.com/stephencelis/CSQLite.git",
+        "state": {
+          "branch": null,
+          "revision": "9106e983d5e3d5149ee35281ec089484b0def018",
+          "version": "0.0.3"
+        }
+      },
+      {
         "package": "grpc-swift",
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
@@ -71,15 +80,6 @@
           "branch": null,
           "revision": "6a2c29d53ff0b543b551b2221538bd3d0206c6d6",
           "version": "1.15.0"
-        }
-      },
-      {
-        "package": "Opentracing",
-        "repositoryURL": "https://github.com/undefinedlabs/opentracing-objc",
-        "state": {
-          "branch": null,
-          "revision": "18c1a35ca966236cee0c5a714a51a73ff33384c1",
-          "version": "0.5.2"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "e3d5c560e0a6bfa391a00e857aa28ad52a41fe8d",
-          "version": "2.92.1"
+          "revision": "77b84ac2cd2ac9e4ac67d19f045fd5b434f56967",
+          "version": "2.101.0"
         }
       },
       {
@@ -260,15 +260,6 @@
           "branch": null,
           "revision": "395a77f0aa927f0ff73941d7ac35f2b46d47c9db",
           "version": "1.6.3"
-        }
-      },
-      {
-        "package": "Thrift",
-        "repositoryURL": "https://github.com/undefinedlabs/Thrift-Swift",
-        "state": {
-          "branch": null,
-          "revision": "18ff09e6b30e589ed38f90a1af23e193b8ecef8e",
-          "version": "1.1.2"
         }
       }
     ]
